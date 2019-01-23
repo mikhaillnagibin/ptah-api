@@ -1,0 +1,682 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/JamesKotov/PTAH/1.0.0
+
+info:
+  description: This is an API for PTAH to manage landing pages
+  version: "1.0.0"
+  title: PTAH Backend API
+  termsOfService: ''
+  contact:
+    email: evgeniy.strigo@protocol.one
+    name: Evgeniy Strigo
+    url: 'https://protocol.one'
+
+tags:
+  - name: Landings
+    description: Operations with landings
+
+paths:
+  /landings:
+    get:
+      tags:
+        - Landings
+      summary: List of landings for user
+      operationId: listLandings
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: list of found landings
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    description: landing description
+                    items:
+                      $ref: '#/components/schemas/LandingMeta'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+    post:
+      tags:
+        - Landings
+      summary: Adds a new landing for user
+      operationId: addLanding
+      security:
+        - bearerAuth: []
+      description: Adds a landing for user
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingMeta'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+      requestBody:
+        description: Landing page to add
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'My first landing'
+                landing:
+                  $ref: '#/components/schemas/Landing'
+
+    patch:
+      tags:
+        - Landings
+      summary: Mass landings сhange
+      operationId: massLandingsChange
+      security:
+        - bearerAuth: []
+      description: Method for change a lot of user's landings at once
+      responses:
+        '204':
+          description: Items updated
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+
+      requestBody:
+        description: List of changing landings ids and merging object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LandingsPatch'
+
+  /landings/copy:
+    post:
+      tags:
+        - Landings
+      summary: Mass copy of landings
+      operationId: copyLandings
+      security:
+        - bearerAuth: []
+      description: Mass copy of landings
+      responses:
+        '204':
+          description: Items copied
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+      requestBody:
+        description: Landing items to copy
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  description: landings ids
+                  items:
+                    type: string
+                  example: ['507f191e810c19729de860ea', '29de860ea507f191e810c197']
+
+  /landings/{landingId}:
+    get:
+      tags:
+        - Landings
+      summary: Returns full description of some landing by it's id
+      operationId: getLanding
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: landingId
+          required: true
+          schema:
+            type: string
+            example: '507f191e810c19729de860ea'
+          description: Landing id
+      responses:
+        '200':
+          description: requested landing description
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingFull'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '403':
+          description: Access error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNoAccess'
+        '404':
+          description: Landing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+    patch:
+      tags:
+        - Landings
+      summary: Updates a landing
+      operationId: updateLanding
+      security:
+        - bearerAuth: []
+      description: Updates a landing with passed id
+      parameters:
+        - in: path
+          name: landingId
+          required: true
+          schema:
+            type: string
+            example: '507f191e810c19729de860ea'
+          description: Landing id
+      responses:
+        '200':
+          description: Item updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingMeta'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '403':
+          description: Access error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNoAccess'
+        '404':
+          description: Landing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorPreconditionFailed'
+
+      requestBody:
+        description: Landing page to change
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: 'My first landing'
+                baseVersion:
+                  type: number
+                  example: 1
+                landing:
+                  $ref: '#/components/schemas/Landing'
+
+    delete:
+      tags:
+        - Landings
+      summary: Deletes a landing
+      operationId: deleteLanding
+      security:
+        - bearerAuth: []
+      description: Delete a landing with passed id
+      parameters:
+        - in: path
+          name: landingId
+          required: true
+          schema:
+            type: string
+            example: '507f191e810c19729de860ea'
+          description: Landing id
+      responses:
+        '204':
+          description: Item deleted
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '403':
+          description: Access error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNoAccess'
+        '404':
+          description: Landing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+  /landings/{landingId}/publishing:
+
+    post:
+      tags:
+        - Landings
+      summary: Publish or republish a landing
+      operationId: publishLanding
+      security:
+        - bearerAuth: []
+      description: (Re)Publish a landing with passed id
+      parameters:
+        - in: path
+          name: landingId
+          required: true
+          schema:
+            type: string
+            example: '507f191e810c19729de860ea'
+          description: Landing id
+      responses:
+        '200':
+          description: Item published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingMeta'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '403':
+          description: Access error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNoAccess'
+        '404':
+          description: Landing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+    delete:
+      tags:
+        - Landings
+      summary: Unpublish a landing
+      operationId: unpublishLanding
+      security:
+        - bearerAuth: []
+      description: Unpublishing a landing with passed id
+      parameters:
+        - in: path
+          name: landingId
+          required: true
+          schema:
+            type: string
+            example: '507f191e810c19729de860ea'
+          description: Landing id
+      responses:
+        '204':
+          description: Item unpublished
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '403':
+          description: Access error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNoAccess'
+        '404':
+          description: Landing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+  /landings/{landingId}/domain:
+
+    post:
+      tags:
+        - Landings
+      summary: Set or change an external domain for landing
+      operationId: setLandingDomain
+      security:
+        - bearerAuth: []
+      description: Set or change an external domain for landing
+      parameters:
+        - in: path
+          name: landingId
+          required: true
+          schema:
+            type: string
+            example: '507f191e810c19729de860ea'
+          description: Landing id
+      responses:
+        '200':
+          description: Domain changed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingMeta'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '403':
+          description: Access error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNoAccess'
+        '404':
+          description: Landing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+    delete:
+      tags:
+        - Landings
+      summary: Remove an external domain for landing
+      operationId: unpublishLanding
+      security:
+        - bearerAuth: []
+      description: Remove an external domain for landing
+      parameters:
+        - in: path
+          name: landingId
+          required: true
+          schema:
+            type: string
+            example: '507f191e810c19729de860ea'
+          description: Landing id
+      responses:
+        '204':
+          description: Domain removed
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '403':
+          description: Access error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNoAccess'
+        '404':
+          description: Landing not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: bad_request
+          description: 'Error code'
+        error_message:
+          type: string
+          example: Bad request
+          description: 'Text of error'
+
+
+    ErrorUnathorized:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: invalid_User
+          description: 'Error code'
+        error_message:
+          type: string
+          example: Invalid user
+          description: 'Text of error'
+
+    ErrorNoAccess:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: access_error
+          description: 'Error code'
+        error_message:
+          type: string
+          example: Requested landing is not accessible for current user
+          description: 'Text of error'
+
+    ErrorNotFound:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: not_found
+          description: 'Error code'
+        error_message:
+          type: string
+          example: Landing not found
+          description: 'Text of error'
+
+    ErrorPreconditionFailed:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          example: version_mismatch
+          description: 'Error code'
+        error_message:
+          type: string
+          example: Base version not match to stored, update landing's data first
+          description: 'Text of error'
+
+    LandingMeta:
+      type: object
+      required:
+        - id
+        - name
+        - userId
+        - createDate
+        - isPublished
+        - hasUnpublishedChanges
+        - currentVersion
+      properties:
+        id:
+          type: string
+          example: ebhtrt345fPNpnp9B9b9N965
+        name:
+          type: string
+          example: My first landing
+        userId:
+          type: string
+          example: b62klDf0HeiJdNMv8K263nfE
+        createDate:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        updateDate:
+          type: string
+          format: date-time
+          example: '2019-01-07T19:54:07.001Z'
+        isPublished:
+          type: boolean
+          example: true
+        hasUnpublishedChanges:
+          type: boolean
+          example: true
+        domain:
+          type: string
+          example: mylanding.com
+        currentVersion:
+          type: number
+          example: 1
+
+
+    Landing:
+      type: object
+      required:
+        - slug
+        - title
+        - settings
+        - sections
+      properties:
+        slug:
+          type: string
+          example: Landing
+        title:
+          type: string
+          example: ''
+        settings:
+          type: object
+        sections:
+          type: array
+          items:
+            type: object
+
+
+    LandingFull:
+      type: object
+      required:
+        - meta
+        - landing
+      properties:
+        meta:
+          $ref: '#/components/schemas/LandingMeta'
+        landing:
+          $ref: '#/components/schemas/Landing'
+
+    LandingsPatch:
+      type: object
+      required:
+        - ids
+        - patch
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+          example: ['507f191e810c19729de860ea', '29de860ea507f191e810c197']
+        patch:
+          $ref: '#/components/schemas/Landing'
