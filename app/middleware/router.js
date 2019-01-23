@@ -6,7 +6,9 @@ const KoaBody = require('koa-body');
 
 const config = require('../../config/config');
 
-const router = new Router();
+const router = new Router({
+    prefix: config.routesPrefix
+});
 const koaBody = convert(KoaBody());
 
 router
