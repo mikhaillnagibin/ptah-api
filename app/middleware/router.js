@@ -9,7 +9,7 @@ const koaBody = convert(KoaBody());
 
 router
     .get('/', async (ctx) => {
-        ctx.body = {};
+        ctx.body = ctx.state.user;
     })
 
 module.exports.routes = function () { return router.routes() };

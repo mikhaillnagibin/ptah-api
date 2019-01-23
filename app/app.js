@@ -1,6 +1,7 @@
 'use strict'
 
 const Koa = require('koa');
+const jwt = require('koa-jwt');
 const {KoaReqLogger} = require('koa-req-logger');
 
 const config = require('../config/config');
@@ -12,6 +13,9 @@ const app = new Koa()
 // logger and errors handler
 const logger = new KoaReqLogger();
 app.use(logger.getMiddleware());
+
+// Middleware below this line is only reached if JWT token is valid
+app.use(jwt({ secret: config.jwtKey }));
 
 app.use(router.routes())
 app.use(router.allowedMethods())
