@@ -26,6 +26,7 @@
     "koa-jwt": "^3.5.1",
     "koa-mongo": "^1.6.0",
     "koa-req-logger": "^1.5.2",
-    "koa-router": "^7.4.0"
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.11"
   }
 }

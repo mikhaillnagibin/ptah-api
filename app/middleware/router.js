@@ -6,18 +6,19 @@ const KoaBody = require('koa-body');
 
 const config = require('../../config/config');
 
+const listLandings = require('../actions/list-landings');
+const addLanding = require('../actions/add-landing');
+const getLanding = require('../actions/get-landing');
+
 const router = new Router({
     prefix: config.routesPrefix
 });
 const koaBody = convert(KoaBody());
 
 router
-    .get('/', async (ctx) => {
-        const collection = ctx.db.collection(config.dbCollectionName);
-        ctx.body = {};
-        ctx.body.db = await collection.insertOne({ content: 'Just another object21.' });
-        ctx.body.user = ctx.state.user;
-    })
+    .get('/', listLandings)
+    .post('/', koaBody, addLanding)
+    .get('/:id', getLanding);
 
 module.exports.routes = function () { return router.routes() };
 module.exports.allowedMethods = function () { return router.allowedMethods() };
