@@ -1,0 +1,29 @@
+{
+  "name": "ptah.api",
+  "version": "1.0.0",
+  "description": "Backend for PTAH",
+  "main": "index.js",
+  "scripts": {
+    "server": "cross-env NODE_ENV=local nodemon -w ./ ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProtocolONE/ptah.api.git"
+  },
+  "author": "Evgeniy Strigo",
+  "email": "evgeniy.strigo@protocol.one",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ProtocolONE/ptah.api/issues"
+  },
+  "homepage": "https://github.com/ProtocolONE/ptah.api#readme",
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "koa": "^2.6.2",
+    "koa-body": "^4.0.6",
+    "koa-convert": "^1.2.0",
+    "koa-req-logger": "^1.5.2",
+    "koa-router": "^7.4.0"
+  }
+}
