@@ -9,7 +9,8 @@ const findLandings = require('./helpers/find-landings');
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
     try {
-        const landing = await findLandings(ctx, [id]);
+        const landings = await findLandings(ctx, [id]);
+        const landing = landings[0];
         if (landing) {
 
             // todo: unpublish landing before delete, if published?

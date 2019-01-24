@@ -20,27 +20,22 @@ module.exports = async (ctx, ids) => {
         const objIds = ids.map(id => mongo.ObjectId(id));
         condition._id = {$in: objIds};
     } else {
+        // suppress landing body while show full list of landings for user,
+        // return only metainformation about them
         options.projection = {landing: 0};
     }
 
     const collection = ctx.db.collection(config.dbCollectionName);
 
-    let result;
+    let result = [];
 
     try {
         result = await collection.find(condition, options).toArray();
 
-        if (hasConditionById) {
-
-            if (!result.length) {
-                const err = new Error('Not found');
-                err.status = 404;
-                throw err;
-            }
-
-            if (ids.length === 1) {
-                result = result[0];
-            }
+        if (hasConditionById && !result.length) {
+            const err = new Error('Not found');
+            err.status = 404;
+            throw err;
         }
 
     } catch (err) {

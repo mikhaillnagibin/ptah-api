@@ -12,7 +12,8 @@ module.exports = async (ctx, next) => {
     const id = ctx.params.id;
     let data = {};
     try {
-        const landing = await findLandings(ctx, [id]);
+        const landings = await findLandings(ctx, [id]);
+        const landing = landings[0];
         if (landing) {
 
             // todo: do unpublish landing

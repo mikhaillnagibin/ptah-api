@@ -1,13 +1,12 @@
 'use strict';
 
-const config = require('../../config/config');
-
 const findLandings = require('./helpers/find-landings');
 
 module.exports = async (ctx, next) => {
     const ids = [ctx.params.id];
     try {
-        ctx.body = await findLandings(ctx, ids);
+        const landings = await findLandings(ctx, ids);
+        ctx.body = landings[0];
     } catch (err) {
         throw err
     }
