@@ -4,7 +4,10 @@ const findLandings = require('./helpers/find-landings');
 
 module.exports = async (ctx, next) => {
     try {
-        ctx.body = await findLandings(ctx);
+        const landings = await findLandings(ctx);
+        ctx.body = {
+            landings: landings
+        }
     } catch (err) {
         throw err
     }

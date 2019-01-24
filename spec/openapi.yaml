@@ -35,7 +35,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  items:
+                  landings:
                     type: array
                     description: landing description
                     items:
