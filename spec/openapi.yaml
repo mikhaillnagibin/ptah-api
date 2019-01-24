@@ -40,12 +40,6 @@ paths:
                     description: landing description
                     items:
                       $ref: '#/components/schemas/LandingMeta'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
           content:
@@ -184,24 +178,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LandingFull'
-        '400':
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
-        '403':
-          description: Access error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorNoAccess'
         '404':
           description: Landing not found
           content:
@@ -244,12 +226,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
-        '403':
-          description: Access error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorNoAccess'
         '404':
           description: Landing not found
           content:
@@ -310,12 +286,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
-        '403':
-          description: Access error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorNoAccess'
         '404':
           description: Landing not found
           content:
@@ -360,12 +330,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
-        '403':
-          description: Access error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorNoAccess'
         '404':
           description: Landing not found
           content:
@@ -404,12 +368,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
-        '403':
-          description: Access error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorNoAccess'
         '404':
           description: Landing not found
           content:
@@ -454,12 +412,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
-        '403':
-          description: Access error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorNoAccess'
         '404':
           description: Landing not found
           content:
@@ -498,12 +450,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
-        '403':
-          description: Access error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorNoAccess'
         '404':
           description: Landing not found
           content:
@@ -535,7 +481,6 @@ components:
           example: Bad request
           description: 'Text of error'
 
-
     ErrorUnathorized:
       type: object
       required:
@@ -548,20 +493,6 @@ components:
         error_message:
           type: string
           example: Invalid user
-          description: 'Text of error'
-
-    ErrorNoAccess:
-      type: object
-      required:
-        - error
-      properties:
-        error:
-          type: string
-          example: access_error
-          description: 'Error code'
-        error_message:
-          type: string
-          example: Requested landing is not accessible for current user
           description: 'Text of error'
 
     ErrorNotFound:
@@ -595,7 +526,7 @@ components:
     LandingMeta:
       type: object
       required:
-        - id
+        - _id
         - name
         - userId
         - createDate
@@ -603,7 +534,7 @@ components:
         - hasUnpublishedChanges
         - currentVersion
       properties:
-        id:
+        _id:
           type: string
           example: ebhtrt345fPNpnp9B9b9N965
         name:
