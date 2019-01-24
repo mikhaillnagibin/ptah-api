@@ -7,9 +7,11 @@ const updateLanding = require('./helpers/update-landing');
 
 module.exports = async (ctx, next) => {
 
+    const body = ctx.request.body || {};
+
     const data = updateLanding(ctx, {}, {
-        name: (ctx.request.body.name || '').trim(),
-        landing: ctx.request.body.landing
+        name: (body.name || '').trim(),
+        landing: body.landing
     });
 
     if (!data.name) {
