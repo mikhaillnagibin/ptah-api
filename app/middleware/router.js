@@ -10,6 +10,8 @@ const listLandings = require('../actions/list-landings');
 const addLanding = require('../actions/add-landing');
 const getLanding = require('../actions/get-landing');
 const deleteLanding = require('../actions/delete-landing');
+const publishLanding = require('../actions/publish-landing');
+const unpublishLanding = require('../actions/unpublish-landing');
 
 const router = new Router({
     prefix: config.routesPrefix
@@ -21,6 +23,8 @@ router
     .post('/', koaBody, addLanding)
     .get('/:id', getLanding)
     .delete('/:id', deleteLanding)
+    .post('/:id/publishing', publishLanding)
+    .delete('/:id/publishing', unpublishLanding)
     ;
 
 module.exports.routes = function () { return router.routes() };
