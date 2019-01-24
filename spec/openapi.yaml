@@ -25,11 +25,21 @@ paths:
         - Landings
       summary: List of landings for user
       operationId: listLandings
-      security:
-        - bearerAuth: []
       responses:
         '200':
           description: list of found landings
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -42,6 +52,18 @@ paths:
                       $ref: '#/components/schemas/LandingMeta'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -51,24 +73,58 @@ paths:
         - Landings
       summary: Adds a new landing for user
       operationId: addLanding
-      security:
-        - bearerAuth: []
       description: Adds a landing for user
       responses:
         '201':
           description: Item created
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LandingMeta'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -91,20 +147,49 @@ paths:
         - Landings
       summary: Mass landings сhange
       operationId: massLandingsChange
-      security:
-        - bearerAuth: []
       description: Method for change a lot of user's landings at once
       responses:
         '204':
           description: Items updated
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -123,20 +208,54 @@ paths:
         - Landings
       summary: Mass copy of landings
       operationId: copyLandings
-      security:
-        - bearerAuth: []
       description: Mass copy of landings
       responses:
         '204':
           description: Items copied
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -161,8 +280,6 @@ paths:
         - Landings
       summary: Returns full description of some landing by it's id
       operationId: getLanding
-      security:
-        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -173,19 +290,55 @@ paths:
           description: Landing id
       responses:
         '200':
-          description: requested landing description
+          description: Requested landing description
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LandingFull'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
         '404':
           description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -196,8 +349,6 @@ paths:
         - Landings
       summary: Updates a landing
       operationId: updateLanding
-      security:
-        - bearerAuth: []
       description: Updates a landing with passed id
       parameters:
         - in: path
@@ -210,30 +361,90 @@ paths:
       responses:
         '200':
           description: Item updated
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LandingMeta'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
         '404':
           description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorNotFound'
         '412':
           description: Precondition Failed
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -260,8 +471,6 @@ paths:
         - Landings
       summary: Deletes a landing
       operationId: deleteLanding
-      security:
-        - bearerAuth: []
       description: Delete a landing with passed id
       parameters:
         - in: path
@@ -274,20 +483,68 @@ paths:
       responses:
         '204':
           description: Item deleted
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
         '404':
           description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -300,8 +557,6 @@ paths:
         - Landings
       summary: Publish or republish a landing
       operationId: publishLanding
-      security:
-        - bearerAuth: []
       description: (Re)Publish a landing with passed id
       parameters:
         - in: path
@@ -314,24 +569,72 @@ paths:
       responses:
         '200':
           description: Item published
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LandingMeta'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
         '404':
           description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -342,8 +645,6 @@ paths:
         - Landings
       summary: Unpublish a landing
       operationId: unpublishLanding
-      security:
-        - bearerAuth: []
       description: Unpublishing a landing with passed id
       parameters:
         - in: path
@@ -356,20 +657,68 @@ paths:
       responses:
         '204':
           description: Item unpublished
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
         '404':
           description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -382,8 +731,6 @@ paths:
         - Landings
       summary: Set or change an external domain for landing
       operationId: setLandingDomain
-      security:
-        - bearerAuth: []
       description: Set or change an external domain for landing
       parameters:
         - in: path
@@ -396,24 +743,72 @@ paths:
       responses:
         '200':
           description: Domain changed
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LandingMeta'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
         '404':
           description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -434,8 +829,6 @@ paths:
         - Landings
       summary: Remove an external domain for landing
       operationId: unpublishLanding
-      security:
-        - bearerAuth: []
       description: Remove an external domain for landing
       parameters:
         - in: path
@@ -448,20 +841,68 @@ paths:
       responses:
         '204':
           description: Domain removed
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
         '400':
           description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
         '404':
           description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
           content:
             application/json:
               schema:
@@ -483,13 +924,19 @@ components:
         - error
       properties:
         error:
-          type: string
-          example: bad_request
-          description: 'Error code'
-        error_message:
-          type: string
-          example: Bad request
-          description: 'Text of error'
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: number
+              description: 'Error code'
+              example: 400
+            message:
+              type: string
+              description: 'Text of error'
+              example: Bad request
 
     ErrorUnathorized:
       type: object
@@ -497,13 +944,19 @@ components:
         - error
       properties:
         error:
-          type: string
-          example: invalid_User
-          description: 'Error code'
-        error_message:
-          type: string
-          example: Invalid user
-          description: 'Text of error'
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: number
+              description: 'Error code'
+              example: 401
+            message:
+              type: string
+              description: 'Text of error'
+              example: Authentication Error
 
     ErrorNotFound:
       type: object
@@ -511,13 +964,19 @@ components:
         - error
       properties:
         error:
-          type: string
-          example: not_found
-          description: 'Error code'
-        error_message:
-          type: string
-          example: Landing not found
-          description: 'Text of error'
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: number
+              description: 'Error code'
+              example: 404
+            message:
+              type: string
+              description: 'Text of error'
+              example: Not Found
 
     ErrorPreconditionFailed:
       type: object
@@ -525,13 +984,19 @@ components:
         - error
       properties:
         error:
-          type: string
-          example: version_mismatch
-          description: 'Error code'
-        error_message:
-          type: string
-          example: Base version not match to stored, update landing's data first
-          description: 'Text of error'
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: number
+              description: 'Error code'
+              example: 412
+            message:
+              type: string
+              description: 'Text of error'
+              example: Precondition Failed
 
     LandingMeta:
       type: object
@@ -574,7 +1039,6 @@ components:
           type: number
           example: 1
 
-
     Landing:
       type: object
       required:
@@ -596,17 +1060,13 @@ components:
           items:
             type: object
 
-
     LandingFull:
-      type: object
-      required:
-        - meta
-        - landing
-      properties:
-        meta:
-          $ref: '#/components/schemas/LandingMeta'
-        landing:
-          $ref: '#/components/schemas/Landing'
+      allOf:
+        - $ref: '#/components/schemas/LandingMeta'
+        - type: object
+          properties:
+            landing:
+              $ref: '#/components/schemas/Landing'
 
     LandingsPatch:
       type: object
@@ -621,3 +1081,6 @@ components:
           example: ['507f191e810c19729de860ea', '29de860ea507f191e810c197']
         patch:
           $ref: '#/components/schemas/Landing'
+
+security:
+  - bearerAuth: []
