@@ -15,6 +15,7 @@ const publishLanding = require('../actions/publish-landing');
 const unpublishLanding = require('../actions/unpublish-landing');
 const setLandingDomain = require('../actions/set-landing-domain');
 const unsetLandingDomain = require('../actions/unset-landing-domain');
+const copyLandings = require('../actions/copy-landings');
 
 const router = new Router({
     prefix: config.routesPrefix
@@ -24,6 +25,7 @@ const koaBody = convert(KoaBody());
 router
     .get('/', listLandings)
     .post('/', koaBody, addLanding)
+    .post('/copy', koaBody, copyLandings)
     .get('/:id', getLanding)
     .patch('/:id', koaBody, updateLanding)
     .delete('/:id', deleteLanding)
