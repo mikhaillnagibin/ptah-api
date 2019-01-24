@@ -6,7 +6,7 @@ const mongo = require('koa-mongo');
 const config = require('../../config/config');
 
 const findLandings = require('./helpers/find-landings');
-const updateLanding = require('./helpers/update-landing');
+const updateLandingData = require('./helpers/update-landing-data');
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
@@ -17,7 +17,7 @@ module.exports = async (ctx, next) => {
 
             // todo: do unpublish landing
 
-            data = updateLanding(ctx, landing, {
+            data = updateLandingData(ctx, landing, {
                 isPublished: false
             });
 

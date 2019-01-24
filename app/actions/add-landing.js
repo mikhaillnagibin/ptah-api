@@ -3,13 +3,13 @@
 const _ = require('lodash');
 
 const config = require('../../config/config');
-const updateLanding = require('./helpers/update-landing');
+const updateLandingData = require('./helpers/update-landing-data');
 
 module.exports = async (ctx, next) => {
 
     const body = ctx.request.body || {};
 
-    const data = updateLanding(ctx, {}, {
+    const data = updateLandingData(ctx, {}, {
         name: (body.name || '').trim(),
         landing: body.landing
     });
