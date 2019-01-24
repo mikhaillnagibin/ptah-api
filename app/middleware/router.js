@@ -9,6 +9,7 @@ const config = require('../../config/config');
 const listLandings = require('../actions/list-landings');
 const addLanding = require('../actions/add-landing');
 const getLanding = require('../actions/get-landing');
+const updateLanding = require('../actions/update-landing');
 const deleteLanding = require('../actions/delete-landing');
 const publishLanding = require('../actions/publish-landing');
 const unpublishLanding = require('../actions/unpublish-landing');
@@ -24,6 +25,7 @@ router
     .get('/', listLandings)
     .post('/', koaBody, addLanding)
     .get('/:id', getLanding)
+    .patch('/:id', koaBody, updateLanding)
     .delete('/:id', deleteLanding)
     .post('/:id/publishing', publishLanding)
     .delete('/:id/publishing', unpublishLanding)
