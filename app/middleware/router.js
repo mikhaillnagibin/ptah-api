@@ -12,6 +12,8 @@ const getLanding = require('../actions/get-landing');
 const deleteLanding = require('../actions/delete-landing');
 const publishLanding = require('../actions/publish-landing');
 const unpublishLanding = require('../actions/unpublish-landing');
+const setLandingDomain = require('../actions/set-landing-domain');
+const unsetLandingDomain = require('../actions/unset-landing-domain');
 
 const router = new Router({
     prefix: config.routesPrefix
@@ -25,6 +27,8 @@ router
     .delete('/:id', deleteLanding)
     .post('/:id/publishing', publishLanding)
     .delete('/:id/publishing', unpublishLanding)
+    .post('/:id/domain', koaBody, setLandingDomain)
+    .delete('/:id/domain', unsetLandingDomain)
     ;
 
 module.exports.routes = function () { return router.routes() };

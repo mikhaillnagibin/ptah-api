@@ -418,6 +418,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorNotFound'
+      requestBody:
+        description: New domain to set
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+                  example: 'My first landing'
 
     delete:
       tags:
