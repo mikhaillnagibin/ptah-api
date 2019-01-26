@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test SERVER_PORT=3001 node_modules/.bin/mocha --exit ./test/index.js"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,11 @@
     "rimraf": "^2.6.3",
     "string-template": "^1.0.0",
     "unzip": "^0.1.11"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
+    "jsonwebtoken": "^8.4.0",
+    "mocha": "^5.2.0"
   }
 }
