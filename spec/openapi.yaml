@@ -142,66 +142,6 @@ paths:
                 landing:
                   $ref: '#/components/schemas/Landing'
 
-    patch:
-      tags:
-        - Landings
-      summary: Mass landings сhange
-      operationId: massLandingsChange
-      description: Method for change a lot of user's landings at once
-      responses:
-        '204':
-          description: Items updated
-          headers:
-            X-Request-ID:
-              schema:
-                type: string
-                format: uuid
-                description: Unique id of current request, to match records in log
-                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
-        '400':
-          description: Bad request
-          headers:
-            X-Request-ID:
-              schema:
-                type: string
-                format: uuid
-                description: Unique id of current request, to match records in log
-                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
-            Date:
-              schema:
-                type: string
-                description: Current server date and time
-                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '401':
-          description: Unauthorized
-          headers:
-            X-Request-ID:
-              schema:
-                type: string
-                format: uuid
-                description: Unique id of current request, to match records in log
-                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
-            Date:
-              schema:
-                type: string
-                description: Current server date and time
-                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorUnathorized'
-
-      requestBody:
-        description: List of changing landings ids and merging object
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LandingsPatch'
-
   /landings/copy:
     post:
       tags:
@@ -1076,20 +1016,6 @@ components:
           properties:
             landing:
               $ref: '#/components/schemas/Landing'
-
-    LandingsPatch:
-      type: object
-      required:
-        - ids
-        - patch
-      properties:
-        ids:
-          type: array
-          items:
-            type: string
-          example: ['507f191e810c19729de860ea', '29de860ea507f191e810c197']
-        patch:
-          $ref: '#/components/schemas/Landing'
 
 security:
   - bearerAuth: []
