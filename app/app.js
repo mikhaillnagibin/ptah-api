@@ -1,15 +1,15 @@
-'use strict'
+'use strict';
 
 const Koa = require('koa');
 const jwt = require('koa-jwt');
-const mongo = require('koa-mongo')
+const mongo = require('koa-mongo');
 const {KoaReqLogger} = require('koa-req-logger');
 
 const config = require('../config/config');
 
 const router = require('./middleware/router');
 
-const app = new Koa()
+const app = new Koa();
 
 // logger and errors handler
 const logger = new KoaReqLogger();
@@ -30,14 +30,14 @@ app.use(mongo(mongoOptions));
 // Middleware below this line is only reached if JWT token is valid
 app.use(jwt({ secret: config.jwtKey }));
 
-app.use(router.routes())
-app.use(router.allowedMethods())
+app.use(router.routes());
+app.use(router.allowedMethods());
 
-const port = config.serverPort
+const port = config.serverPort;
 
 // server
 const server = app.listen(port, () => {
     console.log(`Server listening on port: ${port}`)
-})
+});
 
-module.exports = server
+module.exports = server;

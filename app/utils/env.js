@@ -22,4 +22,4 @@ module.exports.getEnvVariable = function (variableName, defaultValue) {
         throwVariableError(variableName);
     }
     return defaultValue;
-}
+};
