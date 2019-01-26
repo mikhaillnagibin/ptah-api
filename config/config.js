@@ -18,9 +18,8 @@ const config = {
     dbName: getEnvVariable('DB_NAME', 'ptah'),
     dbUser: getEnvVariable('DB_USER', 'ptah'),
     dbPass: getEnvVariable('DB_PASS', 'ptah'),
-    dbPoolMin: +getEnvVariable('DB_POOL_MIN', 1),
-    dbPoolMax: +getEnvVariable('DB_POOL_MAX', 100),
     dbCollectionName: getEnvVariable('DB_COLLECTION_NAME', 'ptah'),
+    dbAuthMethod: getEnvVariable('DB_AUTH_METHOD', 'SCRAM-SHA-256'),
 
     routesPrefix: getEnvVariable('ROUTES_PREFIX', '/landings'),
 

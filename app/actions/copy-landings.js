@@ -1,10 +1,9 @@
 'use strict';
 
-const config = require('../../config/config');
-
 const badRequest = require('./helpers/bad-request');
 const findLandings = require('./helpers/find-landings');
 const updateLandingData = require('./helpers/update-landing-data');
+const getDbCollection = require('../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
     const body = ctx.request.body || {};
@@ -26,7 +25,7 @@ module.exports = async (ctx, next) => {
                 landing: landing.landing
             })
         });
-        const collection = ctx.db.collection(config.dbCollectionName);
+        const collection = getDbCollection(ctx);
 
         await collection.insertMany(newLandings);
 

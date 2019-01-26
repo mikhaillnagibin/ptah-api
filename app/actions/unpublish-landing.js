@@ -1,13 +1,12 @@
 'use strict';
 
 const _ = require('lodash');
-const mongo = require('koa-mongo');
-
-const config = require('../../config/config');
+const ObjectID = require("bson-objectid");
 
 const findLandings = require('./helpers/find-landings');
 const updateLandingData = require('./helpers/update-landing-data');
 const deletePublishedLanding = require('./helpers/delete-published-landing');
+const getDbCollection = require('../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
@@ -24,9 +23,9 @@ module.exports = async (ctx, next) => {
                 isPublished: false
             });
 
-            const collection = ctx.db.collection(config.dbCollectionName);
+            const collection = getDbCollection(ctx);
 
-            await collection.updateOne({_id: mongo.ObjectId(id)}, {$set: data});
+            await collection.updateOne({_id: ObjectID(id)}, {$set: data});
         }
     } catch (err) {
         throw err

@@ -2,9 +2,9 @@
 
 const _ = require('lodash');
 
-const config = require('../../config/config');
 const badRequest = require('./helpers/bad-request');
 const updateLandingData = require('./helpers/update-landing-data');
+const getDbCollection = require('../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
 
@@ -26,7 +26,7 @@ module.exports = async (ctx, next) => {
 
     const data = updateLandingData(ctx, {}, update);
 
-    const collection = ctx.db.collection(config.dbCollectionName);
+    const collection = getDbCollection(ctx);
     try {
         await collection.insertOne(data);
     } catch (err) {

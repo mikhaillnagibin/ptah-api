@@ -1,6 +1,6 @@
 'use strict';
 
-const mongo = require('koa-mongo');
+const ObjectID = require("bson-objectid");
 
 const fakeLandingData = require('./landing');
 
@@ -8,7 +8,7 @@ const fakeUserId = 'b62klDf0HeiJdNMv8K263nfE';
 const fakeId = '5c4c8b46125e69048cd1bd23';
 
 const fakeLanding = {
-    _id: mongo.ObjectId(fakeId),
+    _id: ObjectID(fakeId),
     name: 'My Landing Name',
     userId: fakeUserId,
     createDate: '2019-01-26T16:31:02.790Z',

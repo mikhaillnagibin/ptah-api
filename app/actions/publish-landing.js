@@ -5,7 +5,7 @@ const _ = require('lodash');
 const path = require('path');
 const util = require('util');
 const unzip = require('unzip');
-const mongo = require('koa-mongo');
+const ObjectID = require("bson-objectid");
 const format = require("string-template");
 
 const config = require('../../config/config');
@@ -14,6 +14,7 @@ const badRequest = require('./helpers/bad-request');
 const findLandings = require('./helpers/find-landings');
 const updateLandingData = require('./helpers/update-landing-data');
 const deletePublishedLanding = require('./helpers/delete-published-landing');
+const getDbCollection = require('../utils/get-db-collection');
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
@@ -67,9 +68,9 @@ module.exports = async (ctx, next) => {
                 hasUnpublishedChanges: false
             });
 
-            const collection = ctx.db.collection(config.dbCollectionName);
+            const collection = getDbCollection(ctx);
 
-            await collection.updateOne({_id: mongo.ObjectId(id)}, {$set: data});
+            await collection.updateOne({_id: ObjectID(id)}, {$set: data});
         }
     } catch (err) {
         throw err

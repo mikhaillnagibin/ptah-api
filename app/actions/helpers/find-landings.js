@@ -1,8 +1,9 @@
 'use strict';
 
-const mongo = require('koa-mongo');
+const _ = require('lodash');
+const ObjectID = require("bson-objectid");
 
-const config = require('../../../config/config');
+const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, ids) => {
 
@@ -10,14 +11,19 @@ module.exports = async (ctx, ids) => {
 
     const hasConditionById = ids.length > 0;
 
+    const userId = _.get(ctx, 'state.user.id');
+    if (!userId) {
+        throw new Error('User not created');
+    }
+
     const options = {};
 
     const condition = {
-        userId: ctx.state.user.id
+        userId: userId
     };
 
     if (hasConditionById) {
-        const objIds = ids.map(id => mongo.ObjectId(id));
+        const objIds = ids.map(id => ObjectID(id));
         condition._id = {$in: objIds};
     } else {
         // suppress landing body while show full list of landings for user,
@@ -25,7 +31,7 @@ module.exports = async (ctx, ids) => {
         options.projection = {landing: 0};
     }
 
-    const collection = ctx.db.collection(config.dbCollectionName);
+    const collection = getDbCollection(ctx);
 
     let result = [];
 

@@ -3,7 +3,7 @@
 const fs = require('fs');
 const Koa = require('koa');
 const jwt = require('koa-jwt');
-const mongo = require('koa-mongo');
+const mongo = require('koa-mongo-driver');
 const {KoaReqLogger} = require('koa-req-logger');
 
 const config = require('../config/config');
@@ -20,13 +20,17 @@ app.use(logger.getMiddleware());
 const mongoOptions = {
     host: config.dbHost,
     port: config.dbPort,
-    user: config.dbUser,
-    pass: config.dbPass,
     db: config.dbName,
-    min: config.dbPoolMin,
-    max: config.dbPoolMax,
 };
-app.use(mongo(mongoOptions));
+const mongoConnectionOptions = {
+    auth: {
+        user: config.dbUser,
+        password: config.dbPass
+    },
+    authSource: config.dbName,
+    authMechanism: config.dbAuthMethod
+};
+app.use(mongo(mongoOptions, mongoConnectionOptions));
 
 // Middleware below this line is only reached if JWT token is valid
 app.use(jwt({ secret: config.jwtKey }));

@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const mongo = require('koa-mongo');
+const ObjectID = require("bson-objectid");
 
 module.exports = (ctx, currentData, updatedData) => {
 
@@ -16,7 +16,7 @@ module.exports = (ctx, currentData, updatedData) => {
     const now = (new Date).toISOString();
 
     const defaults = {
-        _id: mongo.ObjectId(),
+        _id: ObjectID(),
         name: '',
         userId: userId,
         createDate: now,
