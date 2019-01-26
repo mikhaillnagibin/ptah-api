@@ -3,6 +3,7 @@
 const _ = require('lodash');
 
 const config = require('../../config/config');
+const badRequest = require('./helpers/bad-request');
 const updateLandingData = require('./helpers/update-landing-data');
 
 module.exports = async (ctx, next) => {
@@ -20,9 +21,7 @@ module.exports = async (ctx, next) => {
     }
 
     if (_.isEmpty(update)) {
-        const err = new Error('Bad request');
-        err.status = 400;
-        throw err;
+        return badRequest();
     }
 
     const data = updateLandingData(ctx, {}, update);

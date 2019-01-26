@@ -2,6 +2,7 @@
 
 const config = require('../../config/config');
 
+const badRequest = require('./helpers/bad-request');
 const findLandings = require('./helpers/find-landings');
 const updateLandingData = require('./helpers/update-landing-data');
 
@@ -11,9 +12,7 @@ module.exports = async (ctx, next) => {
     const ids = body.ids;
 
     if (!(Array.isArray(ids) && ids.length > 0)) {
-        const err = new Error('Bad request');
-        err.status = 400;
-        throw err;
+        return badRequest();
     }
 
     const currentDateTime = (new Date()).toISOString()
