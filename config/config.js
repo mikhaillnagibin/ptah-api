@@ -1,7 +1,12 @@
 'use strict';
 
+const path = require('path');
+
 const envUtils = require('../app/utils/env');
 const getEnvVariable = envUtils.getEnvVariable;
+
+const publicHtmlDir = getEnvVariable('PUBLIC_HTML_DIR', 'public_html');
+const nginxConfigsDir = getEnvVariable('NGINX_CONFIGS_DIR', 'sites_enabled');
 
 const config = {
     serverPort: +getEnvVariable('SERVER_PORT', 3000),
@@ -18,6 +23,10 @@ const config = {
     dbCollectionName: getEnvVariable('DB_COLLECTION_NAME', 'ptah'),
 
     routesPrefix: getEnvVariable('ROUTES_PREFIX', '/landings'),
+
+    publicHtmlDir: path.resolve(publicHtmlDir),
+    nginxConfigsDir: path.resolve(nginxConfigsDir),
+    nginxConfigTemplatePath: path.resolve('templates/nginx.conf.template'),
 };
 
 module.exports = config;

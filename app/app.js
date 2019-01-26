@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const Koa = require('koa');
 const jwt = require('koa-jwt');
 const mongo = require('koa-mongo');
@@ -34,6 +35,10 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 const port = config.serverPort;
+
+// ensure that dirs are exists
+fs.mkdirSync(config.publicHtmlDir, { recursive: true });
+fs.mkdirSync(config.nginxConfigsDir, { recursive: true });
 
 // server
 const server = app.listen(port, () => {

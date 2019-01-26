@@ -5,6 +5,7 @@ const mongo = require('koa-mongo');
 const config = require('../../config/config');
 
 const findLandings = require('./helpers/find-landings');
+const deletePublishedLanding = require('./helpers/delete-published-landing');
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
@@ -13,7 +14,8 @@ module.exports = async (ctx, next) => {
         const landing = landings[0];
         if (landing) {
 
-            // todo: unpublish landing before delete, if published?
+            // remove published landing (and external domain config too), if exists
+            deletePublishedLanding(id);
 
             const collection = ctx.db.collection(config.dbCollectionName);
             await collection.remove({_id: mongo.ObjectId(id)}, true);

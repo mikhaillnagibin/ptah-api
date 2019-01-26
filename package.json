@@ -4,7 +4,7 @@
   "description": "Backend for PTAH",
   "main": "index.js",
   "scripts": {
-    "server": "cross-env NODE_ENV=local nodemon -w ./ ./index.js",
+    "start": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,6 +27,9 @@
     "koa-mongo": "^1.6.0",
     "koa-req-logger": "^1.5.2",
     "koa-router": "^7.4.0",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "rimraf": "^2.6.3",
+    "string-template": "^1.0.0",
+    "unzip": "^0.1.11"
   }
 }

@@ -7,6 +7,7 @@ const config = require('../../config/config');
 
 const findLandings = require('./helpers/find-landings');
 const updateLandingData = require('./helpers/update-landing-data');
+const deletePublishedLanding = require('./helpers/delete-published-landing');
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
@@ -16,7 +17,8 @@ module.exports = async (ctx, next) => {
         const landing = landings[0];
         if (landing) {
 
-            // todo: do unpublish landing
+            // remove published landing (and external domain config too), if exists
+            deletePublishedLanding(id);
 
             data = updateLandingData(ctx, landing, {
                 isPublished: false

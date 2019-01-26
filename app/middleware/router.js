@@ -20,7 +20,9 @@ const copyLandings = require('../actions/copy-landings');
 const router = new Router({
     prefix: config.routesPrefix
 });
-const koaBody = convert(KoaBody());
+const koaBody = convert(KoaBody({
+    multipart: true
+}));
 
 router
     .get('/', listLandings)
@@ -29,7 +31,7 @@ router
     .get('/:id', getLanding)
     .patch('/:id', koaBody, updateLanding)
     .delete('/:id', deleteLanding)
-    .post('/:id/publishing', publishLanding)
+    .post('/:id/publishing', koaBody, publishLanding)
     .delete('/:id/publishing', unpublishLanding)
     .post('/:id/domain', koaBody, setLandingDomain)
     .delete('/:id/domain', unsetLandingDomain)

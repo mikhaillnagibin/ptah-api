@@ -24,7 +24,7 @@ module.exports = (ctx, currentData, updatedData) => {
 
     let data = _.defaults(currentData, defaults);
 
-    if (update.isPublished === true && data.isPublished !== update.isPublished) {
+    if (update.isPublished === true && (data.isPublished !== update.isPublished || !updatedData.hasUnpublishedChanges)) {
         data.hasUnpublishedChanges = false;
     }
 
