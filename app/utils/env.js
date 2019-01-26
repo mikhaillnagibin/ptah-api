@@ -5,7 +5,7 @@ function throwVariableError(variableName) {
     throw new Error(message);
 }
 
-const nodeEnv = process.env.NODE_ENV;
+const nodeEnv = (process.env.NODE_ENV || '').toLowerCase();
 if (!nodeEnv) {
     throwVariableError('NODE_ENV');
 }

@@ -5,6 +5,9 @@ const mongo = require('koa-mongo');
 
 module.exports = (ctx, currentData, updatedData) => {
 
+    currentData = currentData || {};
+    updatedData = updatedData || {};
+
     const now = (new Date).toISOString();
 
     const defaults = {
