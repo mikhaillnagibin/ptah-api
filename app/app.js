@@ -32,7 +32,7 @@ if (config.dbUser && config.dbPass && config.dbAuthMethod) {
 app.use(async (ctx, next) => {
     try {
         await next();
-        if(ctx.body.success === false) {
+        if(ctx.body && ctx.body.success === false) {
             const err = new Error('Internal Server Error');
             err.status = 500;
             throw err;

@@ -38,7 +38,6 @@
     "chai-http": "^4.2.1",
     "chai-validate-response": "github:JamesKotov/chai-validate-response#version-0.0.3",
     "jsonwebtoken": "^8.4.0",
-    "mocha": "^5.2.0",
-    "mongodb-memory-server": "^3.0.0"
+    "mocha": "^5.2.0"
   }
 }

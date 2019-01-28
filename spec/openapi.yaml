@@ -200,6 +200,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
+        '404':
+          description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
       requestBody:
         description: Landing items to copy
         content:
