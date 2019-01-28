@@ -1,5 +1,8 @@
 'use strict';
 
+const chai = require('chai');
+const should = chai.should();
+
 const badRequest = require('../../app/actions/helpers/bad-request');
 
 describe('bad-request test', () => {

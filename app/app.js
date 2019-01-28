@@ -12,25 +12,41 @@ const router = require('./middleware/router');
 
 const app = new Koa();
 
-// logger and errors handler
-const logger = new KoaReqLogger();
-app.use(logger.getMiddleware());
-
 // setup db connection
 const mongoOptions = {
     host: config.dbHost,
     port: config.dbPort,
     db: config.dbName,
 };
-const mongoConnectionOptions = {
-    auth: {
+const mongoConnectionOptions = {};
+if (config.dbUser && config.dbPass && config.dbAuthMethod) {
+    mongoConnectionOptions.auth = {
         user: config.dbUser,
         password: config.dbPass
-    },
-    authSource: config.dbName,
-    authMechanism: config.dbAuthMethod
-};
+    };
+    mongoConnectionOptions.authSource = config.dbName;
+    mongoConnectionOptions.authMechanism = config.dbAuthMethod;
+}
+
+// handle mongoDb connection error with code 500 instead of 200 by default
+app.use(async (ctx, next) => {
+    try {
+        await next();
+        if(ctx.body.success === false) {
+            const err = new Error('Internal Server Error');
+            err.status = 500;
+            throw err;
+        }
+    } catch (err) {
+        throw err;
+    }
+});
+
 app.use(mongo(mongoOptions, mongoConnectionOptions));
+
+// logger and errors handler
+const logger = new KoaReqLogger();
+app.use(logger.getMiddleware());
 
 // Middleware below this line is only reached if JWT token is valid
 app.use(jwt({ secret: config.jwtKey }));

@@ -1,6 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
+const chai = require('chai');
+const should = chai.should();
 
 const fakes = require('../fakes/fakes');
 

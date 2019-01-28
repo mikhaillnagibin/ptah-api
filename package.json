@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
-    "test": "cross-env NODE_ENV=test SERVER_PORT=3001 node_modules/.bin/mocha --exit ./test/index.js"
+    "test": "cross-env NODE_ENV=test SERVER_PORT=3001 DB_COLLECTION_NAME=ptah-test node_modules/.bin/mocha --exit ./test/index.js"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,9 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "chai-validate-response": "github:JamesKotov/chai-validate-response#version-0.0.3",
     "jsonwebtoken": "^8.4.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "mongodb-memory-server": "^3.0.0"
   }
 }
