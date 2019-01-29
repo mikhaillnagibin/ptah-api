@@ -1,12 +1,10 @@
 'use strict';
 
 const fs = require('fs');
-const chai = require('chai');
 const path = require('path');
 const util = require('util');
-const unzip = require('unzip');
+const decompress = require('decompress');
 
-const should = chai.should();
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
@@ -27,14 +25,10 @@ describe('delete-published-landing test', () => {
                 fs.mkdirSync(landingDestinationDir, {recursive: true});
 
                 // unzip archive contents to landing's html dir
-                const stream = fs.createReadStream(fakes.fakeProjectZipPath);
-                stream.on("error", function (err) {
-                    throw err;
-                });
-                stream.pipe(unzip.Extract({path: landingDestinationDir}));
+                await decompress(fakes.fakeProjectZipPath, landingDestinationDir, {strip: 1});
 
                 const nginxConfigBuffer = await readFile(config.nginxConfigTemplatePath);
-                writeFile(nginxConfigFile, nginxConfigBuffer.toString('utf8'));
+                await writeFile(nginxConfigFile, nginxConfigBuffer.toString('utf8'));
                 resolve();
             })();
         });

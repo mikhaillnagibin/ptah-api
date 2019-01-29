@@ -4,7 +4,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const path = require('path');
 const util = require('util');
-const unzip = require('unzip');
+const decompress = require('decompress');
 const ObjectID = require("bson-objectid");
 const format = require("string-template");
 
@@ -22,9 +22,13 @@ const writeFile = util.promisify(fs.writeFile);
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
 
+    if (!ctx.request.files) {
+        return badRequest();
+    }
+
     const file = ctx.request.files.file;
     if (!file) {
-
+        return badRequest();
     }
     if (!(file.type === 'application/zip' && file.name === 'project.zip')) {
         return badRequest();
@@ -43,11 +47,7 @@ module.exports = async (ctx, next) => {
             fs.mkdirSync(landingDestinationDir, { recursive: true });
 
             // unzip archive contents to landing's html dir
-            const stream = fs.createReadStream(file.path);
-            stream.on("error", function(err) {
-                throw err;
-            });
-            stream.pipe(unzip.Extract({ path: landingDestinationDir }));
+            await decompress(file.path, landingDestinationDir, {strip: 1});
 
             // adding config for external domain, if exist
             if (landing.domain) {
@@ -59,7 +59,7 @@ module.exports = async (ctx, next) => {
                 });
 
                 const nginxConfigFile = path.resolve(config.nginxConfigsDir, `${id}.conf`);
-                writeFile(nginxConfigFile, nginxConfig);
+                await writeFile(nginxConfigFile, nginxConfig);
             }
 
             // finally, updating data in DB

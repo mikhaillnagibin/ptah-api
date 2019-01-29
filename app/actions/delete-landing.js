@@ -17,7 +17,7 @@ module.exports = async (ctx, next) => {
             deletePublishedLanding(id);
 
             const collection = getDbCollection(ctx);
-            await collection.remove({_id: ObjectID(id)}, true);
+            await collection.deleteOne({_id: ObjectID(id)}, true);
         }
     } catch (err) {
         throw err

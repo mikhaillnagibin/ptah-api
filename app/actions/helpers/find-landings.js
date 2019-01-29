@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const ObjectID = require("bson-objectid");
 
+const badRequest = require('./bad-request');
 const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, ids) => {
@@ -23,7 +24,7 @@ module.exports = async (ctx, ids) => {
     };
 
     if (hasConditionById) {
-        const objIds = ids.map(id => ObjectID(id));
+        const objIds = ids.map(id => ObjectID.isValid(id) ? ObjectID(id) : badRequest());
         condition._id = {$in: objIds};
     } else {
         // suppress landing body while show full list of landings for user,

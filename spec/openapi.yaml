@@ -265,6 +265,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LandingFull'
+        '400':
+          description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '401':
           description: Unauthorized
           headers:
@@ -622,7 +640,7 @@ paths:
             example: '507f191e810c19729de860ea'
           description: Landing id
       responses:
-        '204':
+        '200':
           description: Item unpublished
           headers:
             X-Request-ID:
@@ -636,6 +654,10 @@ paths:
                 type: string
                 description: Current server date and time
                 example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingMeta'
         '400':
           description: Bad request
           headers:
@@ -806,7 +828,7 @@ paths:
             example: '507f191e810c19729de860ea'
           description: Landing id
       responses:
-        '204':
+        '200':
           description: Domain removed
           headers:
             X-Request-ID:
@@ -820,6 +842,10 @@ paths:
                 type: string
                 description: Current server date and time
                 example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LandingMeta'
         '400':
           description: Bad request
           headers:

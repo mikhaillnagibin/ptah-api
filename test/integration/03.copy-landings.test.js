@@ -5,6 +5,7 @@ const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const chaiValidateResponse = require('chai-validate-response');
+const ObjectID = require("bson-objectid");
 
 chai.use(chaiHttp);
 chai.use(chaiValidateResponse.default);
@@ -22,6 +23,20 @@ let copyingLandingId = '';
 
 describe(`POST ${routesPrefix}/copy`, () => {
 
+    before(() => {
+        return new Promise((resolve) => {
+            chai.request(server)
+                .get(`${routesPrefix}`)
+                .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+                .end((err, res) => {
+                    const landing = res.body.landings.pop();
+                    landingsCount = res.body.landings.length;
+                    copyingLandingId = landing._id;
+                    resolve();
+                });
+        });
+    });
+
     it("should return auth error for request without bearer token", (done) => {
         chai.request(server)
             .post(`${routesPrefix}/copy`)
@@ -29,7 +44,8 @@ describe(`POST ${routesPrefix}/copy`, () => {
                 should.not.exist(err);
                 res.status.should.eql(401);
                 res.type.should.eql('application/json');
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post")
+                    .andNotifyWhen(done);
             });
     });
 
@@ -42,32 +58,24 @@ describe(`POST ${routesPrefix}/copy`, () => {
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(400);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post")
+                    .andNotifyWhen(done);
             });
     });
 
 
-    it("should return not found error if none landings id passed in body", (done) => {
+    it("should return not found error if non-existent landing ids passed in body", (done) => {
         chai.request(server)
             .post(`${routesPrefix}/copy`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
             .send({
-                ids: ["5c4efd03176fd321ecfc4fb2", "5c4ef95a07755539f4dc1c53"]
+                ids: [ObjectID(), ObjectID()]
             })
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(404);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post").andNotifyWhen(done);
-            });
-    });
-
-    before(() => {
-        chai.request(server)
-            .get(`${routesPrefix}`)
-            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
-            .end((err, res) => {
-                landingsCount = res.body.landings.length;
-                copyingLandingId = res.body.landings[0]._id;
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post")
+                    .andNotifyWhen(done);
             });
     });
 
@@ -81,17 +89,22 @@ describe(`POST ${routesPrefix}/copy`, () => {
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(204);
-
-                chai.request(server)
-                    .get(`${routesPrefix}`)
-                    .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
-                    .end((_err, _res) => {
-                        _res.body.landings.length.should.eql(landingsCount + 1);
-                    });
-
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post")
+                    .andNotifyWhen(done);
             });
     });
+
+
+    it("should increment total landings number after success copying", (done) => {
+        chai.request(server)
+            .get(`${routesPrefix}`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .end((err, res) => {
+                res.body.landings.length.should.be.gt(landingsCount);
+                done();
+            });
+    });
+
 
     it("should return not found error, if trying to copy landings of other user", (done) => {
         chai.request(server)
@@ -103,10 +116,9 @@ describe(`POST ${routesPrefix}/copy`, () => {
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(404);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/copy`, "post")
+                    .andNotifyWhen(done);
             });
     });
-
-
 
 });

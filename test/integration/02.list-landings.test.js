@@ -26,7 +26,8 @@ describe(`GET ${routesPrefix}`, () => {
                 should.not.exist(err);
                 res.status.should.eql(401);
                 res.type.should.eql('application/json');
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get")
+                    .andNotifyWhen(done);
             });
     });
 
@@ -39,7 +40,8 @@ describe(`GET ${routesPrefix}`, () => {
                 should.not.exist(err);
                 res.status.should.eql(200);
                 res.body.landings.length.should.be.gt(0);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get")
+                    .andNotifyWhen(done);
             });
     });
 
@@ -52,7 +54,8 @@ describe(`GET ${routesPrefix}`, () => {
                 should.not.exist(err);
                 res.status.should.eql(200);
                 res.body.landings.length.should.be.eql(0);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get")
+                    .andNotifyWhen(done);
             });
     });
 

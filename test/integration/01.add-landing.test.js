@@ -26,7 +26,8 @@ describe(`POST ${routesPrefix}`, () => {
                 should.not.exist(err);
                 res.status.should.eql(401);
                 res.type.should.eql('application/json');
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post")
+                    .andNotifyWhen(done);
             });
     });
 
@@ -39,12 +40,13 @@ describe(`POST ${routesPrefix}`, () => {
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(400);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post")
+                    .andNotifyWhen(done);
             });
     });
 
 
-    it("should return 201 code for request with only name in body", (done) => {
+    it("should return bad request error for request with only name in body", (done) => {
         chai.request(server)
             .post(`${routesPrefix}`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
@@ -53,24 +55,42 @@ describe(`POST ${routesPrefix}`, () => {
             })
             .end((err, res) => {
                 should.not.exist(err);
-                res.status.should.eql(201);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post").andNotifyWhen(done);
+                res.status.should.eql(400);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post")
+                    .andNotifyWhen(done);
             });
     });
 
 
-    // landing may be empty but MUST have a name for saving!
-    it("but should return bad request error code for request with only landing in body", (done) => {
+    it("and should return bad request error for request with only landing in body", (done) => {
         chai.request(server)
             .post(`${routesPrefix}`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
             .send({
+                landing: fakes.fakeLanding.landing
+            })
+            .end((err, res) => {
+                should.not.exist(err);
+                res.status.should.eql(400);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post")
+                    .andNotifyWhen(done);
+            });
+    });
+
+
+    it("also should return bad request error if landing is empty object", (done) => {
+        chai.request(server)
+            .post(`${routesPrefix}`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .send({
+                name: "My new landing",
                 landing: {}
             })
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(400);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post")
+                    .andNotifyWhen(done);
             });
     });
 
@@ -80,13 +100,14 @@ describe(`POST ${routesPrefix}`, () => {
             .post(`${routesPrefix}`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
             .send({
-                name: "My new landing 2",
-                landing: fakes.fakeLanding
+                name: "My new landing",
+                landing: fakes.fakeLanding.landing
             })
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(201);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post").andNotifyWhen(done);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post")
+                    .andNotifyWhen(done);
             });
     });
 

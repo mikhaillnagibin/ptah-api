@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
-    "test": "cross-env NODE_ENV=test SERVER_PORT=3001 DB_COLLECTION_NAME=ptah-test node_modules/.bin/mocha --exit ./test/index.js"
+    "test": "cross-env NODE_ENV=test SERVER_PORT=3001 DB_COLLECTION_NAME=ptah-test node_modules/.bin/mocha --exit --timeout 4000 ./test/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,10 @@
   "dependencies": {
     "bson-objectid": "^1.2.4",
     "cross-env": "^5.2.0",
+    "decompress": "^4.2.0",
     "koa": "^2.6.2",
     "koa-body": "^4.0.6",
+    "koa-cache-control": "^2.0.0",
     "koa-convert": "^1.2.0",
     "koa-jwt": "^3.5.1",
     "koa-mongo-driver": "^1.0.2",
@@ -30,8 +32,7 @@
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
     "rimraf": "^2.6.3",
-    "string-template": "^1.0.0",
-    "unzip": "^0.1.11"
+    "string-template": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

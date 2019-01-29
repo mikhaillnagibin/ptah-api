@@ -15,12 +15,12 @@ module.exports = async (ctx, next) => {
     const update = {};
     if (name) {
         update.name = name;
+    } else {
+        return badRequest();
     }
     if (landingUpdate && !_.isEmpty(landingUpdate)) {
         update.landing = landingUpdate;
-    }
-
-    if (_.isEmpty(update)) {
+    } else {
         return badRequest();
     }
 

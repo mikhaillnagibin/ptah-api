@@ -5,6 +5,7 @@ const Koa = require('koa');
 const jwt = require('koa-jwt');
 const mongo = require('koa-mongo-driver');
 const {KoaReqLogger} = require('koa-req-logger');
+const cacheControl = require('koa-cache-control');
 
 const config = require('../config/config');
 
@@ -45,7 +46,9 @@ app.use(async (ctx, next) => {
 app.use(mongo(mongoOptions, mongoConnectionOptions));
 
 // logger and errors handler
-const logger = new KoaReqLogger();
+const logger = new KoaReqLogger({
+    alwaysError: true // treat all non-2** http codes as error records in logs
+});
 app.use(logger.getMiddleware());
 
 // Middleware below this line is only reached if JWT token is valid
@@ -54,13 +57,16 @@ app.use(jwt({ secret: config.jwtKey }));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-const port = config.serverPort;
+app.use(cacheControl({
+    noCache: true
+}));
 
 // ensure that dirs are exists
 fs.mkdirSync(config.publicHtmlDir, { recursive: true });
 fs.mkdirSync(config.nginxConfigsDir, { recursive: true });
 
 // server
+const port = config.serverPort;
 const server = app.listen(port, () => {
     console.log(`Server listening on port: ${port}`)
 });
