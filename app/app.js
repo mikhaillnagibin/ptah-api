@@ -3,6 +3,7 @@
 const fs = require('fs');
 const Koa = require('koa');
 const jwt = require('koa-jwt');
+const Sentry = require('@sentry/node');
 const mongo = require('koa-mongo-driver');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
@@ -11,7 +12,13 @@ const config = require('../config/config');
 
 const router = require('./middleware/router');
 
+
+Sentry.init({dsn: config.sentryDsn});
+
 const app = new Koa();
+app.on('error', err => {
+    Sentry.captureException(err);
+});
 
 // setup db connection
 const mongoOptions = {

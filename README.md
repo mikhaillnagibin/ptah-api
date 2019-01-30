@@ -12,8 +12,10 @@ Backend for PTAH
 * `npm test`
 * `npm prune --production`
 * `NODE_ENV={string='production'} DB_AUTH_METHOD={string='SCRAM-SHA-256'} DB_COLLECTION_NAME={string='ptah'} 
-DB_HOST={string='localhost'} 
-DB_NAME={string='ptah'} DB_PASS={string='ptah'} DB_PORT={string='27017'} DB_USER={string='ptah'} JWT_KEY={string='d7e5a85d-b351-4b2f-aa89-f628a00c14e1'} NGINX_CONFIGS_DIR={string='sites_enabled'} PUBLIC_HTML_DIR={string='public_html'} ROUTES_PREFIX={string='/landings'} SERVER_PORT={string='3000'} node ./index.js`
+DB_HOST={string='localhost'} DB_NAME={string='ptah'} DB_PASS={string='ptah'} DB_PORT={string='27017'} 
+DB_USER={string='ptah'} JWT_KEY={string} NGINX_CONFIGS_DIR={string='sites_enabled'} 
+PUBLIC_HTML_DIR={string='public_html'} ROUTES_PREFIX={string='/landings'} SENTRY_DSN={string}
+SERVER_PORT={string='80'} node ./index.js`
 
 Where:
 
@@ -42,6 +44,8 @@ Where:
 {PUBLIC_HTML_DIR} - Path to shared directory with landings root
 
 {ROUTES_PREFIX} - Common prefix for all routes, use /landings by default
+
+{SENTRY_DSN} - public DSN for Sentry
 
 {SERVER_PORT} - Port of koa http server
 

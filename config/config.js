@@ -26,6 +26,8 @@ const config = {
     publicHtmlDir: path.resolve(publicHtmlDir),
     nginxConfigsDir: path.resolve(nginxConfigsDir),
     nginxConfigTemplatePath: path.resolve('templates/nginx.conf.template'),
+
+    sentryDsn: getEnvVariable('SENTRY_DSN', 'https://f1fe9d5210df4b82aabe49839b197763@sentry.tst.protocol.one/4'),
 };
 
 module.exports = config;
