@@ -74,7 +74,7 @@ spec:
           claimName: {{ .Release.Name }}-share
       - name: {{ $depFrontName }}-configmap
         configMap:
-          name: {{ $depFrontName }}
+          name: {{ $depFrontName }}-configmap
       serviceAccountName: {{ .Release.Name }}
       containers:
       - name: {{ $depBack.name }}

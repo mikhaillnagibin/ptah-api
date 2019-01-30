@@ -27,7 +27,7 @@ data:
         gzip_http_version 1.1;
         gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
         
-        root /var/www;
+        root /etc/nginx/landings/public;
         index index.html;
         
         client_max_body_size 30m;
