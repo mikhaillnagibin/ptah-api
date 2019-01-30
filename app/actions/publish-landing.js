@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const _ = require('lodash');
 const path = require('path');
 const util = require('util');
 const decompress = require('decompress');
@@ -12,6 +11,7 @@ const config = require('../../config/config');
 
 const badRequest = require('./helpers/bad-request');
 const findLandings = require('./helpers/find-landings');
+const getLandingMeta = require('./helpers/get-landing-meta');
 const updateLandingData = require('./helpers/update-landing-data');
 const deletePublishedLanding = require('./helpers/delete-published-landing');
 const getDbCollection = require('../utils/get-db-collection');
@@ -77,6 +77,6 @@ module.exports = async (ctx, next) => {
     }
 
     ctx.status = 200;
-    ctx.body = _.omit(data, 'landing');
+    ctx.body = getLandingMeta(data);
     next();
 };

@@ -17,9 +17,14 @@ module.exports = async (ctx, ids) => {
         throw new Error('User not created');
     }
 
-    const options = {};
+    const options = {
+        projection: {
+            isDeleted: 0
+        }
+    };
 
     const condition = {
+        isDeleted: false,
         userId: userId
     };
 
@@ -29,7 +34,7 @@ module.exports = async (ctx, ids) => {
     } else {
         // suppress landing body while show full list of landings for user,
         // return only metainformation about them
-        options.projection = {landing: 0};
+        options.projection.landing = 0;
     }
 
     const collection = getDbCollection(ctx);

@@ -3,6 +3,7 @@
 const _ = require('lodash');
 
 const badRequest = require('./helpers/bad-request');
+const getLandingMeta = require('./helpers/get-landing-meta');
 const updateLandingData = require('./helpers/update-landing-data');
 const getDbCollection = require('../utils/get-db-collection');
 
@@ -34,7 +35,7 @@ module.exports = async (ctx, next) => {
     }
 
     ctx.status = 201;
-    ctx.body = _.omit(data, 'landing');
+    ctx.body = getLandingMeta(data);
 
     next();
 };

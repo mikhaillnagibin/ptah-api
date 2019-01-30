@@ -35,6 +35,7 @@ const fakeLanding = {
     hasUnpublishedChanges: false,
     domain: '',
     currentVersion: 1,
+    isDeleted: false,
     landing: fakeLandingData
 };
 
