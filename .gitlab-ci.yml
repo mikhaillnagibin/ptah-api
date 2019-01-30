@@ -10,8 +10,8 @@ build:
   stage: build
   script:
     - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID .
-#  only:
-#  - master
+  only:
+  - master
 
 push:
   stage: push
@@ -21,8 +21,8 @@ push:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
   script:
     - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
-#  only:
-#  - master  
+  only:
+  - master  
 
 deploy_production:
   stage: deploy
@@ -58,6 +58,6 @@ deploy_production:
         --wait
         --timeout 180 ||
       (helm history --max 2 $P1_PROJECT | head -n 2 | tail -n 1 | awk "{print \$1}" | xargs helm rollback $P1_PROJECT && exit 1)'
-#  only:
-#  - master
+  only:
+  - master
   when: on_success
