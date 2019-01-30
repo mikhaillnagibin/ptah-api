@@ -13,8 +13,8 @@ ENV NODE_ENV=production \
     DB_USER=""   \
     DB_PASS=""   \
     JWT_KEY=""   \
-    NGINX_CONFIGS_DIR="sites_enabled" \
-    PUBLIC_HTML_DIR="public_html" \
+    NGINX_CONFIGS_DIR="/etc/nginx/landings/conf.d" \
+    PUBLIC_HTML_DIR="/etc/nginx/landings/public" \
     ROUTES_PREFIX="/landings" \
     SERVER_PORT=3000
 

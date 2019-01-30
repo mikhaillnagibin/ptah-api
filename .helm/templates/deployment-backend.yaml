@@ -1,26 +1,60 @@
-{{- $deployment := .Values.backend -}}
-{{- $deploymentName := printf "%s-%s" .Release.Name $deployment.name }}
+{{- $app := .Values.app -}}
+{{- $depBack := .Values.backend -}}
+{{- $depBackName := printf "%s-%s" .Release.Name $depBack.name }}
+{{- $depFront := .Values.frontend -}}
+{{- $depFrontName := printf "%s-%s" .Release.Name $depFront.name }}
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  annotations:
+    "helm.sh/resource-policy": keep
+  name: {{ .Release.Name }}-share
+  labels:
+    app: {{ $app.name }}
+spec:
+  persistentVolumeReclaimPolicy: Retain
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: nfs-share
+    path: "/home/nfsroot/k8sdata/p1ptahapi-share"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-share
+spec:
+  storageClassName: ""
+  selector:
+    matchLabels:
+      app: {{ $app.name }}  
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $deploymentName }}
+  name: {{ $depBack }}
   labels:
-    app: {{ .Chart.Name }}
+    app: {{ $app.name }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    role: {{ $deployment.role }}
   annotations: 
     released: {{ .Release.Time}}    
 spec:
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: {{ $app.name }}
       chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
       release: {{ .Release.Name }}
       heritage: {{ .Release.Service }}
-      role: {{ $deployment.role }}
-  replicas: {{ $deployment.replicas }} 
+  replicas: {{ $app.replicas }} 
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -29,16 +63,22 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: {{ $app.name }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: {{ .Release.Name }}
         heritage: {{ .Release.Service }}
-        role: {{ $deployment.role }}
     spec:
+      volumes:
+      - name: {{ .Release.Name }}-share
+        persistentVolumeClaim:
+          claimName: {{ .Release.Name }}-share
+      - name: {{ $depFrontName }}-configmap
+        configMap:
+          name: {{ $depFrontName }}
       serviceAccountName: {{ .Release.Name }}
       containers:
-      - name: {{ $deployment.name }}
-        image: {{ $deployment.image }}:{{ $deployment.imageTag }}
+      - name: {{ $depBack.name }}
+        image: {{ $depBack.image }}:{{ $depBack.imageTag }}
         env:
           - name: DB_HOST
             valueFrom:
@@ -66,12 +106,26 @@ spec:
                 name: p1ptahapi-env
                 key: jwt_key
         ports:
-        - containerPort: {{$deployment.port}}
-#        livenessProbe:
-#          httpGet:
-#            path: /health
-#            port: {{ $deployment.port }}
-#          initialDelaySeconds: 15
-#          timeoutSeconds: 1
-#          failureThreshold: 3
-#          periodSeconds: 5
+        - containerPort: {{$depBack.port}}
+        volumeMounts:
+        - name: {{ .Release.Name }}-share
+          mountPath: {{ $app.mountPath }}
+          readOnly: false
+      - name: {{ $depFront.name }}
+        image: {{ $depFront.image }}:{{ $depFront.imageTag }}
+        ports:
+        - containerPort: {{ $depFront.port }}
+        livenessProbe:
+          httpGet:
+            path: /_healthz
+            port: {{ $depFront.port }}
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+        volumeMounts:
+        - name: {{ $depFrontName }}-configmap
+          mountPath: {{ $depFront.configMap.mountPath }}
+          readOnly: true
+        - name: {{ .Release.Name }}-share
+          mountPath: {{ $app.mountPath }}
+          readOnly: false
