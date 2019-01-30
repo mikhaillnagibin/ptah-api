@@ -1,0 +1,2146 @@
+{
+  "slug": "MyLanding",
+  "title": "",
+  "settings": {
+    "ogTags": [],
+    "video": "",
+    "videoPosition": "",
+    "title": "",
+    "fullPageScroll": "no",
+    "gtmId": "",
+    "gtag": "",
+    "favicon": "https://protocol.one/wp-content/uploads/2018/09/03.png",
+    "styles": {
+      "backgroundImage": "",
+      "backgroundColor": "",
+      "backgroundPositionX": "",
+      "backgroundPositionY": "",
+      "backgroundAttachment": "fixed",
+      "backgroundRepeat": "no-repeat",
+      "backgroundSize": "cover"
+    },
+    "cookiesPolicy": {
+      "enabled": false,
+      "pdf": "https://gn338.cdn.stg.gamenet.ru/0/7XSEU/o_1ohKcv.pdf"
+    }
+  },
+  "sections": [
+    {
+      "name": "HeroUnit",
+      "data": {
+        "mainStyle": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "url(https://gn987.cdn.stg.gamenet.ru/0/7K0NZ/o_1zKuK8.png)",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": ""
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "container": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": "",
+            "flex-direction": "column",
+            "align-items": "center"
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "components": [
+          {
+            "name": "Logo",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "url(\"https://gn675.cdn.stg.gamenet.ru/0/7K0Jf/o_15rRBx.svg\")",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "contain",
+                "background-color": "rgba(0, 0, 0, 0)",
+                "width": "110px",
+                "height": "64px"
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "alt": "Default logo",
+              "url": "https://gn451.cdn.gamenet.ru/TY0Xv2riHu/772cm/o_s1Xtu.png"
+            },
+            "type": "image",
+            "class": "b-logo",
+            "label": "logo"
+          },
+          {
+            "name": "Title",
+            "element": {
+              "text": "This is a short header",
+              "classes": [],
+              "styles": {
+                "font-family": "Montserrat",
+                "font-size": "4.8rem",
+                "font-weight": "bold",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#ffffff",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "title",
+            "class": "b-title",
+            "label": "title"
+          },
+          {
+            "name": "Description",
+            "element": {
+              "text": "An sincerity so extremity he additions. Her yet there truth merit.<div>Mrs all projecting favourable now unpleasing. Son law garden chatty temper</div><div>Oh children provided to mr elegance marriage strongly.</div>",
+              "classes": [],
+              "styles": {
+                "font-family": "Lato",
+                "font-size": "2rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "rgba(255, 255, 255, 0.3)",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-text",
+            "label": "description"
+          },
+          {
+            "name": "Delimiter",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "width": "",
+                "height": ""
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "delimiter",
+            "class": "b-delimiter",
+            "label": "delimiter"
+          },
+          {
+            "name": "Button",
+            "element": {
+              "text": "Call to Action",
+              "classes": [],
+              "styles": {
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "#FF6D64",
+                "color": "#ffffff",
+                "border-color": "",
+                "font-size": "1.6rem",
+                "border-radius": "2px",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "font-family": "Lato",
+                "text-decoration": "none",
+                "justify-content": "center",
+                "text-align": "center",
+                "width": "352px",
+                "height": "64px"
+              },
+              "resizable": true,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": true,
+              "shape": true,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-button-test",
+            "label": "button"
+          }
+        ],
+        "edited": true
+      }
+    },
+    {
+      "name": "ThreeColumns",
+      "data": {
+        "mainStyle": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "none",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "#151C44",
+            "background": false,
+            "width": "",
+            "height": ""
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "header": {
+          "text": "This is a short header",
+          "classes": [],
+          "styles": {
+            "font-family": "Montserrat",
+            "font-size": "3.2rem",
+            "font-weight": "bold",
+            "font-style": "normal",
+            "text-decoration": "none",
+            "text-align": "center",
+            "color": "#ffffff",
+            "justify-content": "center"
+          },
+          "resizable": false,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": true,
+          "typography": true,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": false,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "container": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": "",
+            "flex-direction": "column",
+            "align-items": "center"
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "container2": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": "",
+            "flex-direction": "column",
+            "align-items": "center"
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "container3": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": "",
+            "flex-direction": "column",
+            "align-items": "center"
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "components": [
+          {
+            "name": "Logo",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "url(\"https://gn560.cdn.stg.gamenet.ru/0/7KUKv/o_6j0hJ.png\")",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "contain",
+                "background-color": "rgba(0, 0, 0, 0)",
+                "width": "256px",
+                "height": "221px"
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "alt": "Default logo",
+              "url": "https://gn451.cdn.gamenet.ru/TY0Xv2riHu/772cm/o_s1Xtu.png"
+            },
+            "type": "image",
+            "class": "b-logo",
+            "label": "logo"
+          },
+          {
+            "name": "Title",
+            "element": {
+              "text": "This is a header",
+              "classes": [],
+              "styles": {
+                "font-family": "Montserrat",
+                "font-size": "2.4rem",
+                "font-weight": "bold",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#ffffff",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-title",
+            "label": "title"
+          },
+          {
+            "name": "Description",
+            "element": {
+              "text": "An sincerity so extremity he additions.<div>Her yet there truth merit.</div><div>Mrs all projecting favourable now unpleasing.</div>",
+              "classes": [],
+              "styles": {
+                "font-family": "Lato",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "rgba(255, 255, 255, 0.3)",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-text",
+            "label": "description"
+          },
+          {
+            "name": "Delimiter",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "width": "",
+                "height": ""
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "delimiter",
+            "class": "b-delimiter",
+            "label": "delimiter"
+          },
+          {
+            "name": "Button",
+            "element": {
+              "text": "Secondary",
+              "classes": [],
+              "styles": {
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "transparent",
+                "color": "#ffffff",
+                "border-color": "",
+                "font-size": "1.6rem",
+                "border-radius": "2px",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "font-family": "Lato",
+                "text-decoration": "none",
+                "justify-content": "center",
+                "text-align": "center",
+                "width": "224px",
+                "height": "56px",
+                "font-size:": "1.4rem"
+              },
+              "resizable": true,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": true,
+              "shape": true,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-button-test",
+            "label": "button"
+          }
+        ],
+        "components2": [
+          {
+            "name": "Logo",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "url(\"https://gn560.cdn.stg.gamenet.ru/0/7KUKv/o_6j0hJ.png\")",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "contain",
+                "background-color": "rgba(0, 0, 0, 0)",
+                "width": "256px",
+                "height": "221px"
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "alt": "Default logo",
+              "url": "https://gn451.cdn.gamenet.ru/TY0Xv2riHu/772cm/o_s1Xtu.png"
+            },
+            "type": "image",
+            "class": "b-logo",
+            "label": "logo"
+          },
+          {
+            "name": "Title",
+            "element": {
+              "text": "This is a header",
+              "classes": [],
+              "styles": {
+                "font-family": "Montserrat",
+                "font-size": "2.4rem",
+                "font-weight": "bold",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#ffffff",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-title",
+            "label": "title"
+          },
+          {
+            "name": "Description",
+            "element": {
+              "text": "An sincerity so extremity he additions.<div>Her yet there truth merit.</div><div>Mrs all projecting favourable now unpleasing.</div>",
+              "classes": [],
+              "styles": {
+                "font-family": "Lato",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "rgba(255, 255, 255, 0.3)",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-text",
+            "label": "description"
+          },
+          {
+            "name": "Delimiter",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "width": "",
+                "height": ""
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "delimiter",
+            "class": "b-delimiter",
+            "label": "delimiter"
+          },
+          {
+            "name": "Button",
+            "element": {
+              "text": "Secondary",
+              "classes": [],
+              "styles": {
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "transparent",
+                "color": "#ffffff",
+                "border-color": "",
+                "font-size": "1.6rem",
+                "border-radius": "2px",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "font-family": "Lato",
+                "text-decoration": "none",
+                "justify-content": "center",
+                "text-align": "center",
+                "width": "224px",
+                "height": "56px",
+                "font-size:": "1.4rem"
+              },
+              "resizable": true,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": true,
+              "shape": true,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-button-test",
+            "label": "button"
+          }
+        ],
+        "components3": [
+          {
+            "name": "Logo",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "url(\"https://gn560.cdn.stg.gamenet.ru/0/7KUKv/o_6j0hJ.png\")",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "contain",
+                "background-color": "rgba(0, 0, 0, 0)",
+                "width": "256px",
+                "height": "221px"
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "alt": "Default logo",
+              "url": "https://gn451.cdn.gamenet.ru/TY0Xv2riHu/772cm/o_s1Xtu.png"
+            },
+            "type": "image",
+            "class": "b-logo",
+            "label": "logo"
+          },
+          {
+            "name": "Title",
+            "element": {
+              "text": "This is a header",
+              "classes": [],
+              "styles": {
+                "font-family": "Montserrat",
+                "font-size": "2.4rem",
+                "font-weight": "bold",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#ffffff",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-title",
+            "label": "title"
+          },
+          {
+            "name": "Description",
+            "element": {
+              "text": "An sincerity so extremity he additions.<div>Her yet there truth merit.</div><div>Mrs all projecting favourable now unpleasing.</div>",
+              "classes": [],
+              "styles": {
+                "font-family": "Lato",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "rgba(255, 255, 255, 0.3)",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-text",
+            "label": "description"
+          },
+          {
+            "name": "Delimiter",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "width": "",
+                "height": ""
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "delimiter",
+            "class": "b-delimiter",
+            "label": "delimiter"
+          },
+          {
+            "name": "Button",
+            "element": {
+              "text": "Secondary",
+              "classes": [],
+              "styles": {
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "transparent",
+                "color": "#ffffff",
+                "border-color": "",
+                "font-size": "1.6rem",
+                "border-radius": "2px",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "font-family": "Lato",
+                "text-decoration": "none",
+                "justify-content": "center",
+                "text-align": "center",
+                "width": "224px",
+                "height": "56px",
+                "font-size:": "1.4rem"
+              },
+              "resizable": true,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": true,
+              "shape": true,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-button-test",
+            "label": "button"
+          }
+        ],
+        "edited": true
+      }
+    },
+    {
+      "name": "TwoColumns",
+      "data": {
+        "mainStyle": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "url(https://gn819.cdn.stg.gamenet.ru/0/7L5P8/o_Dyakc.png)",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "#151C44",
+            "background": false,
+            "width": "",
+            "height": ""
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "header": {
+          "text": "This is a short header",
+          "classes": [],
+          "styles": {
+            "font-family": "Montserrat",
+            "font-size": "3.2rem",
+            "font-weight": "bold",
+            "font-style": "normal",
+            "text-decoration": "none",
+            "text-align": "center",
+            "color": "#ffffff",
+            "justify-content": "center"
+          },
+          "resizable": false,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": true,
+          "typography": true,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": false,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "container": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": "",
+            "flex-direction": "column",
+            "align-items": "center"
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "container2": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": "",
+            "flex-direction": "column",
+            "align-items": "center"
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "components": [
+          {
+            "name": "Logo",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "url(\"https://gn499.cdn.stg.gamenet.ru/0/7L5qj/o_235Car.png\")",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "contain",
+                "background-color": "rgba(0, 0, 0, 0)",
+                "width": "336px",
+                "height": "236px"
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "alt": "Default logo",
+              "url": "https://gn451.cdn.gamenet.ru/TY0Xv2riHu/772cm/o_s1Xtu.png"
+            },
+            "type": "image",
+            "class": "b-logo",
+            "label": "logo"
+          },
+          {
+            "name": "Title",
+            "element": {
+              "text": "This is a header",
+              "classes": [],
+              "styles": {
+                "font-family": "Montserrat",
+                "font-size": "2.4rem",
+                "font-weight": "bold",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#ffffff",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-title",
+            "label": "title"
+          },
+          {
+            "name": "Description",
+            "element": {
+              "text": "One morning, when Gregor Samsa woke<div>from troubled dreams, he found himself transformed</div><div>in his bed into a horrible vermin.</div>",
+              "classes": [],
+              "styles": {
+                "font-family": "Lato",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "rgba(255, 255, 255, 0.3)",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-text",
+            "label": "description"
+          },
+          {
+            "name": "Delimiter",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "width": "",
+                "height": ""
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "delimiter",
+            "class": "b-delimiter",
+            "label": "delimiter"
+          },
+          {
+            "name": "Button",
+            "element": {
+              "text": "Secondary",
+              "classes": [],
+              "styles": {
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "transparent",
+                "color": "#ffffff",
+                "border-color": "",
+                "font-size": "1.6rem",
+                "border-radius": "2px",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "font-family": "Lato",
+                "text-decoration": "none",
+                "justify-content": "center",
+                "text-align": "center",
+                "width": "224px",
+                "height": "56px",
+                "font-size:": "1.4rem"
+              },
+              "resizable": true,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": true,
+              "shape": true,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-button-test",
+            "label": "button"
+          }
+        ],
+        "components2": [
+          {
+            "name": "Logo",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "url(\"https://gn987.cdn.stg.gamenet.ru/0/7L5wL/o_23f77k.png\")",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "contain",
+                "background-color": "rgba(0, 0, 0, 0)",
+                "width": "365px",
+                "height": "236px"
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "alt": "Default logo",
+              "url": "https://gn451.cdn.gamenet.ru/TY0Xv2riHu/772cm/o_s1Xtu.png"
+            },
+            "type": "image",
+            "class": "b-logo",
+            "label": "logo"
+          },
+          {
+            "name": "Title",
+            "element": {
+              "text": "This is a header",
+              "classes": [],
+              "styles": {
+                "font-family": "Montserrat",
+                "font-size": "2.4rem",
+                "font-weight": "bold",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#ffffff",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-title",
+            "label": "title"
+          },
+          {
+            "name": "Description",
+            "element": {
+              "text": "One morning, when Gregor Samsa woke<div>from troubled dreams, he found himself transformed</div><div>in his bed into a horrible vermin.</div>",
+              "classes": [],
+              "styles": {
+                "font-family": "Lato",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "rgba(255, 255, 255, 0.3)",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-text",
+            "label": "description"
+          },
+          {
+            "name": "Delimiter",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "width": "",
+                "height": ""
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "delimiter",
+            "class": "b-delimiter",
+            "label": "delimiter"
+          },
+          {
+            "name": "Button",
+            "element": {
+              "text": "Secondary",
+              "classes": [],
+              "styles": {
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "transparent",
+                "color": "#ffffff",
+                "border-color": "",
+                "font-size": "1.6rem",
+                "border-radius": "2px",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "font-family": "Lato",
+                "text-decoration": "none",
+                "justify-content": "center",
+                "text-align": "center",
+                "width": "224px",
+                "height": "56px",
+                "font-size:": "1.4rem"
+              },
+              "resizable": true,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": true,
+              "shape": true,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-button-test",
+            "label": "button"
+          }
+        ],
+        "edited": true
+      }
+    },
+    {
+      "name": "Footer",
+      "data": {
+        "mainStyle": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "url(https://gn685.cdn.stg.gamenet.ru/0/7MZzz/o_bJr44.jpg)",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "#151C44",
+            "background": false,
+            "width": "",
+            "height": ""
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "container": {
+          "text": "",
+          "classes": [],
+          "styles": {
+            "background-image": "",
+            "background-position": "center center",
+            "background-repeat": "no-repeat",
+            "background-size": "cover",
+            "background-color": "rgba(0,0,0,0)",
+            "background": false,
+            "width": "",
+            "height": "",
+            "flex-direction": "row",
+            "align-items": "center"
+          },
+          "resizable": true,
+          "hasLink": false,
+          "link": {
+            "href": "",
+            "target": "_blank"
+          },
+          "removable": true,
+          "aligned": false,
+          "typography": false,
+          "colorize": false,
+          "box": false,
+          "canCopy": false,
+          "background": true,
+          "shape": false,
+          "pseudo": false,
+          "isComplex": false,
+          "backgroundType": "default",
+          "backgroundVideo": null
+        },
+        "components": [
+          {
+            "name": "Logo",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "url(\"https://gn341.cdn.stg.gamenet.ru/0/7MZTn/o_21pVfk.svg\")",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "rgba(0, 0, 0, 0)",
+                "width": "153px",
+                "height": "71px"
+              },
+              "resizable": true,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "alt": "Default logo",
+              "url": "https://gn451.cdn.gamenet.ru/TY0Xv2riHu/772cm/o_s1Xtu.png"
+            },
+            "type": "image",
+            "class": "b-footer-game-logo",
+            "label": "logo"
+          },
+          {
+            "name": "Description",
+            "element": {
+              "text": "2018—2019. Some text for footer",
+              "classes": [],
+              "styles": {
+                "font-family": "PT Serif",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "rgba(255, 255, 255, 0.3)",
+                "justify-content": "center"
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": true,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": false,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null
+            },
+            "type": "text",
+            "class": "b-footer-copyright",
+            "label": "description"
+          },
+          {
+            "name": "Link",
+            "element": {
+              "text": "Information",
+              "classes": [],
+              "styles": {
+                "font-family": "PT Serif",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#FF6D64",
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "rgba(0, 0, 0, 0)"
+              },
+              "resizable": false,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": false,
+              "shape": false,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-footer-link",
+            "label": "link"
+          },
+          {
+            "name": "Link",
+            "element": {
+              "text": "Legal",
+              "classes": [],
+              "styles": {
+                "font-family": "PT Serif",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#FF6D64",
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "rgba(0, 0, 0, 0)"
+              },
+              "resizable": false,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": false,
+              "shape": false,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-footer-link",
+            "label": "link"
+          },
+          {
+            "name": "Link",
+            "element": {
+              "text": "Something",
+              "classes": [],
+              "styles": {
+                "font-family": "PT Serif",
+                "font-size": "1.6rem",
+                "font-weight": "normal",
+                "font-style": "normal",
+                "text-decoration": "none",
+                "text-align": "center",
+                "color": "#FF6D64",
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": "rgba(0, 0, 0, 0)"
+              },
+              "resizable": false,
+              "hasLink": true,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": true,
+              "colorize": false,
+              "box": false,
+              "canCopy": true,
+              "background": false,
+              "shape": false,
+              "pseudo": {
+                "hover": {
+                  "background-color": "",
+                  "background-image": "",
+                  "background-position": "center center",
+                  "background-repeat": "no-repeat",
+                  "background-size": "cover",
+                  "color": ""
+                }
+              },
+              "isComplex": false,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "animation": {
+                "value": ""
+              }
+            },
+            "type": "button",
+            "class": "b-footer-link",
+            "label": "link"
+          },
+          {
+            "name": "AgeRestrictions",
+            "element": {
+              "text": "",
+              "classes": [],
+              "styles": {
+                "background-image": "",
+                "background-position": "center center",
+                "background-repeat": "no-repeat",
+                "background-size": "cover",
+                "background-color": ""
+              },
+              "resizable": false,
+              "hasLink": false,
+              "link": {
+                "href": "",
+                "target": "_blank"
+              },
+              "removable": true,
+              "aligned": false,
+              "typography": false,
+              "colorize": false,
+              "box": false,
+              "canCopy": false,
+              "background": true,
+              "shape": false,
+              "pseudo": false,
+              "isComplex": true,
+              "backgroundType": "default",
+              "backgroundVideo": null,
+              "hasRestrictions": true,
+              "ageRestrictions": {
+                "age": {
+                  "name": "Age",
+                  "visible": true,
+                  "selected": {
+                    "name": "0+",
+                    "img": "https://gn215.cdn.stg.gamenet.ru/0/759Ga/o_20S5qo.svg"
+                  },
+                  "options": [
+                    {
+                      "name": "0+",
+                      "img": "https://gn215.cdn.stg.gamenet.ru/0/759Ga/o_20S5qo.svg"
+                    },
+                    {
+                      "name": "6+",
+                      "img": "https://gn215.cdn.stg.gamenet.ru/0/759H0/o_1KX2IR.svg"
+                    },
+                    {
+                      "name": "12+",
+                      "img": "https://gn695.cdn.stg.gamenet.ru/0/759HF/o_DNNg8.svg"
+                    },
+                    {
+                      "name": "18+",
+                      "img": "https://gn24.cdn.stg.gamenet.ru/0/759HU/o_1AgXj1.svg"
+                    },
+                    {
+                      "name": "21+",
+                      "img": "https://gn822.cdn.stg.gamenet.ru/0/759Hf/o_299afp.svg"
+                    }
+                  ]
+                },
+                "pegi": {
+                  "name": "Pegi",
+                  "visible": false,
+                  "selected": {
+                    "name": "3",
+                    "img": "https://gn875.cdn.stg.gamenet.ru/0/759I0/o_13iwpA.svg"
+                  },
+                  "options": [
+                    {
+                      "name": "3",
+                      "img": "https://gn875.cdn.stg.gamenet.ru/0/759I0/o_13iwpA.svg"
+                    },
+                    {
+                      "name": "7",
+                      "img": "https://gn414.cdn.stg.gamenet.ru/0/759ID/o_vuop.svg"
+                    },
+                    {
+                      "name": "12",
+                      "img": "https://gn793.cdn.stg.gamenet.ru/0/759IR/o_1S1h6M.svg"
+                    },
+                    {
+                      "name": "16",
+                      "img": "https://gn800.cdn.stg.gamenet.ru/0/759Il/o_ANYUX.svg"
+                    },
+                    {
+                      "name": "18",
+                      "img": "https://gn653.cdn.stg.gamenet.ru/0/759Ix/o_Xqb9n.svg"
+                    }
+                  ]
+                },
+                "usk": {
+                  "name": "USK",
+                  "visible": false,
+                  "selected": {
+                    "name": "0",
+                    "img": "https://gn191.cdn.stg.gamenet.ru/0/759JH/o_1g38pS.svg"
+                  },
+                  "options": [
+                    {
+                      "name": "0",
+                      "img": "https://gn191.cdn.stg.gamenet.ru/0/759JH/o_1g38pS.svg"
+                    },
+                    {
+                      "name": "6",
+                      "img": "https://gn182.cdn.stg.gamenet.ru/0/759JS/o_25hRrV.svg"
+                    },
+                    {
+                      "name": "12",
+                      "img": "https://gn972.cdn.stg.gamenet.ru/0/759Jf/o_amDyU.svg"
+                    },
+                    {
+                      "name": "16",
+                      "img": "https://gn972.cdn.stg.gamenet.ru/0/759Jf/o_amDyU.svg"
+                    },
+                    {
+                      "name": "18",
+                      "img": "https://gn320.cdn.stg.gamenet.ru/0/759K2/o_x4V42.svg"
+                    }
+                  ]
+                },
+                "cero": {
+                  "name": "CERO",
+                  "visible": false,
+                  "selected": {
+                    "name": "All ages",
+                    "img": "https://gn773.cdn.stg.gamenet.ru/0/759KN/o_sazoN.svg"
+                  },
+                  "options": [
+                    {
+                      "name": "All ages",
+                      "img": "https://gn773.cdn.stg.gamenet.ru/0/759KN/o_sazoN.svg"
+                    },
+                    {
+                      "name": "Ages 12 and up only",
+                      "img": "https://gn925.cdn.stg.gamenet.ru/0/759LL/o_zwWo0.svg"
+                    },
+                    {
+                      "name": "Ages 15 and up only",
+                      "img": "https://gn572.cdn.stg.gamenet.ru/0/759LZ/o_qfcL4.svg"
+                    },
+                    {
+                      "name": "Ages 17 and up only",
+                      "img": "https://gn959.cdn.stg.gamenet.ru/0/759Lq/o_FHJmm.svg"
+                    },
+                    {
+                      "name": "Ages 18 and up only",
+                      "img": "https://gn640.cdn.stg.gamenet.ru/0/759MA/o_4FtnT.svg"
+                    },
+                    {
+                      "name": "Education/Database",
+                      "img": "https://gn119.cdn.stg.gamenet.ru/0/759MN/o_18ADS5.svg"
+                    },
+                    {
+                      "name": "Rating pending",
+                      "img": "https://gn801.cdn.stg.gamenet.ru/0/759MZ/o_1b7UOI.svg"
+                    }
+                  ]
+                }
+              },
+              "sizeIcons": {
+                "width": 48
+              }
+            },
+            "type": "restrictions",
+            "class": "b-age-restrictions",
+            "label": "age restrictions"
+          }
+        ],
+        "edited": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+ server {
+  listen   80;
+
+  root {siteRoot};
+  index index.html;
+
+  server_name {siteDomain};
+
+  # Media: images, icons, video, audio, HTC
+  location ~* \.(?:jpg|jpeg|gif|png|ico|cur|gz|svg|mp4|ogg|ogv|webm|htc)$ {
+    access_log off;
+    expires max;
+  }
+
+  # CSS and Javascript
+  location ~* \.(?:css|js)$ {
+    expires max;
+    access_log off;
+  }
+
+  location / {
+   default_type "text/html";
+   try_files $uri.html $uri $uri/ =404;
+  }
+}
