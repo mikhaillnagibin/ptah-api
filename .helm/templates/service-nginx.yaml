@@ -1,9 +1,8 @@
 {{- $deployment := .Values.frontend -}}
-{{- $svcName := printf "%s" .Release.Name }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $svcName }}
+  name: {{ $deployment.role }}
   labels:
     app: {{ .Chart.Name }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
