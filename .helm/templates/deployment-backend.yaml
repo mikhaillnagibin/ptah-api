@@ -105,6 +105,11 @@ spec:
               secretKeyRef:
                 name: p1ptahapi-env
                 key: jwt_key
+          - name: SENTRY_DSN
+            valueFrom:
+              secretKeyRef:
+                name: p1ptahapi-env
+                key: SENTRY_DSN
         ports:
         - containerPort: {{$depBack.port}}
         volumeMounts:

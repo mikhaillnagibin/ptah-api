@@ -16,7 +16,8 @@ ENV NODE_ENV=production \
     NGINX_CONFIGS_DIR="/etc/nginx/landings/conf.d" \
     PUBLIC_HTML_DIR="/etc/nginx/landings/public" \
     ROUTES_PREFIX="/landings" \
-    SERVER_PORT=3000
+    SERVER_PORT=3000 \
+    SENTRY_DSN=""
 
 COPY package.json /application
 

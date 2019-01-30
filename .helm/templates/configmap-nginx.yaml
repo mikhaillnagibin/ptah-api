@@ -1,0 +1,49 @@
+{{- $app := .Values.app -}}
+{{- $depFront := .Values.frontend -}}
+{{- $depFrontName := printf "%s-%s" .Release.Name $depFront.name }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $depFrontName }}-configmap
+  labels:
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    app: {{ $app.name }}
+    role: {{ $depFrontName }}
+data:
+  {{ .Values.ingress.hostname }}.conf: |
+      
+      include /etc/nginx/landings/conf.d/*;
+
+      server {
+        server_name {{ .Values.ingress.hostname }};
+        listen {{ $depFront.port }} default_server;
+        
+        gzip on;
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+        
+        root /var/www;
+        index index.html;
+        
+        client_max_body_size 30m;
+
+        location = /_healthz {
+          add_header Content-Type text/plain;
+          return 200 'ok';
+        }
+        location ~* ^/.*\.(jpg|jpeg|png|gif|swf|eot|woff|svg|ttf|css|js) {
+          autoindex off;
+          access_log off;
+          expires 31536000;
+        }
+        
+        location / {
+          index index.html;
+          try_files $uri /index.html;
+        }
+      }
