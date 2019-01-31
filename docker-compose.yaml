@@ -1,0 +1,51 @@
+version: "3.6"
+
+services:
+  ptah-node:
+      build: .
+      container_name: ptah-node
+      restart: unless-stopped
+      environment:
+        DB_HOST: ptah-mongo
+        DB_USER: ""
+        DB_PASS: ""
+      ports:
+        - "8080:3000"
+      volumes:
+        - ptah-landings:/etc/nginx/landings/public/landings
+      networks: 
+        - p1devnet
+
+  ptah-nginx:
+      container_name: ptah-nginx
+      image: nginx:1.15.4
+      networks: 
+        - p1devnet
+      ports:
+          - "8090:80"
+      restart: unless-stopped
+      volumes:
+        - ptah-landings:/usr/share/nginx/html/landings
+      depends_on:
+          - "ptah-node"   
+
+  ptah-mongo:
+    image: mongo:4.1.3
+    container_name: ptah-mongo
+    restart: unless-stopped
+    networks:
+      - p1devnet
+    #volumes:
+    #  - ptah-mongo:/var/lib/mongodb
+    ports:
+      - "3010:27017"
+
+volumes:
+  ptah-landings:
+    external: true
+#  ptah-mongo:
+#    external: true
+
+networks:
+  p1devnet:
+    external: true
