@@ -6,8 +6,8 @@ enableCertIssuer: true
 
 ingress:
   hostname: ptahapi.tst.protocol.one
-  pathApi: /
-  pathLandings: /landings/
+  pathApi: /api
+  pathLandings: /
 
 certIssuer:
   email: admin@protocol.one
