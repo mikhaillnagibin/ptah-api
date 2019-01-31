@@ -4,13 +4,13 @@ const fs = require('fs');
 const Koa = require('koa');
 const jwt = require('koa-jwt');
 const Sentry = require('@sentry/node');
-const mongo = require('koa-mongo-driver');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
 
 const config = require('../config/config');
 
 const router = require('./middleware/router');
+const mongo = require('./middleware/mongo');
 
 
 Sentry.init({dsn: config.sentryDsn});
@@ -19,6 +19,11 @@ const app = new Koa();
 app.on('error', err => {
     Sentry.captureException(err);
 });
+// logger and errors handler
+const logger = new KoaReqLogger({
+    alwaysError: true // treat all non-2** http codes as error records in logs
+});
+app.use(logger.getMiddleware());
 
 // setup db connection
 const mongoOptions = {
@@ -36,30 +41,26 @@ if (config.dbUser && config.dbPass && config.dbAuthMethod) {
     mongoConnectionOptions.authMechanism = config.dbAuthMethod;
 }
 
-// handle mongoDb connection error with code 500 instead of 200 by default
+// handle mongoDb connection error with code 500 instead of 200 by default, and crash the app after send answer
 app.use(async (ctx, next) => {
     try {
         await next();
-        if(ctx.body && ctx.body.success === false) {
-            const err = new Error('Internal Server Error');
-            err.status = 500;
-            throw err;
-        }
     } catch (err) {
-        throw err;
+        if (~err.name.toLowerCase().indexOf('mongo')) {
+            ctx.res.once('finish', function (){
+                process.exit(1);
+            });
+        }
+        const error = new Error(err.message || 'Internal Server Error');
+        error.status = err.status || 500;
+        throw error;
     }
 });
 
 app.use(mongo(mongoOptions, mongoConnectionOptions));
 
-// logger and errors handler
-const logger = new KoaReqLogger({
-    alwaysError: true // treat all non-2** http codes as error records in logs
-});
-app.use(logger.getMiddleware());
-
 // Middleware below this line is only reached if JWT token is valid
-app.use(jwt({ secret: config.jwtKey }));
+app.use(jwt({ secret: config.jwtKey }).unless({ path: `${config.routesPrefix}/_healthz` }));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
