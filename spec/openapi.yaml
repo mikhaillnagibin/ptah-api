@@ -19,7 +19,7 @@ tags:
     description: Operations with landings
 
 paths:
-  /landings:
+  /api/landings:
     get:
       tags:
         - Landings
@@ -142,7 +142,7 @@ paths:
                 landing:
                   $ref: '#/components/schemas/Landing'
 
-  /landings/copy:
+  /api/landings/copy:
     post:
       tags:
         - Landings
@@ -232,7 +232,7 @@ paths:
                     type: string
                   example: ['507f191e810c19729de860ea', '29de860ea507f191e810c197']
 
-  /landings/{landingId}:
+  /api/landings/{landingId}:
     get:
       tags:
         - Landings
@@ -526,7 +526,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorNotFound'
 
-  /landings/{landingId}/publishing:
+  /api/landings/{landingId}/publishing:
 
     post:
       tags:
@@ -713,7 +713,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorNotFound'
 
-  /landings/{landingId}/domain:
+  /api/landings/{landingId}/domain:
 
     post:
       tags:
