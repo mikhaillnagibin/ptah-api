@@ -15,7 +15,7 @@ ENV NODE_ENV=production \
     JWT_KEY=""   \
     NGINX_CONFIGS_DIR="/etc/nginx/landings/conf.d" \
     PUBLIC_HTML_DIR="/etc/nginx/landings/public/landings" \
-    ROUTES_PREFIX="/landings" \
+    ROUTES_PREFIX="/api/landings" \
     SERVER_PORT=3000 \
     SENTRY_DSN=""
 
