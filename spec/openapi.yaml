@@ -901,6 +901,50 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorNotFound'
 
+  /api/landings/_healthz:
+    get:
+      tags:
+        - Landings
+      summary: Health check
+      operationId: healthCheck
+      responses:
+        '200':
+          description: empty object that means all ok
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServerError'
+
 components:
 
   securitySchemes:
@@ -990,6 +1034,26 @@ components:
               type: string
               description: 'Text of error'
               example: Precondition Failed
+
+    ErrorInternalServerError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            code:
+              type: number
+              description: 'Error code'
+              example: 500
+            message:
+              type: string
+              description: 'Text of error'
+              example: Internal Server Error
 
     LandingMeta:
       type: object
