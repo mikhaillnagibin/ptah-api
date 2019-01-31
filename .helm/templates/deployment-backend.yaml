@@ -99,7 +99,7 @@ spec:
               secretKeyRef:
                 name: p1ptahapi-env
                 key: DB_PASS
-          - name: JWT_SIGNATURE_SECRET
+          - name: JWT_KEY
             valueFrom:
               secretKeyRef:
                 name: p1ptahapi-env
