@@ -1,4 +1,3 @@
-{{- $app := .Values.app -}}
 {{- $depBack := .Values.backend -}}
 {{- $depBackName := printf "%s-%s" .Release.Name $depBack.name }}
 {{- $depFront := .Values.frontend -}}
@@ -10,7 +9,7 @@ metadata:
     "helm.sh/resource-policy": keep
   name: {{ .Release.Name }}-share
   labels:
-    app: {{ $app.name }}
+    app: {{ .Release.Name }}
 spec:
   persistentVolumeReclaimPolicy: Retain
   capacity:
@@ -29,7 +28,7 @@ spec:
   storageClassName: ""
   selector:
     matchLabels:
-      app: {{ $app.name }}  
+      app: {{ .Release.Name }}  
   accessModes:
     - ReadWriteMany
   resources:
@@ -41,7 +40,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-    app: {{ $app.name }}
+    app: {{ .Release.Name }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -50,11 +49,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: {{ $app.name }}
+      app: {{ .Release.Name }}
       chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
       release: {{ .Release.Name }}
       heritage: {{ .Release.Service }}
-  replicas: {{ $app.replicas }} 
+  replicas: {{ .Values.app.replicas }} 
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -63,7 +62,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ $app.name }}
+        app: {{ .Release.Name }}
         chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
         release: {{ .Release.Name }}
         heritage: {{ .Release.Service }}
@@ -114,7 +113,7 @@ spec:
         - containerPort: {{$depBack.port}}
         volumeMounts:
         - name: {{ .Release.Name }}-share
-          mountPath: {{ $app.mountPath }}
+          mountPath: {{ .Values.app.mountPath }}
           readOnly: false
       - name: {{ $depFront.name }}
         image: {{ $depFront.image }}:{{ $depFront.imageTag }}
@@ -132,5 +131,5 @@ spec:
           mountPath: {{ $depFront.configMap.mountPath }}
           readOnly: true
         - name: {{ .Release.Name }}-share
-          mountPath: {{ $app.mountPath }}
+          mountPath: {{ .Values.app.mountPath }}
           readOnly: false

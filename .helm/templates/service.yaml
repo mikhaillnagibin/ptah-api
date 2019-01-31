@@ -17,8 +17,7 @@ spec:
     targetPort: {{ $deployment.port }}
     protocol: {{ $deployment.service.protocol }}
   selector:
-    app: {{ .Chart.Name }}
+    app: {{ .Release.Name }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    role: {{ $deployment.role }}
