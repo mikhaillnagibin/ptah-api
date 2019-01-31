@@ -21,7 +21,7 @@ const config = {
     dbCollectionName: getEnvVariable('DB_COLLECTION_NAME', 'ptah'),
     dbAuthMethod: getEnvVariable('DB_AUTH_METHOD', 'SCRAM-SHA-256'),
 
-    routesPrefix: getEnvVariable('ROUTES_PREFIX', '/api/landings'),
+    routesPrefix: getEnvVariable('ROUTES_PREFIX', '/api/v1/landings'),
 
     publicHtmlDir: path.resolve(publicHtmlDir),
     nginxConfigsDir: path.resolve(nginxConfigsDir),
