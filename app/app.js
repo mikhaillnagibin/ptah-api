@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const os = require('os');
 const Koa = require('koa');
 const jwt = require('koa-jwt');
 const Sentry = require('@sentry/node');
@@ -13,7 +14,10 @@ const router = require('./middleware/router');
 const mongo = require('./middleware/mongo');
 
 
-Sentry.init({dsn: config.sentryDsn});
+Sentry.init({
+    dsn: config.sentryDsn,
+    serverName: `${os.hostname()}-${process.env.NODE_ENV}`
+});
 
 const app = new Koa();
 app.on('error', err => {
