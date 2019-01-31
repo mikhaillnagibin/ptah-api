@@ -28,9 +28,9 @@ spec:
         paths:
           - path: {{ .Values.ingress.pathApi }}
             backend:
-              serviceName: {{ $endpointBackSvc }}
+              serviceName: {{ .Release.Name }}
               servicePort: {{ $endpointBack.service.port }}
           - path: {{ .Values.ingress.pathLandings }}
             backend:
-              serviceName: {{ $endpointFrontSvc }}
+              serviceName: {{ .Release.Name }}-nginx
               servicePort: {{ $endpointFront.service.port }}
