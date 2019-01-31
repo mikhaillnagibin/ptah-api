@@ -43,6 +43,6 @@ data:
         
         location / {
           index index.html;
-          try_files $uri $uri/index.html /index.html;
+          try_files $uri.html $uri $uri/ $uri/index.html /index.html;
         }
       }
