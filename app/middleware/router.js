@@ -28,6 +28,10 @@ router
     .get('/', listLandings)
     .post('/', koaBody, addLanding)
     .post('/copy', koaBody, copyLandings)
+    .get('/_healthz', async(ctx, next) => {
+        ctx.body = {};
+        next();
+    })
     .get('/:id', getLanding)
     .patch('/:id', koaBody, updateLanding)
     .delete('/:id', deleteLanding)
