@@ -82,33 +82,43 @@ spec:
           - name: DB_HOST
             valueFrom:
               secretKeyRef:
-                name: p1ptahapi-env
+                name: {{ .Chart.Name }}-env
                 key: DB_HOST
           - name: DB_NAME
             valueFrom:
               secretKeyRef:
-                name: p1ptahapi-env
+                name: {{ .Chart.Name }}-env
                 key: DB_NAME
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: p1ptahapi-env
+                name: {{ .Chart.Name }}-env
                 key: DB_USER
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
-                name: p1ptahapi-env
+                name: {{ .Chart.Name }}-env
                 key: DB_PASS
           - name: JWT_KEY
             valueFrom:
               secretKeyRef:
-                name: p1ptahapi-env
+                name: {{ .Chart.Name }}-env
                 key: jwt_key
           - name: SENTRY_DSN
             valueFrom:
               secretKeyRef:
-                name: p1ptahapi-env
+                name: {{ .Chart.Name }}-env
                 key: SENTRY_DSN
+          - name: PTAH_MAILCHIMP_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-env
+                key: PTAH_MAILCHIMP_CLIENT_ID
+          - name: PTAH_MAILCHIMP_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-env
+                key: PTAH_MAILCHIMP_CLIENT_SECRET
         ports:
         - containerPort: {{$depBack.port}}
         volumeMounts:
