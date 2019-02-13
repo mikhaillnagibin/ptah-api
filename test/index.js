@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const re = /\.test\.js$/; // names of files with tests must match file mask *.test.js
-const testDirs = ['unit', 'integration']; // dirs with tests //
+const testDirs = ['integration']; // dirs with tests //'unit',
 
 const currentDir = __dirname;
 testDirs.forEach( dir => {
