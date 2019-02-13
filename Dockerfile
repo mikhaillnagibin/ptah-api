@@ -15,9 +15,15 @@ ENV NODE_ENV=production \
     JWT_KEY=""   \
     NGINX_CONFIGS_DIR="/etc/nginx/landings/conf.d" \
     PUBLIC_HTML_DIR="/etc/nginx/landings/public/landings" \
-    ROUTES_PREFIX="/api/landings" \
+    ROUTES_PREFIX="/api/v1" \
     SERVER_PORT=3000 \
     SENTRY_DSN=""
+    PUBLIC_HOST="" \
+    OAUTH_CLIENT_ID="" \
+    OAUTH_CLIENT_SECRET="" \
+    OAUTH_CLIENT_SCOPE="openid,offline" \
+    OAUTH_AUTHORIZE_URL="" \
+    OAUTH_TOKEN_URL="" \
 
 COPY package.json /application
 

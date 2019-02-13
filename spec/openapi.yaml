@@ -6,7 +6,7 @@ servers:
 
 info:
   description: This is an API for PTAH to manage landing pages
-  version: "1.0.0"
+  version: "1.1.0"
   title: PTAH Backend API
   termsOfService: ''
   contact:
@@ -15,16 +15,186 @@ info:
     url: 'https://protocol.one'
 
 tags:
+  - name: Health
+    description: Healthcheck api
+  - name: Auth
+    description: User authentication
   - name: Landings
     description: Operations with landings
 
 paths:
+  /api/v1/auth/login:
+    get:
+      tags:
+        - Auth
+      summary: Authentication start page
+      operationId: authLogin
+      description: This url must be open in iframe
+      responses:
+        '200':
+          description: Html page, sending an result of authentication as a postMessage to parent window
+          content:
+            text/html:
+              schema:
+                type: string
+        '302':
+          description: Redirect to auth1 server
+
+
+  /api/v1/auth/callback:
+    get:
+      tags:
+        - Auth
+      summary: Authentication finish page
+      operationId: authCallback
+      description: This url will be opened in previous iframe after authentication process completes
+      responses:
+        '200':
+          description: Html page, sending an result of authentication as a postMessage to parent window
+          content:
+            text/html:
+              schema:
+                type: string
+
+
+  /api/v1/auth/logout:
+    get:
+      tags:
+        - Auth
+      summary: Authentication logout page
+      operationId: authLogout
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: all tokens are revoked, logout success
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+        '400':
+          description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServerError'
+
+  /api/v1/auth/refresh:
+    get:
+      tags:
+        - Auth
+      summary: Authentication refresh tokens page
+      operationId: authRefresh
+      parameters:
+        - in: header
+          name: X-Refresh-Token
+          schema:
+            type: string
+            example: "pcQM0lcIoEe8HUS3A27urh1aTH9UUgZFJ-L4Htm1Adg.OqEfdL0L3KcLs3ZFIM4YQV-QqjhvqRI_9lnW7IVIXPU"
+          required: true
+      responses:
+        '200':
+          description: tokens are refreshed
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshedToken'
+        '400':
+          description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternalServerError'
+
+
   /api/v1/landings:
     get:
       tags:
         - Landings
       summary: List of landings for user
       operationId: listLandings
+      security:
+        - bearerAuth: []
       responses:
         '200':
           description: list of found landings
@@ -74,6 +244,8 @@ paths:
       summary: Adds a new landing for user
       operationId: addLanding
       description: Adds a landing for user
+      security:
+        - bearerAuth: []
       responses:
         '201':
           description: Item created
@@ -149,6 +321,8 @@ paths:
       summary: Mass copy of landings
       operationId: copyLandings
       description: Mass copy of landings
+      security:
+        - bearerAuth: []
       responses:
         '204':
           description: Items copied
@@ -238,6 +412,8 @@ paths:
         - Landings
       summary: Returns full description of some landing by it's id
       operationId: getLanding
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -326,6 +502,8 @@ paths:
       summary: Updates a landing
       operationId: updateLanding
       description: Updates a landing with passed id
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -448,6 +626,8 @@ paths:
       summary: Deletes a landing
       operationId: deleteLanding
       description: Delete a landing with passed id
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -534,6 +714,8 @@ paths:
       summary: Publish or republish a landing
       operationId: publishLanding
       description: (Re)Publish a landing with passed id
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -616,6 +798,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorNotFound'
       requestBody:
+        description: Attached zip archive with rendered landing content
+        required: true
         content:
           multipart/form-data:
             schema:
@@ -631,6 +815,8 @@ paths:
       summary: Unpublish a landing
       operationId: unpublishLanding
       description: Unpublishing a landing with passed id
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -721,6 +907,8 @@ paths:
       summary: Set or change an external domain for landing
       operationId: setLandingDomain
       description: Set or change an external domain for landing
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -819,6 +1007,8 @@ paths:
       summary: Remove an external domain for landing
       operationId: unpublishLanding
       description: Remove an external domain for landing
+      security:
+        - bearerAuth: []
       parameters:
         - in: path
           name: landingId
@@ -904,7 +1094,7 @@ paths:
   /api/v1/_healthz:
     get:
       tags:
-        - Landings
+        - Health
       summary: Health check
       operationId: healthCheck
       responses:
@@ -1125,5 +1315,19 @@ components:
             landing:
               $ref: '#/components/schemas/Landing'
 
-security:
-  - bearerAuth: []
+    RefreshedToken:
+      type: object
+      required:
+        - access_token
+        - refresh_token
+        - expires_in
+      properties:
+        access_token:
+          type: string
+          example: "jGyBC7AJpde9JuPBCs4LFo5BOYTM70Alv-mz_NrZTUw.nPP4inQqeWNvlELMawIk7Dp7HJYMZlQr29vheAWe5RA"
+        refresh_token:
+          type: string
+          example: "pcQM0lcIoEe8HUS3A27urh1aTH9UUgZFJ-L4Htm1Adg.OqEfdL0L3KcLs3ZFIM4YQV-QqjhvqRI_9lnW7IVIXPU"
+        expires_in:
+          type: number
+          example: 3599

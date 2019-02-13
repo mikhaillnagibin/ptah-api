@@ -27,10 +27,6 @@ const koaBody = convert(KoaBody({
 const landingsNamespace = config.landingsNamespace;
 
 router
-    .get('/_healthz', async(ctx, next) => {
-        ctx.body = {};
-        next();
-    })
     .get(`${landingsNamespace}/`, listLandings)
     .post(`${landingsNamespace}/`, koaBody, addLanding)
     .post(`${landingsNamespace}/copy`, koaBody, copyLandings)
@@ -41,7 +37,7 @@ router
     .delete(`${landingsNamespace}/:id/publishing`, unpublishLanding)
     .post(`${landingsNamespace}/:id/domain`, koaBody, setLandingDomain)
     .delete(`${landingsNamespace}/:id/domain`, unsetLandingDomain)
-    ;
+;
 
 module.exports.routes = function () { return router.routes() };
 module.exports.allowedMethods = function () { return router.allowedMethods() };
