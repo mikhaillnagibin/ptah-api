@@ -19,11 +19,11 @@ ENV NODE_ENV=production \
     SERVER_PORT=3000 \
     SENTRY_DSN="" \
     PUBLIC_HOST="" \
-    OAUTH_CLIENT_ID="" \
-    OAUTH_CLIENT_SECRET="" \
-    OAUTH_CLIENT_SCOPE="openid,offline" \
-    OAUTH_AUTHORIZE_URL="" \
-    OAUTH_TOKEN_URL=""
+    AUTH1_CLIENT_ID="" \
+    AUTH1_CLIENT_SECRET="" \
+    AUTH1_CLIENT_SCOPE="openid,offline" \
+    AUTH1_AUTHORIZE_URL="" \
+    AUTH1_TOKEN_URL=""
 
 COPY package.json /application
 

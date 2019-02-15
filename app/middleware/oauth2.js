@@ -1,51 +1,12 @@
 'use strict';
 
-const fs = require('fs');
 const _ = require('lodash');
-const urlJoin = require('url-join');
-const urlParse = require('url-parse');
-const buildUrl = require('build-url');
 const format = require("string-template");
 const simpleOauth2 = require('simple-oauth2');
 
-const config = require('../../config/config');
 const badRequest = require('../actions/helpers/bad-request');
 
-const oauthPostmessageHtmlTemplate = fs.readFileSync(config.oauthPostmessageHtmlTemplatePath).toString('utf8');
-
-const callbackUrl = buildUrl(config.publicHost, {
-    path: urlJoin([config.routesPrefix, config.authNamespace, 'callback'])
-});
-
-const authorizeUrl = urlParse(config.oauthAuthorizeUrl);
-const tokenUrl = urlParse(config.oauthTokenUrl);
-
-const oauthConfig = {
-    // Client ID and secret for OAuth provider
-    clientId: config.oauthClientId,
-    clientSecret: config.oauthClientSecret,
-
-    // Redirect URL for this application, i.e. where you mounted the authorized middleware
-    callbackUrl: callbackUrl,
-
-    publicHost: config.publicHost,
-
-    // These options are passed to simple-oauth2, see https://github.com/lelylan/simple-oauth2
-    oauthOptions: {
-        auth: {
-            tokenHost: tokenUrl.origin,
-            tokenPath: tokenUrl.pathname,
-            authorizeHost: authorizeUrl.origin,
-            authorizePath: authorizeUrl.pathname,
-        },
-    },
-
-    scope: config.oauthScope,
-
-    oauthPostmessageHtmlTemplate: oauthPostmessageHtmlTemplate
-};
-
-const createMiddleware = ({
+module.exports = ({
                               clientId,
                               clientSecret,
                               scope,
@@ -53,7 +14,7 @@ const createMiddleware = ({
                               callbackUrl,
                               state,
                               oauthOptions = {},
-                              oauthPostmessageHtmlTemplate = '',
+                              postmessageHtmlTemplate = '',
                               publicHost
                           }) => {
     // Initialize OAuth
@@ -105,12 +66,13 @@ const createMiddleware = ({
                 redirect_uri: callbackUrl,
                 code: ctx.query.code
             });
+            ctx.state = cts.state || {};
+            ctx.state.oauth2 = result;
             return sendHtmlResponse(ctx, {
                 errorCode: '',
                 accessToken: result.access_token,
                 refreshToken: result.refresh_token,
-                expires_in: result.expires_in,
-                blah: 1
+                expires_in: result.expires_in
             });
         } catch (err) {
             ctx.log.error(err);
@@ -152,15 +114,20 @@ const createMiddleware = ({
     };
 
     const createToken = (ctx) => {
-        const accessToken = (ctx.headers.authorization || '').split(' ').pop();
-        const refreshToken = ctx.headers['x-refresh-token'] || '';
+        let oauth2Token = _.get(ctx, 'state.oauth2');
+        if (!oauth2Token) {
+            oauth2Token = {
+                accessToken: (ctx.headers.authorization || '').split(' ').pop(),
+                refreshToken: ctx.headers['x-refresh-token'] || ''
+            }
+        }
 
-        return oauth2.accessToken.create({
-            "access_token": accessToken,
-            "refresh_token": refreshToken,
+        const tokenParams = _.defaults(oauth2Token, {
             "scope": scope.join(' '),
             "token_type": "bearer"
         });
+
+        return oauth2.accessToken.create(tokenParams);
     };
 
     const sendHtmlResponse = (ctx, params) => {
@@ -171,8 +138,9 @@ const createMiddleware = ({
             expires_in: 0,
             publicHost: publicHost,
         });
+        _params.isSuccess = _params.errorCode === '';
         ctx.type = 'html';
-        ctx.body =  format(oauthPostmessageHtmlTemplate, _params);
+        ctx.body =  format(postmessageHtmlTemplate, _params);
     };
 
     return {
@@ -182,7 +150,3 @@ const createMiddleware = ({
         logout
     };
 };
-
-const oauthMiddleware = createMiddleware(Object.assign({}, oauthConfig));
-
-module.exports = oauthMiddleware;

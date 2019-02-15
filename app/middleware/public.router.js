@@ -4,14 +4,14 @@ const Router  = require('koa-router');
 
 const config = require('../../config/config');
 
-const oauthMiddleware = require('./oauth2');
+const auth1Middleware = require('./auth1.oauth2');
 
 const router = new Router({
     prefix: config.routesPrefix
 });
 
 
-const authNamespace = config.authNamespace;
+const auth1Namespace = config.auth1Namespace;
 
 router
     .get('/_healthz', async(ctx, next) => {
@@ -19,10 +19,10 @@ router
         next();
     })
 
-    .get(`${authNamespace}/login`, oauthMiddleware.login)
-    .get(`${authNamespace}/callback`, oauthMiddleware.authorized)
-    .get(`${authNamespace}/refresh`, oauthMiddleware.refresh)
-    .get(`${authNamespace}/logout`, oauthMiddleware.logout)
+    .get(`${auth1Namespace}/login`, auth1Middleware.login)
+    .get(`${auth1Namespace}/callback`, auth1Middleware.authorized)
+    .get(`${auth1Namespace}/refresh`, auth1Middleware.refresh)
+    .get(`${auth1Namespace}/logout`, auth1Middleware.logout)
 ;
 
 module.exports.routes = function () { return router.routes() };

@@ -27,7 +27,7 @@ tags:
     description: Intergation with mailchimp
 
 paths:
-  /api/v1/auth/login:
+  /api/v1/auth1/login:
     get:
       tags:
         - Auth
@@ -44,7 +44,7 @@ paths:
         '302':
           description: Redirect to auth1 server
 
-  /api/v1/auth/callback:
+  /api/v1/auth1/callback:
     get:
       tags:
         - Auth
@@ -59,7 +59,7 @@ paths:
               schema:
                 type: string
 
-  /api/v1/auth/logout:
+  /api/v1/auth1/logout:
     get:
       tags:
         - Auth
@@ -119,7 +119,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorInternalServerError'
 
-  /api/v1/auth/refresh:
+  /api/v1/auth1/refresh:
     get:
       tags:
         - Auth

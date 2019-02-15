@@ -15,9 +15,9 @@ Backend for PTAH
 DB_HOST={string='localhost'} DB_NAME={string='ptah'} DB_PASS={string='ptah'} DB_PORT={string='27017'} 
 DB_USER={string='ptah'} JWT_KEY={string} NGINX_CONFIGS_DIR={string='sites_enabled'} 
 PUBLIC_HTML_DIR={string='public_html'} ROUTES_PREFIX={string='/api/v1'} SENTRY_DSN={string} SERVER_PORT={string='80'} 
-PUBLIC_HOST={string='https://landings.protocol.one'} OAUTH_CLIENT_ID={string} OAUTH_CLIENT_SECRET={string} 
-OAUTH_CLIENT_SCOPE={string} OAUTH_AUTHORIZE_URL={string=https://auth1.protocol.one/oauth2/auth} 
-OAUTH_TOKEN_URL={string=https://auth1.protocol.one/oauth2/token} node ./index.js`
+PUBLIC_HOST={string='https://landings.protocol.one'} AUTH1_CLIENT_ID={string} AUTH1_CLIENT_SECRET={string} 
+AUTH1_CLIENT_SCOPE={string} AUTH1_AUTHORIZE_URL={string=https://auth1.protocol.one/oauth2/auth} 
+AUTH1_TOKEN_URL={string=https://auth1.protocol.one/oauth2/token} node ./index.js`
 
 Where:
 
@@ -43,15 +43,15 @@ Where:
 
 {NODE_ENV} - Current environment
 
-{OAUTH_CLIENT_ID} - client id for OAuth2 authorization 
+{AUTH1_CLIENT_ID} - client id for OAuth2 authentication through Auth1 service
 
-{OAUTH_CLIENT_SECRET} - client secret for OAuth2 authorization
+{AUTH1_CLIENT_SECRET} - client secret for OAuth2 authentication through Auth1 service
 
-{OAUTH_CLIENT_SCOPE} - required client scope for OAuth2 authorization
+{AUTH1_CLIENT_SCOPE} - required client scope for OAuth2 authentication through Auth1 service
 
-{OAUTH_AUTHORIZE_URL} - full url of oauth authorize endpoint 
+{AUTH1_AUTHORIZE_URL} - full url of Auth1 authorize endpoint 
 
-{OAUTH_TOKEN_URL} - full url of oauth token endpoint
+{AUTH1_TOKEN_URL} - full url of Auth1 token endpoint
 
 {PUBLIC_HOST} - Public host url, for example https://landings.protocol.one
 
@@ -75,7 +75,7 @@ All integration tests, also, validates their responses throught this specificati
 
 ## Authoriztion
 
-For make a user login, you must open an `/api/v1/auth/login` endpoint if iframe. 
+For make a user login, you must open an `/api/v1/auth1/login` endpoint if iframe. 
 All process of authorization will go in that frame, and finally you receive a postMessage from iframe, 
 with result of authorization. 
 
@@ -86,7 +86,7 @@ Tokens, that you receive form postMessage, you must store in browser's local sto
 Access token you must pass as bearer authorization header to all requests to this api, except ones for authorization.
 Refresh token you must use for update access token if it become expired.
 
-For refresh you must send refresh token as "refresh" header in GET request to `/api/v1/auth/refresh`
+For refresh you must send refresh token as "refresh" header in GET request to `/api/v1/auth1/refresh`
 
 For logout you must send refresh token as "refresh" header and access token as bearer authorization in GET request to 
-`/api/v1/auth/logout`
+`/api/v1/auth1/logout`

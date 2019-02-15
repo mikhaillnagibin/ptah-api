@@ -26,7 +26,7 @@ const config = {
 
     routesPrefix: getEnvVariable('ROUTES_PREFIX', '/api/v1'),
 
-    authNamespace: '/auth',
+    auth1Namespace: '/auth1',
     landingsNamespace: '/landings',
 
     publicHtmlDir: path.resolve(publicHtmlDir),
@@ -37,12 +37,13 @@ const config = {
 
     publicHost:  getEnvVariable('PUBLIC_HOST', 'http://127.0.0.1:3000'),
 
-    oauthClientId: getEnvVariable('OAUTH_CLIENT_ID', '5c6410bc68add44398670920'),
-    oauthClientSecret: getEnvVariable('OAUTH_CLIENT_SECRET', 'tmSanMbHwj6NYfrtwO8MBscZf3ClfbLneIbaLkENDz9L6S4Vtk1jY6GVX6luVwhN'),
-    oauthScope: getEnvVariableArray('OAUTH_CLIENT_SCOPE', 'openid,offline'),
-    oauthAuthorizeUrl: getEnvVariable('OAUTH_AUTHORIZE_URL', 'http://192.168.99.100:4444/oauth2/auth'),
-    oauthTokenUrl: getEnvVariable('OAUTH_TOKEN_URL', 'http://192.168.99.100:4444/oauth2/token'),
-    oauthPostmessageHtmlTemplatePath: path.resolve('templates/oauth.postmessage.html.template'),
+    auth1ClientId: getEnvVariable('AUTH1_CLIENT_ID', '5c6410bc68add44398670920'),
+    auth1ClientSecret: getEnvVariable('AUTH1_CLIENT_SECRET', 'tmSanMbHwj6NYfrtwO8MBscZf3ClfbLneIbaLkENDz9L6S4Vtk1jY6GVX6luVwhN'),
+    auth1Scope: getEnvVariableArray('AUTH1_CLIENT_SCOPE', 'openid,offline'),
+    auth1AuthorizeUrl: getEnvVariable('AUTH1_AUTHORIZE_URL', 'http://192.168.99.100:4444/oauth2/auth'),
+    auth1TokenUrl: getEnvVariable('AUTH1_TOKEN_URL', 'http://192.168.99.100:4444/oauth2/token'),
+    auth1PostmessageHtmlTemplatePath: path.resolve('templates/auth1.postmessage.html.template'),
+
 };
 
 module.exports = config;
