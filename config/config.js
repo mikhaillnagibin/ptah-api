@@ -19,8 +19,10 @@ const config = {
     dbName: getEnvVariable('DB_NAME', 'ptah'),
     dbUser: getEnvVariable('DB_USER', 'ptah'),
     dbPass: getEnvVariable('DB_PASS', 'ptah'),
-    dbCollectionName: getEnvVariable('DB_COLLECTION_NAME', 'ptah'),
     dbAuthMethod: getEnvVariable('DB_AUTH_METHOD', 'SCRAM-SHA-256'),
+
+    dbLandingsCollectionName: 'ptah-landings',
+    dbUsersCollectionName: 'ptah-users',
 
     routesPrefix: getEnvVariable('ROUTES_PREFIX', '/api/v1'),
 

@@ -68,7 +68,7 @@ module.exports = async (ctx, next) => {
                 hasUnpublishedChanges: false
             });
 
-            const collection = getDbCollection(ctx);
+            const collection = getDbCollection.landings(ctx);
 
             await collection.updateOne({_id: ObjectID(id)}, {$set: data});
         }

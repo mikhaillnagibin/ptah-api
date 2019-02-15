@@ -21,7 +21,7 @@ module.exports = async (ctx, next) => {
                 isDeleted: true
             });
 
-            const collection = getDbCollection(ctx);
+            const collection = getDbCollection.landings(ctx);
             await collection.updateOne({_id: ObjectID(id)}, {$set: data});
         }
     } catch (err) {

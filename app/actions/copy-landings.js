@@ -25,7 +25,7 @@ module.exports = async (ctx, next) => {
                 landing: landing.landing
             })
         });
-        const collection = getDbCollection(ctx);
+        const collection = getDbCollection.landings(ctx);
 
         await collection.insertMany(newLandings);
 

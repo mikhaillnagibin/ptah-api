@@ -37,7 +37,7 @@ module.exports = async (ctx, ids) => {
         options.projection.landing = 0;
     }
 
-    const collection = getDbCollection(ctx);
+    const collection = getDbCollection.landings(ctx);
 
     let result = [];
 
