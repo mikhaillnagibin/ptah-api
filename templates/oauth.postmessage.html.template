@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <script>
+        var result = {
+            error: "{errorCode}",
+            access_token: "{accessToken}",
+            refresh_token: "{refreshToken}",
+            expires_in: {expires}
+        };
+        var targetOrigin = "{publicHost}";
+        parent.postMessage(JSON.stringify(result), targetOrigin);
+    </script>
+</head>
+<body></body>
+</html>

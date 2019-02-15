@@ -24,22 +24,20 @@ const koaBody = convert(KoaBody({
     multipart: true
 }));
 
+const landingsNamespace = config.landingsNamespace;
+
 router
-    .get('/', listLandings)
-    .post('/', koaBody, addLanding)
-    .post('/copy', koaBody, copyLandings)
-    .get('/_healthz', async(ctx, next) => {
-        ctx.body = {};
-        next();
-    })
-    .get('/:id', getLanding)
-    .patch('/:id', koaBody, updateLanding)
-    .delete('/:id', deleteLanding)
-    .post('/:id/publishing', koaBody, publishLanding)
-    .delete('/:id/publishing', unpublishLanding)
-    .post('/:id/domain', koaBody, setLandingDomain)
-    .delete('/:id/domain', unsetLandingDomain)
-    ;
+    .get(`${landingsNamespace}/`, listLandings)
+    .post(`${landingsNamespace}/`, koaBody, addLanding)
+    .post(`${landingsNamespace}/copy`, koaBody, copyLandings)
+    .get(`${landingsNamespace}/:id`, getLanding)
+    .patch(`${landingsNamespace}/:id`, koaBody, updateLanding)
+    .delete(`${landingsNamespace}/:id`, deleteLanding)
+    .post(`${landingsNamespace}/:id/publishing`, koaBody, publishLanding)
+    .delete(`${landingsNamespace}/:id/publishing`, unpublishLanding)
+    .post(`${landingsNamespace}/:id/domain`, koaBody, setLandingDomain)
+    .delete(`${landingsNamespace}/:id/domain`, unsetLandingDomain)
+;
 
 module.exports.routes = function () { return router.routes() };
 module.exports.allowedMethods = function () { return router.allowedMethods() };

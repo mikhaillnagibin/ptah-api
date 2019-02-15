@@ -10,7 +10,9 @@ const cacheControl = require('koa-cache-control');
 
 const config = require('../config/config');
 
-const router = require('./middleware/router');
+const publicRouter = require('./middleware/public.router');
+const privateRouter = require('./middleware/private.router');
+
 const mongo = require('./middleware/mongo');
 
 
@@ -28,6 +30,10 @@ const logger = new KoaReqLogger({
     alwaysError: true // treat all non-2** http codes as error records in logs
 });
 app.use(logger.getMiddleware());
+
+// ensure that dirs are exists
+fs.mkdirSync(config.publicHtmlDir, { recursive: true });
+fs.mkdirSync(config.nginxConfigsDir, { recursive: true });
 
 // setup db connection
 const mongoOptions = {
@@ -63,19 +69,20 @@ app.use(async (ctx, next) => {
 
 app.use(mongo(mongoOptions, mongoConnectionOptions));
 
-// Middleware below this line is only reached if JWT token is valid
-app.use(jwt({ secret: config.jwtKey }).unless({ path: `${config.routesPrefix}/_healthz` }));
 
-app.use(router.routes());
-app.use(router.allowedMethods());
+app.use(publicRouter.routes());
+app.use(publicRouter.allowedMethods());
+
+// Middleware below this line is only reached if JWT token is valid
+// healthCheck page and all auth pages are not requires authorization
+app.use(jwt({ secret: config.jwtKey }));
+
+app.use(privateRouter.routes());
+app.use(privateRouter.allowedMethods());
 
 app.use(cacheControl({
     noCache: true
 }));
-
-// ensure that dirs are exists
-fs.mkdirSync(config.publicHtmlDir, { recursive: true });
-fs.mkdirSync(config.nginxConfigsDir, { recursive: true });
 
 // server
 const port = config.serverPort;
