@@ -17,6 +17,7 @@ const setLandingDomain = require('../actions/set-landing-domain');
 const unsetLandingDomain = require('../actions/unset-landing-domain');
 const copyLandings = require('../actions/copy-landings');
 
+
 const router = new Router({
     prefix: config.routesPrefix
 });
@@ -24,19 +25,25 @@ const koaBody = convert(KoaBody({
     multipart: true
 }));
 
-const landingsNamespace = config.landingsNamespace;
+const landingsRoutesNamespace = config.landingsRoutesNamespace;
+const mailchimpRoutesNamespace = config.mailchimpRoutesNamespace;
+const userRoutesNamespace = config.userRoutesNamespace;
 
 router
-    .get(`${landingsNamespace}/`, listLandings)
-    .post(`${landingsNamespace}/`, koaBody, addLanding)
-    .post(`${landingsNamespace}/copy`, koaBody, copyLandings)
-    .get(`${landingsNamespace}/:id`, getLanding)
-    .patch(`${landingsNamespace}/:id`, koaBody, updateLanding)
-    .delete(`${landingsNamespace}/:id`, deleteLanding)
-    .post(`${landingsNamespace}/:id/publishing`, koaBody, publishLanding)
-    .delete(`${landingsNamespace}/:id/publishing`, unpublishLanding)
-    .post(`${landingsNamespace}/:id/domain`, koaBody, setLandingDomain)
-    .delete(`${landingsNamespace}/:id/domain`, unsetLandingDomain)
+    .get(`${landingsRoutesNamespace}/`, listLandings)
+    .post(`${landingsRoutesNamespace}/`, koaBody, addLanding)
+    .post(`${landingsRoutesNamespace}/copy`, koaBody, copyLandings)
+    .get(`${landingsRoutesNamespace}/:id`, getLanding)
+    .patch(`${landingsRoutesNamespace}/:id`, koaBody, updateLanding)
+    .delete(`${landingsRoutesNamespace}/:id`, deleteLanding)
+    .post(`${landingsRoutesNamespace}/:id/publishing`, koaBody, publishLanding)
+    .delete(`${landingsRoutesNamespace}/:id/publishing`, unpublishLanding)
+    .post(`${landingsRoutesNamespace}/:id/domain`, koaBody, setLandingDomain)
+    .delete(`${landingsRoutesNamespace}/:id/domain`, unsetLandingDomain)
+
+
+
+
 ;
 
 module.exports.routes = function () { return router.routes() };
