@@ -4,7 +4,6 @@ const path = require('path');
 
 const envUtils = require('../app/utils/env');
 const getEnvVariable = envUtils.getEnvVariable;
-const getEnvVariableArray = envUtils.getEnvVariableArray;
 
 const publicHtmlDir = getEnvVariable('PUBLIC_HTML_DIR', 'public_html');
 const nginxConfigsDir = getEnvVariable('NGINX_CONFIGS_DIR', 'sites_enabled');
@@ -35,6 +34,9 @@ const config = {
     nginxConfigTemplatePath: path.resolve('templates/nginx.conf.template'),
 
     sentryDsn: getEnvVariable('SENTRY_DSN', 'https://f1fe9d5210df4b82aabe49839b197763@sentry.tst.protocol.one/4'),
+
+    mailchimpMetadataUrl: getEnvVariable('MAILCHIMP_METADATA_URL', 'https://login.mailchimp.com/oauth2/metadata'),
+    mailchimpMaillistsPath: getEnvVariable('MAILCHIMP_MAILLISTS_PATH', '/3.0/lists'),
 
 
 };

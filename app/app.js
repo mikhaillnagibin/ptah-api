@@ -76,8 +76,8 @@ app.use(koaRequest({
 
 
 // Middleware below this line is only reached if JWT token is valid
-// healthCheck page and all auth pages are not requires authorization
-app.use(jwt({ secret: config.jwtKey }));
+// healthCheck page not requires authorization
+app.use(jwt({ secret: config.jwtKey }).unless({ path: `${config.routesPrefix}/_healthz` }));
 
 app.use(router.routes());
 app.use(router.allowedMethods());

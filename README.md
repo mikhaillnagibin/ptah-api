@@ -72,21 +72,3 @@ Integration tests are require an live MongoDB server connection
 Api specifications described in spec/openapi.yaml file. You may use Swagger to see them
 
 All integration tests, also, validates their responses throught this specification.
-
-## Authoriztion
-
-For make a user login, you must open an `/api/v1/auth1/login` endpoint if iframe. 
-All process of authorization will go in that frame, and finally you receive a postMessage from iframe, 
-with result of authorization. 
-
-Result will be an json-serialized object with auth token, refresh token, expire time and error code if it occures. 
-Actual structure of object you may see in `templates/oauth.postmessage.html.template` file.
-
-Tokens, that you receive form postMessage, you must store in browser's local storage.
-Access token you must pass as bearer authorization header to all requests to this api, except ones for authorization.
-Refresh token you must use for update access token if it become expired.
-
-For refresh you must send refresh token as "refresh" header in GET request to `/api/v1/auth1/refresh`
-
-For logout you must send refresh token as "refresh" header and access token as bearer authorization in GET request to 
-`/api/v1/auth1/logout`

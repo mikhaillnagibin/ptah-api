@@ -17,6 +17,9 @@ const setLandingDomain = require('../actions/set-landing-domain');
 const unsetLandingDomain = require('../actions/unset-landing-domain');
 const copyLandings = require('../actions/copy-landings');
 
+const getUserInfo = require('../actions/get-user-info');
+
+const getMaillists = require('../actions/get-maillists');
 
 const router = new Router({
     prefix: config.routesPrefix
@@ -30,6 +33,10 @@ const mailchimpRoutesNamespace = config.mailchimpRoutesNamespace;
 const userRoutesNamespace = config.userRoutesNamespace;
 
 router
+    .get('/_healthz', async(ctx, next) => {
+        ctx.body = {};
+        next();
+    })
     .get(`${landingsRoutesNamespace}/`, listLandings)
     .post(`${landingsRoutesNamespace}/`, koaBody, addLanding)
     .post(`${landingsRoutesNamespace}/copy`, koaBody, copyLandings)
@@ -41,9 +48,9 @@ router
     .post(`${landingsRoutesNamespace}/:id/domain`, koaBody, setLandingDomain)
     .delete(`${landingsRoutesNamespace}/:id/domain`, unsetLandingDomain)
 
+    .get(`${userRoutesNamespace}/`, getUserInfo)
 
-
-
+    .get(`${mailchimpRoutesNamespace}/maillists`, getMaillists)
 ;
 
 module.exports.routes = function () { return router.routes() };
