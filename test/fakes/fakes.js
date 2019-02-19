@@ -12,7 +12,7 @@ const fakeProjectZipPath = path.join(__dirname, 'project.zip');
 
 const fakeUserId = 'b62klDf0HeiJdNMv8K263nfE';
 const fakeUser = {
-    id: fakeUserId
+    sub: fakeUserId
 };
 const fakeUserAuthToken = jwt.sign(fakeUser, config.jwtKey);
 

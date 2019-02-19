@@ -11,8 +11,6 @@ const nginxConfigsDir = getEnvVariable('NGINX_CONFIGS_DIR', 'sites_enabled');
 const config = {
     serverPort: +getEnvVariable('SERVER_PORT', 3000),
 
-    jwtKey: getEnvVariable('JWT_KEY', 'd7e5a85d-b351-4b2f-aa89-f628a00c14e1'),
-
     dbHost: getEnvVariable('DB_HOST', 'localhost'),
     dbPort: +getEnvVariable('DB_PORT', '27017'),
     dbName: getEnvVariable('DB_NAME', 'ptah'),
@@ -22,6 +20,9 @@ const config = {
 
     dbLandingsCollectionName: 'ptah-landings',
     dbUsersCollectionName: 'ptah-users',
+
+    redisHost: getEnvVariable('REDIS_HOST', '192.168.99.100'),
+    redisPort: +getEnvVariable('REDIS_PORT', '6379'),
 
     routesPrefix: getEnvVariable('ROUTES_PREFIX', '/api/v1'),
 
@@ -38,6 +39,11 @@ const config = {
     mailchimpMetadataUrl: getEnvVariable('MAILCHIMP_METADATA_URL', 'https://login.mailchimp.com/oauth2/metadata'),
     mailchimpMaillistsPath: getEnvVariable('MAILCHIMP_MAILLISTS_PATH', '/3.0/lists'),
 
+    auth1ClientId: getEnvVariable('AUTH1_CLIENT_ID', '5c6a9d5568add43d9cb21826'),
+    auth1IntrospectionUrl: getEnvVariable('AUTH1_INTROSPECTION_URL', 'http://192.168.99.100:4445/oauth2/introspect'),
+    auth1CacheMaxAge: +getEnvVariable('AUTH1_CACHE_MAX_AGE', '300000'),
+
+    userIdStatePath: 'state.oauth2.sub',
 
 };
 

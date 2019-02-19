@@ -3,12 +3,13 @@
 const _ = require('lodash');
 const ObjectID = require('bson-objectid');
 
+const config = require('../../../config/config');
 const getDbCollection = require('./../../utils/get-db-collection');
 
 const omitFields = [];
 
 module.exports = async (ctx) => {
-    const userId = _.get(ctx, 'state.user.id');
+    const userId = _.get(ctx, config.userIdStatePath);
     if (!userId) {
         const err = new Error('No authenticated user in state');
         ctx.log.error(err);
