@@ -1,9 +1,10 @@
 'use strict';
 
-const urlJoin =  require('url-join');
+const urlJoin = require('url-join');
 
 const config = require('../../config/config');
 const getUser = require('./helpers/get-user');
+const mailchimpRequest = require('../services/mailchimp');
 
 module.exports = async (ctx, next) => {
     try {
@@ -15,17 +16,20 @@ module.exports = async (ctx, next) => {
             throw err;
         }
 
-        const metadata = await ctx.get(config.mailchimpMetadataUrl, null, {
-            'Authorization': `Bearer ${user.mailchimpAccessToken}`
-        });
+        const options = {
+            method: 'get',
+            uri: config.mailchimpMetadataUrl,
+            json: true,
+            headers: {
+                'Authorization': `Bearer ${user.mailchimpAccessToken}`
+            }
+        };
 
-        const apiEndpoint = metadata.api_endpoint;
+        const metadata = await mailchimpRequest(ctx, options);
 
-        const listsUrl = urlJoin([apiEndpoint, config.mailchimpMaillistsPath]);
+        options.uri = urlJoin([metadata.api_endpoint, config.mailchimpMaillistsPath]);
 
-        ctx.body = await ctx.get(listsUrl, null, {
-            'Authorization': `Bearer ${user.mailchimpAccessToken}`
-        });
+        ctx.body = await mailchimpRequest(ctx, options);
 
     } catch (err) {
         throw err

@@ -5,7 +5,6 @@ const os = require('os');
 const Koa = require('koa');
 const jwt = require('koa-jwt');
 const Sentry = require('@sentry/node');
-const koaRequest = require('koa-http-request');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
 
@@ -68,12 +67,6 @@ app.use(async (ctx, next) => {
 });
 
 app.use(mongo(mongoOptions, mongoConnectionOptions));
-
-app.use(koaRequest({
-    json: true,    timeout: 3000,
-    host: ''
-}));
-
 
 // Middleware below this line is only reached if JWT token is valid
 // healthCheck page not requires authorization
