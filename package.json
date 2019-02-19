@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start local": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
-    "migrations local": "cd ./migrations && NODE_ENV=local migrate-mongo up && cd ..",
+    "migrations local": "cd ./migrations && cross-env NODE_ENV=local migrate-mongo up && cd ..",
     "test": "cross-env NODE_ENV=test SERVER_PORT=3001 DB_COLLECTION_NAME=ptah-test node_modules/.bin/mocha --exit --timeout 4000 ./test/index.js"
   },
   "repository": {

@@ -40,7 +40,6 @@ module.exports = async (ctx) => {
                 userId: userId,
                 mailchimpIntegration: false,
                 mailchimpAccessToken: '',
-                mailchimpUserId: '',
                 isDeleted: false
             };
 
