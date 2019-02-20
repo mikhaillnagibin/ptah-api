@@ -1,3 +1,8 @@
+dist: xenial
+
+services:
+  - mongodb
+
 language: node_js
 
 node_js:
@@ -5,26 +10,21 @@ node_js:
 
 env:
   global:
-    - MONGODB=4.0.6
+    - NODE_ENV=test
+    - DB_NAME=ptah-test
+    - DB_USER=''
+    - SERVER_PORT=3001
+    - REDIS_HOST=''
+    - MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata
+    - AUTH1_INTROSPECTION_URL=http://localhost:3002/oauth2/introspect
 
 install:
-  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB}.tgz
-  - tar xzf mongodb-linux-x86_64-${MONGODB}.tgz
-  - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --version
-
-before_script:
-  - mkdir ${PWD}/mongodb-linux-x86_64-${MONGODB}/data
-  - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/data --logpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/mongodb.log --fork
-  - mongo mydb_test --eval 'db.version();'
+  - npm install -g codecov nyc mocha
+  - npm ci
 
 script:
-  - npm install && npm test
+  - npm run tests:migrations
+  - nyc --reporter=lcovonly mocha --exit --timeout 4000 ./test/index.js
+  - codecov
 
-after_script:
-  - pkill mongod
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-notifications:
-  email: false
