@@ -39,3 +39,5 @@ const getEnvVariableArray = function (variableName, defaultValue, allowedList) {
 
 module.exports.getEnvVariable = getEnvVariable;
 module.exports.getEnvVariableArray = getEnvVariableArray;
+module.exports.isLocal = isLocal;
+module.exports.isTest = isTest;

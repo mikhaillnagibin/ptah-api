@@ -3,7 +3,6 @@
 const fs = require('fs');
 const os = require('os');
 const Koa = require('koa');
-//const jwt = require('koa-jwt');
 const Sentry = require('@sentry/node');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
@@ -60,9 +59,8 @@ app.use(async (ctx, next) => {
                 process.exit(1);
             });
         }
-        const error = new Error(err.message || 'Internal Server Error');
-        error.status = err.status || 500;
-        throw error;
+        err.status = err.status || 500;
+        throw err;
     }
 });
 

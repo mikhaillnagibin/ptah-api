@@ -3,8 +3,19 @@
 const fs = require('fs');
 const path = require('path');
 
+const config = require('../config/config');
+
+const testDbName = 'ptah-test';
+if (config.dbName !== testDbName) {
+    console.error(`Probably production database "${config.dbName}" used, instead of "${testDbName}"!`);
+    process.exit(1);
+}
+
+// starting mock server for integration tests
+require('./fakes/external-servers-mockup');
+
 const re = /\.test\.js$/; // names of files with tests must match file mask *.test.js
-const testDirs = ['integration']; // dirs with tests //'unit',
+const testDirs = ['unit', 'integration']; // dirs with tests //
 
 const currentDir = __dirname;
 testDirs.forEach( dir => {

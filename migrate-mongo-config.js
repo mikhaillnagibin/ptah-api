@@ -1,6 +1,6 @@
 // In this file you can configure migrate-mongo
 
-const config = require('../config/config');
+const config = require('./config/config');
 
 const cfg = {
   mongodb: {

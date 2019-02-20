@@ -1,26 +1,18 @@
 'use strict';
 
 const path = require('path');
-const jwt = require('jsonwebtoken');
 const ObjectID = require("bson-objectid");
 
-const config = require('../../config/config');
-
 const fakeLandingData = require('./landing');
+const fakeMaillistData = require('./maillists');
 
 const fakeProjectZipPath = path.join(__dirname, 'project.zip');
 
 const fakeUserId = 'b62klDf0HeiJdNMv8K263nfE';
-const fakeUser = {
-    sub: fakeUserId
-};
-const fakeUserAuthToken = jwt.sign(fakeUser, config.jwtKey);
+const fakeUserAuthToken = 't9t8yf_-A9IbFJ-ldxoQ80pWBDbRWhDiuNIlhj1nl7I.OFol83LbiTznkEJzwz0otoO5Zn8KDlGONGiKdqrgawM';
 
 const fakeAnotherUserId = '0HeiJdNMv8K263nfEb62klDf';
-const fakeAnotherUser = {
-    id: fakeAnotherUserId
-};
-const fakeAnotherUserAuthToken = jwt.sign(fakeAnotherUser, config.jwtKey);
+const fakeAnotherUserAuthToken = 'CunLhcgaE-tz6euizyof-ltm1Hh88lrDTcbj8KVoPH4.hnts7D3ufK_ERbujTrUyFpHXUQMdy9GBvYUH7Y3xKeI';
 
 
 const fakeId = '5c4c8b4618cd1bd2325e6904';
@@ -42,6 +34,8 @@ const fakeLanding = {
 module.exports.fakeId = fakeId;
 module.exports.fakeUserId = fakeUserId;
 module.exports.fakeUserAuthToken = fakeUserAuthToken;
+module.exports.fakeAnotherUserId = fakeAnotherUserId;
 module.exports.fakeAnotherUserAuthToken = fakeAnotherUserAuthToken;
 module.exports.fakeLanding = fakeLanding;
+module.exports.fakeMaillistData = fakeMaillistData;
 module.exports.fakeProjectZipPath = fakeProjectZipPath;
