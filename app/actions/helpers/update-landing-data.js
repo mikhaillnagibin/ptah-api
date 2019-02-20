@@ -3,12 +3,14 @@
 const _ = require('lodash');
 const ObjectID = require("bson-objectid");
 
+const config = require('../../../config/config');
+
 module.exports = (ctx, currentData, updatedData) => {
 
     currentData = currentData || {};
     updatedData = updatedData || {};
 
-    const userId = _.get(ctx, 'state.user.id');
+    const userId = _.get(ctx, config.userIdStatePath);
     if (!userId) {
         throw new Error('User not created');
     }

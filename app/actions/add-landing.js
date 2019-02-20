@@ -27,7 +27,7 @@ module.exports = async (ctx, next) => {
 
     const data = updateLandingData(ctx, {}, update);
 
-    const collection = getDbCollection(ctx);
+    const collection = getDbCollection.landings(ctx);
     try {
         await collection.insertOne(data);
     } catch (err) {

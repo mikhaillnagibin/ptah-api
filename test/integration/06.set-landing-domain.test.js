@@ -14,7 +14,7 @@ const server = require('../../app/app');
 const config = require('../../config/config');
 const fakes = require('../fakes/fakes');
 
-const routesPrefix = config.routesPrefix + config.landingsNamespace;
+const routesPrefix = config.routesPrefix + config.landingsRoutesNamespace;
 
 const openapiSchemaPath = path.resolve("./spec/openapi.yaml");
 

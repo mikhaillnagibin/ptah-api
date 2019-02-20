@@ -3,17 +3,16 @@
 const fs = require('fs');
 const os = require('os');
 const Koa = require('koa');
-const jwt = require('koa-jwt');
+//const jwt = require('koa-jwt');
 const Sentry = require('@sentry/node');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
 
 const config = require('../config/config');
 
-const publicRouter = require('./middleware/public.router');
-const privateRouter = require('./middleware/private.router');
-
+const router = require('./middleware/router');
 const mongo = require('./middleware/mongo');
+const oauth2Introspection = require("./middleware/ouath2-introspection");
 
 
 Sentry.init({
@@ -69,16 +68,20 @@ app.use(async (ctx, next) => {
 
 app.use(mongo(mongoOptions, mongoConnectionOptions));
 
+// Middleware below this block is only reached if access token is valid
+const introspectionOptions = {
+    endpoint: config.auth1IntrospectionUrl,
+    client_id: config.auth1ClientId,
+    debug: false
+};
+// healthCheck page not requires authorization
+const publicRoutes = {
+    path: `${config.routesPrefix}/_healthz`
+};
+app.use(oauth2Introspection(introspectionOptions).unless(publicRoutes));
 
-app.use(publicRouter.routes());
-app.use(publicRouter.allowedMethods());
-
-// Middleware below this line is only reached if JWT token is valid
-// healthCheck page and all auth pages are not requires authorization
-app.use(jwt({ secret: config.jwtKey }));
-
-app.use(privateRouter.routes());
-app.use(privateRouter.allowedMethods());
+app.use(router.routes());
+app.use(router.allowedMethods());
 
 app.use(cacheControl({
     noCache: true

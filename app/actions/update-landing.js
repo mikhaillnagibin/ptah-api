@@ -44,7 +44,7 @@ module.exports = async (ctx, next) => {
 
             data = updateLandingData(ctx, landing, update);
 
-            const collection = getDbCollection(ctx);
+            const collection = getDbCollection.landings(ctx);
 
             await collection.updateOne({_id: ObjectID(id)}, {$set: data});
         }

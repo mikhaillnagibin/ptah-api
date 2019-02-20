@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const ObjectID = require("bson-objectid");
 
+const config = require('../../../config/config');
 const badRequest = require('./bad-request');
 const getDbCollection = require('../../utils/get-db-collection');
 
@@ -12,7 +13,7 @@ module.exports = async (ctx, ids) => {
 
     const hasConditionById = ids.length > 0;
 
-    const userId = _.get(ctx, 'state.user.id');
+    const userId = _.get(ctx, config.userIdStatePath);
     if (!userId) {
         throw new Error('User not created');
     }
@@ -37,7 +38,7 @@ module.exports = async (ctx, ids) => {
         options.projection.landing = 0;
     }
 
-    const collection = getDbCollection(ctx);
+    const collection = getDbCollection.landings(ctx);
 
     let result = [];
 
