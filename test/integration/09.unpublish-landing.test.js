@@ -103,11 +103,9 @@ describe(`DELETE ${routesPrefix}/{landingId}/publishing`, () => {
 
 
     it("should remove files for published landing", (done) => {
-        setTimeout(function(){
-            fs.existsSync(nginxConfigFile).should.be.false;
-            fs.existsSync(landingDestinationDir).should.be.false;
-            done();
-        }, 1000)
+        fs.existsSync(nginxConfigFile).should.be.false;
+        fs.existsSync(landingDestinationDir).should.be.false;
+        done();
     });
 
 
