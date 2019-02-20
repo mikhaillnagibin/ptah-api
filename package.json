@@ -4,8 +4,8 @@
   "description": "Backend for PTAH",
   "main": "index.js",
   "scripts": {
-    "start:app.local": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
-    "start:tests": "npm run tests:migrations && npm run tests:mocha",
+    "start": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
+    "test": "npm run tests:migrations && npm run tests:mocha",
     "migrations:manual": "cross-env NODE_ENV=local migrate-mongo up",
     "tests:migrations": "cross-env NODE_ENV=test DB_NAME=ptah-test DB_USER='' migrate-mongo up",
     "tests:mocha": "cross-env NODE_ENV=test DB_NAME=ptah-test DB_USER='' SERVER_PORT=3001 REDIS_HOST='' MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata AUTH1_INTROSPECTION_URL=http://localhost:3002/oauth2/introspect node_modules/.bin/mocha --exit --timeout 4000 ./test/index.js",

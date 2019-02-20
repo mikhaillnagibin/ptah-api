@@ -1,0 +1,30 @@
+language: node_js
+
+node_js:
+  - "node"
+
+env:
+  global:
+    - MONGODB=4.0.6
+
+install:
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB}.tgz
+  - tar xzf mongodb-linux-x86_64-${MONGODB}.tgz
+  - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --version
+
+before_script:
+  - mkdir ${PWD}/mongodb-linux-x86_64-${MONGODB}/data
+  - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/data --logpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/mongodb.log --fork
+  - mongo mydb_test --eval 'db.version();'
+
+script:
+  - npm install && npm test
+
+after_script:
+  - pkill mongod
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false
