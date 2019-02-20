@@ -1,0 +1,190 @@
+{
+  "lists": [
+    {
+      "id": "7e33352535",
+      "web_id": 22635,
+      "name": "protocol.one",
+      "contact": {
+        "company": "protocol.one",
+        "address1": "Home, home 0, flat",
+        "address2": "",
+        "city": "St Petersburg",
+        "state": "",
+        "zip": "190000",
+        "country": "RU",
+        "phone": ""
+      },
+      "permission_reminder": "You are receiving this email because you opted in via our website.",
+      "use_archive_bar": true,
+      "campaign_defaults": {
+        "from_name": "Evgeniy",
+        "from_email": "evgeniy.strigo@protocol.one",
+        "subject": "",
+        "language": "en"
+      },
+      "notify_on_subscribe": "",
+      "notify_on_unsubscribe": "",
+      "date_created": "2019-02-18T13:49:41+00:00",
+      "list_rating": 0,
+      "email_type_option": false,
+      "subscribe_url_short": "http://eepurl.com/ghJcCD",
+      "subscribe_url_long": "https://one.us20.list-manage.com/subscribe?u=4b6d34d39d6ee30647fa76d8e&id=7e33352535",
+      "beamer_address": "us20-5198b305f0-a9e09dec1e@inbound.mailchimp.com",
+      "visibility": "pub",
+      "double_optin": false,
+      "has_welcome": false,
+      "marketing_permissions": false,
+      "modules": [],
+      "stats": {
+        "member_count": 1,
+        "unsubscribe_count": 0,
+        "cleaned_count": 0,
+        "member_count_since_send": 1,
+        "unsubscribe_count_since_send": 0,
+        "cleaned_count_since_send": 0,
+        "campaign_count": 0,
+        "campaign_last_sent": "",
+        "merge_field_count": 5,
+        "avg_sub_rate": 0,
+        "avg_unsub_rate": 0,
+        "target_sub_rate": 0,
+        "open_rate": 0,
+        "click_rate": 0,
+        "last_sub_date": "2019-02-18T13:49:41+00:00",
+        "last_unsub_date": ""
+      },
+      "_links": [
+        {
+          "rel": "self",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Response.json"
+        },
+        {
+          "rel": "parent",
+          "href": "https://us20.api.mailchimp.com/3.0/lists",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists.json"
+        },
+        {
+          "rel": "update",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535",
+          "method": "PATCH",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Response.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/PATCH.json"
+        },
+        {
+          "rel": "batch-sub-unsub-members",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535",
+          "method": "POST",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/BatchPOST-Response.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/BatchPOST.json"
+        },
+        {
+          "rel": "delete",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535",
+          "method": "DELETE"
+        },
+        {
+          "rel": "abuse-reports",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/abuse-reports",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Abuse/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/Abuse.json"
+        },
+        {
+          "rel": "activity",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/activity",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Activity/Response.json"
+        },
+        {
+          "rel": "clients",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/clients",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Clients/Response.json"
+        },
+        {
+          "rel": "growth-history",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/growth-history",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Growth/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/Growth.json"
+        },
+        {
+          "rel": "interest-categories",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/interest-categories",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/InterestCategories/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/InterestCategories.json"
+        },
+        {
+          "rel": "members",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/members",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Members/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/Members.json"
+        },
+        {
+          "rel": "merge-fields",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/merge-fields",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/MergeFields/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/MergeFields.json"
+        },
+        {
+          "rel": "segments",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/segments",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Segments/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/Segments.json"
+        },
+        {
+          "rel": "webhooks",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/webhooks",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Webhooks/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/Webhooks.json"
+        },
+        {
+          "rel": "signup-forms",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/signup-forms",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/SignupForms/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/SignupForms.json"
+        },
+        {
+          "rel": "locations",
+          "href": "https://us20.api.mailchimp.com/3.0/lists/7e33352535/locations",
+          "method": "GET",
+          "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Locations/CollectionResponse.json",
+          "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists/Locations.json"
+        }
+      ]
+    }
+  ],
+  "total_items": 1,
+  "_links": [
+    {
+      "rel": "self",
+      "href": "https://us20.api.mailchimp.com/3.0/lists",
+      "method": "GET",
+      "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/CollectionResponse.json",
+      "schema": "https://us20.api.mailchimp.com/schema/3.0/CollectionLinks/Lists.json"
+    },
+    {
+      "rel": "parent",
+      "href": "https://us20.api.mailchimp.com/3.0/",
+      "method": "GET",
+      "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Root/Response.json"
+    },
+    {
+      "rel": "create",
+      "href": "https://us20.api.mailchimp.com/3.0/lists",
+      "method": "POST",
+      "targetSchema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/Response.json",
+      "schema": "https://us20.api.mailchimp.com/schema/3.0/Definitions/Lists/POST.json"
+    }
+  ]
+}

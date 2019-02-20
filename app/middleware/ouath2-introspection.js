@@ -6,7 +6,10 @@ const tokenIntrospection = require('token-introspection');
 const config = require('../../config/config');
 const RedisOauthCache = require('./redis-oauth-cache');
 
-const redisOauthCache = new RedisOauthCache(config.redisPort, config.redisHost, config.auth1CacheMaxAge);
+let redisOauthCache = null;
+if (config.redisPort && config.redisHost) {
+    redisOauthCache = new RedisOauthCache(config.redisPort, config.redisHost, config.auth1CacheMaxAge);
+}
 
 function resolveAuthorizationHeader(ctx, opts) {
     if (!ctx.header || !ctx.header.authorization) {
@@ -52,9 +55,11 @@ module.exports = (opts = {}) => {
 
         let inCache = null;
 
-        try {
-            inCache = await redisOauthCache.get(token, ctx);
-        } catch (e) {
+        if (redisOauthCache) {
+            try {
+                inCache = await redisOauthCache.get(token, ctx);
+            } catch (e) {
+            }
         }
 
         if (inCache) {
@@ -87,7 +92,9 @@ module.exports = (opts = {}) => {
                 originalError = e;
             }
 
-            redisOauthCache.set(token, ctx.state.oauth2, ctx);
+            if (redisOauthCache) {
+                redisOauthCache.set(token, ctx.state.oauth2, ctx);
+            }
         }
 
         if (ctx.state.oauth2.invalid && !passthrough) {

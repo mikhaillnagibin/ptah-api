@@ -1,4 +1,6 @@
-# ptah.api
+[![Build Status](https://travis-ci.org/ProtocolONE/ptah-api.svg?branch=master)](https://travis-ci.org/ProtocolONE/ptah-.api) [![codecov](https://codecov.io/gh/ProtocolONE/ptah-api/branch/master/graph/badge.svg)](https://codecov.io/gh/ProtocolONE/ptah-api)
+
+# ptah-api
 
 Backend for PTAH
 

@@ -6,6 +6,8 @@ const badRequest = require('./helpers/bad-request');
 const findLandings = require('./helpers/find-landings');
 const getLandingMeta = require('./helpers/get-landing-meta');
 const updateLandingData = require('./helpers/update-landing-data');
+const addDomainConfig = require('./helpers/add-domain-config');
+const deleteDomainConfig = require('./helpers/delete-domain-config');
 const getDbCollection = require('../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
@@ -30,6 +32,14 @@ module.exports = async (ctx, next) => {
             const collection = getDbCollection.landings(ctx);
 
             await collection.updateOne({_id: ObjectID(id)}, {$set: data});
+
+            // for published landing
+            if (data.isPublished) {
+                // remove external domain config, if exists
+                await deleteDomainConfig(id, true);
+                // and adding config for new domain
+                await addDomainConfig(id, landing.domain);
+            }
         }
     } catch (err) {
         throw err

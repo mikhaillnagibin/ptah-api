@@ -2,10 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const util = require('util');
 const decompress = require('decompress');
 const ObjectID = require("bson-objectid");
-const format = require("string-template");
 
 const config = require('../../config/config');
 
@@ -14,10 +12,9 @@ const findLandings = require('./helpers/find-landings');
 const getLandingMeta = require('./helpers/get-landing-meta');
 const updateLandingData = require('./helpers/update-landing-data');
 const deletePublishedLanding = require('./helpers/delete-published-landing');
+const addDomainConfig = require('./helpers/add-domain-config');
 const getDbCollection = require('../utils/get-db-collection');
 
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
@@ -41,7 +38,7 @@ module.exports = async (ctx, next) => {
         if (landing) {
 
             // remove previous published landing (and external domain config too), if exists
-            deletePublishedLanding(id);
+            await deletePublishedLanding(id);
 
             const landingDestinationDir = path.resolve(config.publicHtmlDir, id);
             fs.mkdirSync(landingDestinationDir, { recursive: true });
@@ -51,15 +48,7 @@ module.exports = async (ctx, next) => {
 
             // adding config for external domain, if exist
             if (landing.domain) {
-                const nginxConfigBuffer = await readFile(config.nginxConfigTemplatePath);
-
-                const nginxConfig = format(nginxConfigBuffer.toString('utf8'), {
-                    siteRoot: landingDestinationDir,
-                    siteDomain: landing.domain
-                });
-
-                const nginxConfigFile = path.resolve(config.nginxConfigsDir, `${id}.conf`);
-                await writeFile(nginxConfigFile, nginxConfig);
+                await addDomainConfig(id, landing.domain);
             }
 
             // finally, updating data in DB

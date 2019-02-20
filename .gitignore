@@ -61,3 +61,5 @@ typings/
 
 public_html/
 sites_enabled/
+
+coverage/

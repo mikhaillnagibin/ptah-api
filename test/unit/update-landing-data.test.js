@@ -5,16 +5,13 @@ const chai = require('chai');
 const should = chai.should();
 
 const fakes = require('../fakes/fakes');
+const config = require('../../config/config');
 
 const updateLandingData = require('../../app/actions/helpers/update-landing-data');
 
-const fakeCtx = {
-    state: {
-        user: {
-            id: fakes.fakeUserId
-        }
-    }
-};
+const fakeCtx = {};
+_.set(fakeCtx, config.userIdStatePath, fakes.fakeUserId);
+
 
 describe('update-landing-data test', () => {
 

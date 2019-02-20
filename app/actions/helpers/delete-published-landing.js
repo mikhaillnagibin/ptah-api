@@ -7,12 +7,15 @@ const config = require('../../../config/config');
 
 const rmRf = require('../../utils/rm-rf');
 
-module.exports = async (id) => {
+module.exports = async (id, domainOnly) => {
+    domainOnly = !!domainOnly;
 
-    const landingDestinationDir = path.resolve(config.publicHtmlDir, id);
+    if (!domainOnly) {
+        const landingDestinationDir = path.resolve(config.publicHtmlDir, id);
 
-    // cleanup landing directory
-    await rmRf(landingDestinationDir);
+        // cleanup landing directory
+        await rmRf(landingDestinationDir);
+    }
 
     // remove nginx config, if exists
     const nginxConfigFile = path.resolve(config.nginxConfigsDir, `${id}.conf`);

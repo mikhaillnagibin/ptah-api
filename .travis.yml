@@ -1,0 +1,30 @@
+dist: xenial
+
+services:
+  - mongodb
+
+language: node_js
+
+node_js:
+  - "node"
+
+env:
+  global:
+    - NODE_ENV=test
+    - DB_NAME=ptah-test
+    - DB_USER=''
+    - SERVER_PORT=3001
+    - REDIS_HOST=''
+    - MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata
+    - AUTH1_INTROSPECTION_URL=http://localhost:3002/oauth2/introspect
+
+install:
+  - npm install -g codecov nyc mocha
+  - npm ci
+
+script:
+  - npm run tests:migrations
+  - nyc --reporter=lcovonly mocha --exit --timeout 4000 ./test/index.js
+  - codecov
+
+

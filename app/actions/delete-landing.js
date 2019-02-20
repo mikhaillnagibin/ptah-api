@@ -15,7 +15,7 @@ module.exports = async (ctx, next) => {
         if (landing) {
 
             // remove published landing (and external domain config too), if exists
-            deletePublishedLanding(id);
+            await deletePublishedLanding(id);
 
             const data = updateLandingData(ctx, landing, {
                 isDeleted: true
