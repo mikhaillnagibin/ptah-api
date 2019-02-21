@@ -109,16 +109,16 @@ spec:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
                 key: SENTRY_DSN
-          - name: PTAH_MAILCHIMP_CLIENT_ID
+          - name: MAILCHIMP_CLIENT_ID
             valueFrom:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
-                key: PTAH_MAILCHIMP_CLIENT_ID
-          - name: PTAH_MAILCHIMP_CLIENT_SECRET
+                key: MAILCHIMP_CLIENT_ID
+          - name: MAILCHIMP_CLIENT_SECRET
             valueFrom:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
-                key: PTAH_MAILCHIMP_CLIENT_SECRET
+                key: MAILCHIMP_CLIENT_SECRET
         ports:
         - containerPort: {{$depBack.port}}
         volumeMounts:
