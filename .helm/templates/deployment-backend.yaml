@@ -119,6 +119,21 @@ spec:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
                 key: MAILCHIMP_CLIENT_SECRET
+          - name: REDIS_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-env
+                key: REDIS_HOST
+          - name: AUTH1_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-env
+                key: AUTH1_CLIENT_ID
+          - name: AUTH1_INTROSPECTION_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-env
+                key: AUTH1_INTROSPECTION_URL
         ports:
         - containerPort: {{$depBack.port}}
         volumeMounts:
