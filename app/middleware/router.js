@@ -18,6 +18,7 @@ const unsetLandingDomain = require('../actions/unset-landing-domain');
 const copyLandings = require('../actions/copy-landings');
 
 const getUserInfo = require('../actions/get-user-info');
+const updateUserInfo = require('../actions/update-user-info');
 
 const getMaillists = require('../actions/get-maillists');
 
@@ -49,6 +50,7 @@ router
     .delete(`${landingsRoutesNamespace}/:id/domain`, unsetLandingDomain)
 
     .get(`${userRoutesNamespace}/`, getUserInfo)
+    .post(`${userRoutesNamespace}/`, koaBody, updateUserInfo)
 
     .get(`${mailchimpRoutesNamespace}/maillists`, getMaillists)
 ;

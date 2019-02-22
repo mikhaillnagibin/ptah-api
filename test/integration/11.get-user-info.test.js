@@ -40,6 +40,7 @@ describe(`GET ${routesPrefix}`, () => {
                 should.not.exist(err);
                 res.status.should.eql(200);
                 res.body.userId.should.be.eql(fakes.fakeUserId);
+                res.body.mailchimpIntegration.should.be.true;
                 res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get")
                     .andNotifyWhen(done);
             });
@@ -54,6 +55,7 @@ describe(`GET ${routesPrefix}`, () => {
                 should.not.exist(err);
                 res.status.should.eql(200);
                 res.body.userId.should.be.eql(fakes.fakeAnotherUserId);
+                res.body.mailchimpIntegration.should.be.false;
                 res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get")
                     .andNotifyWhen(done);
             });
