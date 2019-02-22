@@ -46,7 +46,7 @@ router
 
         if (isActive) {
             ctx.body.sub = token === fakes.fakeUserAuthToken ? fakes.fakeUserId : fakes.fakeAnotherUserId;
-            ctx.body.client_id = config.auth1ClientId;
+            ctx.body.client_id = config.auth1ClientId[0];
             ctx.body.token_type = 'access_token';
         }
         console.log(logPrefix, 'Finish request', 'POST', introspectionParsedUrl.pathname, ctx.status, ctx.body);

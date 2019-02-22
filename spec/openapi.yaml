@@ -1020,6 +1020,80 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorUnathorized'
 
+    post:
+      tags:
+        - User
+      summary: Store new Mailchimp token to user profile
+      operationId: updateUser
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User updated
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfo'
+        '400':
+          description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+      requestBody:
+        description: Landing page to add
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mailchimpAccessToken:
+                  type: string
+                  example: '27da0aacf97a459a69a20b5fc83addc911'
+
+
   /api/v1/mailchimp/login:
     get:
       tags:
