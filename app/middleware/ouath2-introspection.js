@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const unless = require('koa-unless');
 const tokenIntrospection = require('token-introspection');
 
@@ -33,13 +34,12 @@ function resolveAuthorizationHeader(ctx, opts) {
 
 module.exports = (opts = {}) => {
     const endpoint = opts.endpoint;
-    const client_id = opts.client_id;
+    const client_ids = opts.client_ids;
     const debug = !!opts.debug;
     const passthrough = !!opts.passthrough;
     let originalError = null;
     const tokenIntrospect = tokenIntrospection({
         endpoint: endpoint,
-        client_id: client_id,
     });
 
     const middleware = async function jwt(ctx, next) {
@@ -74,18 +74,17 @@ module.exports = (opts = {}) => {
                 if (!result.active) {
                     ctx.state.oauth2.invalid = true;
                     ctx.state.oauth2.reason = 'Token not active';
-                }
+                } else {
+                    if (result.token_type !== 'access_token') {
+                        ctx.state.oauth2.invalid = true;
+                        ctx.state.oauth2.reason = 'Token type invalid';
+                    }
 
-                if (result.token_type !== 'access_token') {
-                    ctx.state.oauth2.invalid = true;
-                    ctx.state.oauth2.reason = 'Token type invalid';
+                    if (!_.includes(client_ids, result.client_id)) {
+                        ctx.state.oauth2.invalid = true;
+                        ctx.state.oauth2.reason = 'Client_id invalid';
+                    }
                 }
-
-                if (client_id && result.client_id !== client_id) {
-                    ctx.state.oauth2.invalid = true;
-                    ctx.state.oauth2.reason = 'Client_id invalid';
-                }
-
             } catch (e) {
                 ctx.state.oauth2.invalid = true;
                 ctx.state.oauth2.reason = e.message;

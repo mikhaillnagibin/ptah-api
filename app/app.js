@@ -69,7 +69,7 @@ app.use(mongo(mongoOptions, mongoConnectionOptions));
 // Middleware below this block is only reached if access token is valid
 const introspectionOptions = {
     endpoint: config.auth1IntrospectionUrl,
-    client_id: config.auth1ClientId,
+    client_ids: config.auth1ClientId,
     debug: false
 };
 // healthCheck page not requires authorization
