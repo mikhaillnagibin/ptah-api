@@ -99,26 +99,16 @@ spec:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
                 key: DB_PASS
-          - name: JWT_KEY
+          - name: CORS_VALID_ORIGINS
             valueFrom:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
-                key: jwt_key
+                key: CORS_VALID_ORIGINS
           - name: SENTRY_DSN
             valueFrom:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
                 key: SENTRY_DSN
-          - name: MAILCHIMP_CLIENT_ID
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: MAILCHIMP_CLIENT_ID
-          - name: MAILCHIMP_CLIENT_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: MAILCHIMP_CLIENT_SECRET
           - name: REDIS_HOST
             valueFrom:
               secretKeyRef:

@@ -3,6 +3,7 @@
 const fs = require('fs');
 const os = require('os');
 const Koa = require('koa');
+const cors = require('koa2-cors');
 const Sentry = require('@sentry/node');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
@@ -28,6 +29,32 @@ const logger = new KoaReqLogger({
     alwaysError: true // treat all non-2** http codes as error records in logs
 });
 app.use(logger.getMiddleware());
+
+// healthCheck page not requires authorization or cors origin header check
+const publicRoutes = {
+    path: `${config.routesPrefix}/_healthz`
+};
+
+// CORS setup
+app.use(cors({
+    origin: function(ctx) {
+        if (publicRoutes.path === ctx.url) {
+            return false;
+        }
+        if (config.corsValidOrigins.includes('*')) {
+            return '*';
+        }
+        const requestOrigin = ctx.accept.headers.origin;
+        if (!config.corsValidOrigins.includes(requestOrigin)) {
+            return ctx.throw(`${requestOrigin} is not a valid origin`);
+        }
+        return requestOrigin;
+    },
+    allowMethods: router.allowedMethods(),
+    maxAge: 5,
+    credentials: false,
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}));
 
 // ensure that dirs are exists
 fs.mkdirSync(config.publicHtmlDir, { recursive: true });
@@ -71,10 +98,6 @@ const introspectionOptions = {
     endpoint: config.auth1IntrospectionUrl,
     client_ids: config.auth1ClientId,
     debug: false
-};
-// healthCheck page not requires authorization
-const publicRoutes = {
-    path: `${config.routesPrefix}/_healthz`
 };
 app.use(oauth2Introspection(introspectionOptions).unless(publicRoutes));
 

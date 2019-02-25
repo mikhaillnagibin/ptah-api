@@ -16,7 +16,7 @@ Backend for PTAH
 * `npm prune --production`
 * `NODE_ENV={string='production'} DB_AUTH_METHOD={string='SCRAM-SHA-256'} DB_COLLECTION_NAME={string='ptah'} 
 DB_HOST={string='localhost'} DB_NAME={string='ptah'} DB_PASS={string='ptah'} DB_PORT={string='27017'} 
-DB_USER={string='ptah'} NGINX_CONFIGS_DIR={string='sites_enabled'} PUBLIC_HTML_DIR={string='public_html'} 
+DB_USER={string='ptah'} CORS_VALID_ORIGINS={string} NGINX_CONFIGS_DIR={string='sites_enabled'} PUBLIC_HTML_DIR={string='public_html'} 
 ROUTES_PREFIX={string='/api/v1'} SENTRY_DSN={string} SERVER_PORT={string='80'} REDIS_HOST={string} 
 REDIS_PORT={string="6379"} AUTH1_CLIENT_ID={string} AUTH1_CACHE_MAX_AGE={string} AUTH1_INTROSPECTION_URL={string} node ./index.js`
 
@@ -37,6 +37,9 @@ Where:
 {DB_PORT} - MongoDB port
 
 {DB_USER} - MongoDB user name (must be an empty string if auth is not used)
+
+{CORS_VALID_ORIGINS} - list of valid origins for CORS protection, separated by comma. Notice! Value of * uses by 
+default (disable CORS protection) 
 
 {NGINX_CONFIGS_DIR} - Path to shared directory with nginx configs
 
