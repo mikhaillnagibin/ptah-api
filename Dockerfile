@@ -15,6 +15,7 @@ ENV NODE_ENV=production \
     DB_PASS="" \
     DB_PORT=27017 \
     DB_USER="" \
+    CORS_VALID_ORIGINS="" \
     MAILCHIMP_METADATA_URL="https://login.mailchimp.com/oauth2/metadata" \
     MAILCHIMP_MAILLISTS_PATH="/3.0/lists" \
     NGINX_CONFIGS_DIR="/etc/nginx/landings/conf.d" \

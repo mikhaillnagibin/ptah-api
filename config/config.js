@@ -46,6 +46,8 @@ const config = {
 
     userIdStatePath: 'state.oauth2.sub',
 
+    corsValidOrigins: getEnvVariableArray('CORS_VALID_ORIGINS', '*'),
+
 };
 
 module.exports = config;
