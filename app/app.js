@@ -50,7 +50,6 @@ app.use(cors({
         }
         return requestOrigin;
     },
-    allowMethods: router.allowedMethods(),
     maxAge: 5,
     credentials: false,
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],

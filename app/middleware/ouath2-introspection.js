@@ -101,6 +101,9 @@ module.exports = (opts = {}) => {
             if (originalError) {
                 options.originalError = originalError
             }
+            if (!debug) {
+                ctx.log.error(ctx.state.oauth2.reason)
+            }
             ctx.throw(401, debug ? ctx.state.oauth2.reason : 'Authentication Error', options);
         }
         return next();
