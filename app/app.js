@@ -4,15 +4,16 @@ const fs = require('fs');
 const os = require('os');
 const Koa = require('koa');
 const cors = require('koa2-cors');
+const urlParse = require('url-parse');
 const Sentry = require('@sentry/node');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
+const {auth1KoaMiddleware} = require('authone-middleware-node');
 
 const config = require('../config/config');
 
 const router = require('./middleware/router');
 const mongo = require('./middleware/mongo');
-const oauth2Introspection = require("./middleware/ouath2-introspection");
 
 
 Sentry.init({
@@ -93,12 +94,22 @@ app.use(async (ctx, next) => {
 app.use(mongo(mongoOptions, mongoConnectionOptions));
 
 // Middleware below this block is only reached if access token is valid
-const introspectionOptions = {
-    endpoint: config.auth1IntrospectionUrl,
-    client_ids: config.auth1ClientId,
+const introspectUrl = urlParse(config.auth1IntrospectionUrl);
+const auth1MiddlewareOptions = {
+    privateHost: introspectUrl.origin,
+    introspectPath: introspectUrl.pathname,
+    allowedClientIds: config.auth1ClientId,
+    cacheType: '',
+    cacheMaxAge: config.auth1CacheMaxAge,
     debug: false
 };
-app.use(oauth2Introspection(introspectionOptions).unless(publicRoutes));
+if (config.redisPort && config.redisHost) {
+    auth1MiddlewareOptions.cacheType = 'redis';
+    auth1MiddlewareOptions.cacheRedisHost = config.redisHost;
+    auth1MiddlewareOptions.cacheRedisPort = config.redisPort;
+}
+const auth1 = auth1KoaMiddleware(auth1MiddlewareOptions);
+app.use(auth1.authenticateRequest.unless(publicRoutes));
 
 app.use(router.routes());
 app.use(router.allowedMethods());

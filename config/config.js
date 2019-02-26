@@ -44,7 +44,7 @@ const config = {
     auth1IntrospectionUrl: getEnvVariable('AUTH1_INTROSPECTION_URL', 'http://192.168.99.100:4445/oauth2/introspect'),
     auth1CacheMaxAge: +getEnvVariable('AUTH1_CACHE_MAX_AGE', '300000'),
 
-    userIdStatePath: 'state.oauth2.sub',
+    userIdStatePath: 'state.auth1.sub',
 
     corsValidOrigins: getEnvVariableArray('CORS_VALID_ORIGINS', '*'),
 
