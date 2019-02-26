@@ -19,6 +19,7 @@ env:
     - AUTH1_INTROSPECTION_URL=http://localhost:3002/oauth2/introspect
 
 install:
+  - npm cache clean --force
   - npm install -g codecov nyc mocha
   - npm ci
 
