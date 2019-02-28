@@ -40,9 +40,7 @@ const config = {
     mailchimpMetadataUrl: getEnvVariable('MAILCHIMP_METADATA_URL', 'https://login.mailchimp.com/oauth2/metadata'),
     mailchimpMaillistsPath: getEnvVariable('MAILCHIMP_MAILLISTS_PATH', '/3.0/lists'),
 
-    auth1ClientId: getEnvVariableArray('AUTH1_CLIENT_ID', '5c6a9d5568add43d9cb21826'),
-    auth1IntrospectionUrl: getEnvVariable('AUTH1_INTROSPECTION_URL', 'http://192.168.99.100:4445/oauth2/introspect'),
-    auth1CacheMaxAge: +getEnvVariable('AUTH1_CACHE_MAX_AGE', '300000'),
+    auth1Issuer: getEnvVariable('AUTH1_ISSUER_URL', 'https://auth1.tst.protocol.one/oauth2/introspect'),
 
     userIdStatePath: 'state.auth1.sub',
 

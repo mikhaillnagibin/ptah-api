@@ -5,9 +5,7 @@ RUN apk update && apk add git
 WORKDIR /application
 
 ENV NODE_ENV=production \
-    AUTH1_CACHE_MAX_AGE="300000" \
-    AUTH1_CLIENT_ID="" \
-    AUTH1_INTROSPECTION_URL="" \
+    AUTH1_ISSUER_URL="" \
     DB_AUTH_METHOD="SCRAM-SHA-256" \
     DB_COLLECTION_NAME="ptah" \
     DB_HOST="" \

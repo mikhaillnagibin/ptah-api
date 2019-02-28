@@ -10,7 +10,6 @@ const config = require('../../config/config');
 const fakes = require('./fakes');
 
 const port = process.env.MOCK_SERVER_PORT || 3002;
-const introspectionParsedUrl = urlParse(config.auth1IntrospectionUrl);
 const mailchimpParsedUrl = urlParse(config.mailchimpMetadataUrl);
 
 const koaBody = convert(KoaBody({
@@ -29,13 +28,13 @@ const logPrefix = 'MOCK SERVER';
 
 const router = new Router();
 router
-    .post(introspectionParsedUrl.pathname, koaBody, async (ctx, next) => {
-        console.log(logPrefix, 'Start request', 'POST', introspectionParsedUrl.pathname);
+    .post('/oauth2/introspect', koaBody, async (ctx, next) => {
+        console.log(logPrefix, 'Start request', 'POST', '/oauth2/introspect');
         const token = ctx.request.body.token || '';
         if (!token) {
             ctx.body = error401Body;
             ctx.status = 401;
-            console.log(logPrefix, 'Finish request', 'POST', introspectionParsedUrl.pathname, ctx.status, ctx.body);
+            console.log(logPrefix, 'Finish request', 'POST', '/oauth2/introspect', ctx.status, ctx.body);
             return next();
         }
 
@@ -46,10 +45,9 @@ router
 
         if (isActive) {
             ctx.body.sub = token === fakes.fakeUserAuthToken ? fakes.fakeUserId : fakes.fakeAnotherUserId;
-            ctx.body.client_id = config.auth1ClientId[0];
             ctx.body.token_type = 'access_token';
         }
-        console.log(logPrefix, 'Finish request', 'POST', introspectionParsedUrl.pathname, ctx.status, ctx.body);
+        console.log(logPrefix, 'Finish request', 'POST', '/oauth2/introspect', ctx.status, ctx.body);
     })
 
     .get(mailchimpParsedUrl.pathname, async (ctx) => {
