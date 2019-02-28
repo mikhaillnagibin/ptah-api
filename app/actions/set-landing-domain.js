@@ -1,6 +1,7 @@
 'use strict';
 
 const ObjectID = require("bson-objectid");
+const isDomainName = require("is-domain-name");
 
 const badRequest = require('./helpers/bad-request');
 const findLandings = require('./helpers/find-landings');
@@ -15,7 +16,7 @@ module.exports = async (ctx, next) => {
     const body = ctx.request.body || {};
 
     const domain = (body.domain || '').trim();
-    if (!domain) {
+    if (!domain || !isDomainName(domain)) {
         return badRequest();
     }
 
