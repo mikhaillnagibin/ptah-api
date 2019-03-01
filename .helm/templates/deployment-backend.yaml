@@ -119,6 +119,16 @@ spec:
               secretKeyRef:
                 name: {{ .Chart.Name }}-env
                 key: AUTH1_ISSUER_URL
+          - name: AUTH1_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-env
+                key: AUTH1_CLIENT_ID
+          - name: AUTH1_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Chart.Name }}-env
+                key: AUTH1_CLIENT_SECRET
         ports:
         - containerPort: {{$depBack.port}}
         volumeMounts:
