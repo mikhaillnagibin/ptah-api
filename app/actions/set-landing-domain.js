@@ -39,7 +39,7 @@ module.exports = async (ctx, next) => {
                 // remove external domain config, if exists
                 await deleteDomainConfig(id, true);
                 // and adding config for new domain
-                await addDomainConfig(id, landing.domain);
+                await addDomainConfig(id, data.domain);
             }
         }
     } catch (err) {

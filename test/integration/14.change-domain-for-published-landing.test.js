@@ -26,6 +26,7 @@ let landingHasUnpublishedChanges = false;
 let landingDestinationDir = '';
 let nginxConfigFile = '';
 const newDomain = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15) + '.com';
+const renewDomain = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 11) + '.net';
 
 const fakeProjectFile = fs.readFileSync(fakes.fakeProjectZipPath);
 
@@ -104,6 +105,36 @@ describe('Changing domain for already published landing', () => {
 
     it("should place domain config file", (done) => {
         fs.existsSync(nginxConfigFile).should.be.true;
+        const configContent = fs.readFileSync(nginxConfigFile).toString('utf8');
+        configContent.indexOf(`server_name ${newDomain};`).should.be.gte(0);
+        configContent.indexOf(`server_name ${renewDomain};`).should.be.eq(-1);
+        done();
+    });
+
+
+
+    it("should successfully change domain", (done) => {
+        chai.request(server)
+            .post(`${routesPrefix}/${landingId}/domain`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .send({
+                domain: renewDomain
+            })
+            .end((err, res) => {
+                should.not.exist(err);
+                res.status.should.eql(200);
+                res.body.domain.should.eql(renewDomain);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/{landingId}/domain`, "post")
+                    .andNotifyWhen(done);
+            });
+    });
+
+
+    it("should also change domain in config file", (done) => {
+        fs.existsSync(nginxConfigFile).should.be.true;
+        const configContent = fs.readFileSync(nginxConfigFile).toString('utf8');
+        configContent.indexOf(`server_name ${newDomain};`).should.be.eq(-1);
+        configContent.indexOf(`server_name ${renewDomain};`).should.be.gte(0);
         done();
     });
 
