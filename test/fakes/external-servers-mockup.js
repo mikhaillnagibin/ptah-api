@@ -1,76 +1,106 @@
 'use strict';
 
-const Koa = require('koa');
-const Router = require('koa-router');
-const convert = require('koa-convert');
-const KoaBody = require('koa-body');
 const urlParse = require('url-parse');
+const ServerMock = require('mock-http-server');
 
-const config = require('../../config/config');
 const fakes = require('./fakes');
+const config = require('../../config/config');
 
 const port = process.env.MOCK_SERVER_PORT || 3002;
 const mailchimpParsedUrl = urlParse(config.mailchimpMetadataUrl);
 
-const koaBody = convert(KoaBody({
-    urlencoded: true
-}));
+const server = new ServerMock({ host: 'localhost', port: port });
 
-const error401Body = {
-    error: {
-        code: 401,
-        message: 'Authentication Error'
+server.on({
+    method: 'post',
+    path: '/oauth2/introspect',
+    filter: function (req) {
+        return !req.body.token
+    },
+    reply: {
+        status: 401,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+            error: {
+                code: 401,
+                message: 'Authentication Error'
+            }
+        })
     }
-};
+});
 
-const logPrefix = 'MOCK SERVER';
+server.on({
+    method: 'post',
+    path: '/oauth2/introspect',
+    filter: function (req) {
+        const token = req.body.token;
+        return !(token === fakes.fakeUserAuthToken || token === fakes.fakeAnotherUserAuthToken);
+    },
+    reply: {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+            active: false
+        })
+    }
+});
 
+server.on({
+    method: 'post',
+    path: '/oauth2/introspect',
+    filter: function (req) {
+        const token = req.body.token;
+        return token === fakes.fakeUserAuthToken;
+    },
+    reply: {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+            active: true,
+            sub: fakes.fakeUserId,
+            token_type: 'access_token',
+        })
+    }
+});
 
-const router = new Router();
-router
-    .post('/oauth2/introspect', koaBody, async (ctx, next) => {
-        console.log(logPrefix, 'Start request', 'POST', '/oauth2/introspect');
-        const token = ctx.request.body.token || '';
-        if (!token) {
-            ctx.body = error401Body;
-            ctx.status = 401;
-            console.log(logPrefix, 'Finish request', 'POST', '/oauth2/introspect', ctx.status, ctx.body);
-            return next();
-        }
+server.on({
+    method: 'post',
+    path: '/oauth2/introspect',
+    filter: function (req) {
+        const token = req.body.token;
+        return token === fakes.fakeAnotherUserAuthToken;
+    },
+    reply: {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+            active: true,
+            sub: fakes.fakeAnotherUserId,
+            token_type: 'access_token',
+        })
+    }
+});
 
-        const isActive = token === fakes.fakeUserAuthToken || token === fakes.fakeAnotherUserAuthToken;
-        ctx.body = {
-            active: isActive
-        };
+server.on({
+    method: 'get',
+    path: mailchimpParsedUrl.pathname,
+    reply: {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+            api_endpoint: 'http://localhost:' + port 
+        })
+    }
+});
 
-        if (isActive) {
-            ctx.body.sub = token === fakes.fakeUserAuthToken ? fakes.fakeUserId : fakes.fakeAnotherUserId;
-            ctx.body.token_type = 'access_token';
-        }
-        console.log(logPrefix, 'Finish request', 'POST', '/oauth2/introspect', ctx.status, ctx.body);
-    })
-
-    .get(mailchimpParsedUrl.pathname, async (ctx) => {
-        console.log(logPrefix, 'Start request', 'GET', mailchimpParsedUrl.pathname);
-        ctx.body = {
-            api_endpoint: 'http://localhost:' + port
-        };
-        console.log(logPrefix, 'Finish request', 'GET', mailchimpParsedUrl.pathname, ctx.status, ctx.body);
-    })
-
-    .get(config.mailchimpMaillistsPath, async (ctx) => {
-        console.log(logPrefix, 'Start request', 'GET', config.mailchimpMaillistsPath.pathname);
-        ctx.body = fakes.fakeMaillistData;
-        console.log(logPrefix, 'Finish request', 'GET', mailchimpParsedUrl.pathname, ctx.status, '---hidden---');
-    })
-;
-
-const app = new Koa();
-app.use(router.routes());
-app.use(router.allowedMethods());
-
-const server = app.listen(port, () => {
-    console.log(`Mock server listening on port: ${port}`)
+server.on({
+    method: 'get',
+    path: config.mailchimpMaillistsPath,
+    reply: {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(fakes.fakeMaillistData)
+    }
 });
 
 module.exports = server;
