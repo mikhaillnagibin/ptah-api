@@ -3,6 +3,7 @@
 const fs = require('fs');
 const os = require('os');
 const Koa = require('koa');
+const Redis = require('ioredis');
 const cors = require('koa2-cors');
 const unless = require('koa-unless');
 const Sentry = require('@sentry/node');
@@ -38,7 +39,7 @@ const publicRoutes = {
 
 // CORS setup
 app.use(cors({
-    origin: function(ctx) {
+    origin: function (ctx) {
         if (publicRoutes.path === ctx.url) {
             return false;
         }
@@ -57,8 +58,8 @@ app.use(cors({
 }));
 
 // ensure that dirs are exists
-fs.mkdirSync(config.publicHtmlDir, { recursive: true });
-fs.mkdirSync(config.nginxConfigsDir, { recursive: true });
+fs.mkdirSync(config.publicHtmlDir, {recursive: true});
+fs.mkdirSync(config.nginxConfigsDir, {recursive: true});
 
 // setup db connection
 const mongoOptions = {
@@ -82,7 +83,7 @@ app.use(async (ctx, next) => {
         await next();
     } catch (err) {
         if (~err.name.toLowerCase().indexOf('mongo')) {
-            ctx.res.once('finish', function (){
+            ctx.res.once('finish', function () {
                 process.exit(1);
             });
         }
