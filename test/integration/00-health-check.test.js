@@ -9,12 +9,19 @@ const chaiValidateResponse = require('chai-validate-response');
 chai.use(chaiHttp);
 chai.use(chaiValidateResponse.default);
 
+const mockserver = require('../fakes/external-servers-mockup');
+
 const server = require('../../app/app');
 const config = require('../../config/config');
 
 const routesPrefix = config.routesPrefix;
 
 const openapiSchemaPath = path.resolve("./spec/openapi.yaml");
+
+
+it("should start mock server", (done) => {
+    mockserver.start(done);
+});
 
 describe(`GET ${routesPrefix}/_healthz`, () => {
 

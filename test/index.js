@@ -11,9 +11,6 @@ if (config.dbName !== testDbName) {
     process.exit(1);
 }
 
-// starting mock server for integration tests
-require('./fakes/external-servers-mockup');
-
 const re = /\.test\.js$/; // names of files with tests must match file mask *.test.js
 const testDirs = ['unit', 'integration']; // dirs with tests //
 

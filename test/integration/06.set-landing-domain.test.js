@@ -71,7 +71,7 @@ describe(`POST ${routesPrefix}/{landingId}/domain`, () => {
     });
 
 
-    it("should return not found when domain not passed in body", (done) => {
+    it("should return bad request when domain not passed in body", (done) => {
         chai.request(server)
             .post(`${routesPrefix}/${landingId}/domain`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
@@ -83,6 +83,20 @@ describe(`POST ${routesPrefix}/{landingId}/domain`, () => {
             });
     });
 
+    it("should also return bad request when domain is not RFC 2181-compliant", (done) => {
+        chai.request(server)
+            .post(`${routesPrefix}/${landingId}/domain`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .send({
+                domain: 'invalid_domain.com'
+            })
+            .end((err, res) => {
+                should.not.exist(err);
+                res.status.should.eql(400);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/{landingId}/domain`, "post")
+                    .andNotifyWhen(done);
+            });
+    });
 
     it("should return not found error when changing domain for another user", (done) => {
         chai.request(server)

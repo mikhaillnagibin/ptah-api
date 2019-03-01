@@ -8,8 +8,8 @@
     "test": "npm run tests:migrations && npm run tests:mocha",
     "migrations:manual": "cross-env NODE_ENV=local migrate-mongo up",
     "tests:migrations": "cross-env NODE_ENV=test DB_NAME=ptah-test DB_USER='' migrate-mongo up",
-    "tests:mocha": "cross-env NODE_ENV=test DB_NAME=ptah-test DB_USER='' SERVER_PORT=3001 REDIS_HOST='' MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata AUTH1_INTROSPECTION_URL=http://localhost:3002/oauth2/introspect node_modules/.bin/mocha --exit --timeout 4000 ./test/index.js",
-    "debug:app.mock": "cross-env NODE_ENV=test REDIS_HOST='' MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata AUTH1_INTROSPECTION_URL=http://localhost:3002/oauth2/introspect nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
+    "tests:mocha": "cross-env NODE_ENV=test DB_NAME=ptah-test DB_USER='' SERVER_PORT=3001 REDIS_HOST='' MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata AUTH1_ISSUER_URL=http://localhost:3002 node_modules/.bin/mocha --exit --timeout 4000 ./test/index.js",
+    "debug:app.mock": "cross-env NODE_ENV=test REDIS_HOST='' MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata AUTH1_ISSUER_URL=http://localhost:3002 nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
     "debug:mock.server": "cross-env NODE_ENV=test nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./test/fakes/external-servers-mockup.js"
   },
   "repository": {
@@ -25,16 +25,18 @@
   "homepage": "https://github.com/ProtocolONE/ptah.api#readme",
   "dependencies": {
     "@sentry/node": "^4.5.3",
-    "authone-middleware-node": "github:ProtocolONE/authone-middleware-node#master",
+    "authone-jwt-verifier-node": "github:ProtocolONE/authone-jwt-verifier-node#master",
     "bson-objectid": "^1.2.4",
     "cross-env": "^5.2.0",
     "decompress": "^4.2.0",
+    "is-domain-name": "^1.0.1",
     "koa": "^2.6.2",
     "koa-body": "^4.0.6",
     "koa-cache-control": "^2.0.0",
     "koa-convert": "^1.2.0",
     "koa-req-logger": "^1.5.2",
     "koa-router": "^7.4.0",
+    "koa-unless": "^1.0.7",
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.11",
     "migrate-mongo": "^5.0.1",
@@ -54,6 +56,7 @@
     "chai-validate-response": "github:JamesKotov/chai-validate-response#version-0.0.3",
     "codecov": "^3.2.0",
     "mocha": "^5.2.0",
+    "mock-http-server": "^1.2.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.3.0"
   }

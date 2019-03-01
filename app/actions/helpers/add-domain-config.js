@@ -6,18 +6,16 @@ const util = require('util');
 const format = require("string-template");
 
 const config = require('../../../config/config');
+const nginxConfigTemplate = fs.readFileSync(config.nginxConfigTemplatePath).toString('utf8');
 
-const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
 module.exports = async (id, domain) => {
 
     const landingDestinationDir = path.resolve(config.publicHtmlDir, id);
     fs.mkdirSync(landingDestinationDir, { recursive: true });
-
-    const nginxConfigBuffer = await readFile(config.nginxConfigTemplatePath);
-
-    const nginxConfig = format(nginxConfigBuffer.toString('utf8'), {
+   
+    const nginxConfig = format(nginxConfigTemplate, {
         siteRoot: landingDestinationDir,
         siteDomain: domain
     });

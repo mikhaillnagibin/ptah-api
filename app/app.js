@@ -4,11 +4,11 @@ const fs = require('fs');
 const os = require('os');
 const Koa = require('koa');
 const cors = require('koa2-cors');
-const urlParse = require('url-parse');
+const unless = require('koa-unless');
 const Sentry = require('@sentry/node');
 const {KoaReqLogger} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
-const {auth1KoaMiddleware} = require('authone-middleware-node');
+const {JwtVerifier, StorageRedis, koaOauthMiddleware} = require('authone-jwt-verifier-node');
 
 const config = require('../config/config');
 
@@ -94,22 +94,22 @@ app.use(async (ctx, next) => {
 app.use(mongo(mongoOptions, mongoConnectionOptions));
 
 // Middleware below this block is only reached if access token is valid
-const introspectUrl = urlParse(config.auth1IntrospectionUrl);
-const auth1MiddlewareOptions = {
-    privateHost: introspectUrl.origin,
-    introspectPath: introspectUrl.pathname,
-    allowedClientIds: config.auth1ClientId,
-    cacheType: '',
-    cacheMaxAge: config.auth1CacheMaxAge,
-    debug: false
+const verifierOptions = {
+    issuer: config.auth1Issuer,
+    clientId: '',
+    clientSecret: '',
+    redirectUrl: ''
 };
-if (config.redisPort && config.redisHost) {
-    auth1MiddlewareOptions.cacheType = 'redis';
-    auth1MiddlewareOptions.cacheRedisHost = config.redisHost;
-    auth1MiddlewareOptions.cacheRedisPort = config.redisPort;
+const namespace = 'auth1';
+let storage = null;
+if (config.redisHost && config.redisPort) {
+    const redisInstance = new Redis(config.redisHost, config.redisPort);
+    storage = new StorageRedis(redisInstance);
 }
-const auth1 = auth1KoaMiddleware(auth1MiddlewareOptions);
-app.use(auth1.authenticateRequest.unless(publicRoutes));
+const jwtVerifier = new JwtVerifier(verifierOptions, storage);
+const requestAuthenticator = koaOauthMiddleware.requestAuthenticator(jwtVerifier, namespace);
+requestAuthenticator.unless = unless;
+app.use(requestAuthenticator.unless(publicRoutes));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
