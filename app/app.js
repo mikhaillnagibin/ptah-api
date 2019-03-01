@@ -97,8 +97,8 @@ app.use(mongo(mongoOptions, mongoConnectionOptions));
 // Middleware below this block is only reached if access token is valid
 const verifierOptions = {
     issuer: config.auth1Issuer,
-    clientId: '',
-    clientSecret: '',
+    clientId: config.auth1ClientId,
+    clientSecret: config.auth1ClientSecret,
     redirectUrl: ''
 };
 const namespace = 'auth1';
