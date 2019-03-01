@@ -13,17 +13,27 @@ Backend for PTAH
 
 ## Deploy
 * `npm install`
-* `npm test`
 * `npm prune --production`
-* `NODE_ENV={string='production'} DB_AUTH_METHOD={string='SCRAM-SHA-256'} DB_COLLECTION_NAME={string='ptah'} 
+* `NODE_ENV={string='production'} AUTH1_CLIENT_ID={string} AUTH1_CLIENT_SECRET={string} AUTH1_ISSUER_URL={string} 
+CORS_VALID_ORIGINS={string} DB_AUTH_METHOD={string='SCRAM-SHA-256'} DB_COLLECTION_NAME={string='ptah'} 
 DB_HOST={string='localhost'} DB_NAME={string='ptah'} DB_PASS={string='ptah'} DB_PORT={string='27017'} 
-DB_USER={string='ptah'} CORS_VALID_ORIGINS={string} NGINX_CONFIGS_DIR={string='sites_enabled'} PUBLIC_HTML_DIR={string='public_html'} 
-ROUTES_PREFIX={string='/api/v1'} SENTRY_DSN={string} SERVER_PORT={string='80'} REDIS_HOST={string} 
-REDIS_PORT={string="6379"} AUTH1_CLIENT_ID={string} AUTH1_CACHE_MAX_AGE={string} AUTH1_INTROSPECTION_URL={string} node ./index.js`
+DB_USER={string='ptah'} MAILCHIMP_MAILLISTS_PATH={string='/3.0/lists'} 
+MAILCHIMP_METADATA_URL={string='https://login.mailchimp.com/oauth2/metadata'} NGINX_CONFIGS_DIR={string='sites_enabled'} 
+PUBLIC_HTML_DIR={string='public_html'} REDIS_HOST={string} REDIS_PORT={string="6379"} ROUTES_PREFIX={string='/api/v1'} 
+SENTRY_DSN={string} SERVER_PORT={string='80'}  node ./index.js`
 
 Where:
 
 *Obligatory params*
+
+{AUTH1_CLIENT_ID} - client id for OAuth2 authentication through Auth1 service
+
+{AUTH1_CLIENT_SECRET} - client secret for OAuth2 authentication through Auth1 service
+
+{AUTH1_ISSUER_URL} - url of Auth1 host 
+
+{CORS_VALID_ORIGINS} - list of valid origins for CORS protection, separated by comma. 
+Notice! Value of * uses by default (disable CORS protection) 
 
 {DB_AUTH_METHOD} - MongoDB authorization method, if user & password authorization is used
 
@@ -39,25 +49,19 @@ Where:
 
 {DB_USER} - MongoDB user name (must be an empty string if auth is not used)
 
-{CORS_VALID_ORIGINS} - list of valid origins for CORS protection, separated by comma. Notice! Value of * uses by 
-default (disable CORS protection) 
+{MAILCHIMP_MAILLISTS_PATH} - maillists api path for mailchimp: /3.0/lists
+
+{MAILCHIMP_METADATA_URL} - metadata url for mailchimp: https://login.mailchimp.com/oauth2/metadata
 
 {NGINX_CONFIGS_DIR} - Path to shared directory with nginx configs
 
 {NODE_ENV} - Current environment
 
+{PUBLIC_HTML_DIR} - Path to shared directory with landings root
+
 {REDIS_HOST} - Redis host
 
 {REDIS_PORT} - Redis post
-
-{AUTH1_CLIENT_ID} - client id for OAuth2 authentication through Auth1 service
-
-{AUTH1_CACHE_MAX_AGE} - time to live for cached results of access token introspection, in milliseconds. Default value
- is 300000 (5 minutes) 
-
-{AUTH1_INTROSPECTION_URL} - full url of Auth1 token introspection endpoint
-
-{PUBLIC_HTML_DIR} - Path to shared directory with landings root
 
 {ROUTES_PREFIX} - Common prefix for all routes, use /api/v1 by default
 
