@@ -27,6 +27,17 @@ backend:
     type: ClusterIP
     port: 3000
     protocol: TCP
+  env:
+    - DB_HOST
+    - DB_NAME
+    - DB_USER
+    - DB_PASS
+    - CORS_VALID_ORIGINS
+    - SENTRY_DSN
+    - REDIS_HOST
+    - AUTH1_ISSUER_URL
+    - AUTH1_CLIENT_ID
+    - AUTH1_CLIENT_SECRET
 
 frontend:
   name: nginx

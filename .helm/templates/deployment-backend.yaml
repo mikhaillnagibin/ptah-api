@@ -79,56 +79,13 @@ spec:
       - name: {{ $depBack.name }}
         image: {{ $depBack.image }}:{{ $depBack.imageTag }}
         env:
-          - name: DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: DB_HOST
-          - name: DB_NAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: DB_NAME
-          - name: DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: DB_USER
-          - name: DB_PASS
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: DB_PASS
-          - name: CORS_VALID_ORIGINS
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: CORS_VALID_ORIGINS
-          - name: SENTRY_DSN
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: SENTRY_DSN
-          - name: REDIS_HOST
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: REDIS_HOST
-          - name: AUTH1_ISSUER_URL
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: AUTH1_ISSUER_URL
-          - name: AUTH1_CLIENT_ID
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: AUTH1_CLIENT_ID
-          - name: AUTH1_CLIENT_SECRET
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Chart.Name }}-env
-                key: AUTH1_CLIENT_SECRET
+        {{- range .Values.backend.env }}
+        - name: {{ . }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ $depBackName }}-env
+              key: {{ . }}
+        {{- end }}
         ports:
         - containerPort: {{$depBack.port}}
         volumeMounts:
