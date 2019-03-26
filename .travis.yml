@@ -14,15 +14,14 @@ jobs:
     services:
     - mongodb
     env:
-      global:
-      - NODE_ENV=test
-      - DB_NAME=ptah-test
-      - DB_USER=''
-      - SERVER_PORT=3001
-      - MOCK_SERVER_PORT=3002
-      - REDIS_HOST=''
-      - MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata
-      - AUTH1_ISSUER_URL=http://localhost:3002
+    - NODE_ENV=test
+    - DB_NAME=ptah-test
+    - DB_USER=''
+    - SERVER_PORT=3001
+    - MOCK_SERVER_PORT=3002
+    - REDIS_HOST=''
+    - MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata
+    - AUTH1_ISSUER_URL=http://localhost:3002
     install:
     - npm install -g codecov nyc mocha
     - npm ci
