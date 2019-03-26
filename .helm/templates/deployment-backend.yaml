@@ -93,7 +93,7 @@ spec:
           mountPath: {{ .Values.app.mountPath }}
           readOnly: false
       - name: {{ $depFront.name }}
-        image: {{ $depFront.image }}:{{ $depFront.imageTag }}
+        image: {{ $depFront.ngxImage }}:{{ $depFront.ngxImageTag }}
         ports:
         - containerPort: {{ $depFront.port }}
         livenessProbe:
