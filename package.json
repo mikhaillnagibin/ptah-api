@@ -43,6 +43,7 @@
     "migrate-mongo": "^5.0.1",
     "mongodb": "^3.1.13",
     "node-fetch": "^2.3.0",
+    "pino": "^5.11.1",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "rimraf": "^2.6.3",
