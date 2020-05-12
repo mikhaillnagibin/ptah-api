@@ -33,6 +33,7 @@ data:
 
         location = /_healthz {
           add_header Content-Type text/plain;
+          access_log off;
           return 200 'ok';
         }
         location ~* ^/.*\.(jpg|jpeg|png|gif|swf|eot|woff|svg|ttf|css|js) {
