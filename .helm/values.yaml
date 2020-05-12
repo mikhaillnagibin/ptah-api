@@ -44,8 +44,8 @@ frontend:
   role: frontend
   image: ""
   imageTag: ""
-  ngxImage: "nginx"
-  ngxImageTag: 1.15
+  ngxImage: "p1hub/ptah-nginx"
+  ngxImageTag: v1.0
   port: 80
   service: 
     type: ClusterIP
