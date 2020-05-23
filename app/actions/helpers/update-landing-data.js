@@ -1,9 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
-const ObjectID = require("bson-objectid");
 
 const config = require('../../../config/config');
+const getDefaultLanding = require('./default-landing');
 
 module.exports = (ctx, currentData, updatedData) => {
 
@@ -15,22 +15,7 @@ module.exports = (ctx, currentData, updatedData) => {
         throw new Error('User not created');
     }
 
-    const now = (new Date).toISOString();
-
-    const defaults = {
-        _id: ObjectID(),
-        name: '',
-        userId: userId,
-        createDate: now,
-        updateDate: now,
-        isPublished: false,
-        hasUnpublishedChanges: false,
-        domain: '',
-        currentVersion: 0,
-        previewUrl: '',
-        isDeleted: false,
-        landing: {}
-    };
+    const defaults = getDefaultLanding();
 
     const update = _.pick(updatedData, ['name', 'isPublished', 'domain', 'landing', 'previewUrl', 'isDeleted']);
 
@@ -51,7 +36,9 @@ module.exports = (ctx, currentData, updatedData) => {
 
     data = _.merge({}, data, update);
 
-    data.updateDate = now;
+    // setting current date-time here - trick for tests
+    data.updateDate = defaults.updateDate;
+    data.userId = userId;
 
     return data;
 

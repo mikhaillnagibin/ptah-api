@@ -22,7 +22,7 @@ module.exports = async (ctx, next) => {
 
     let data = {};
     try {
-        const landings = await findLandings(ctx, [id]);
+        const landings = await findLandings(ctx, false, [id]);
         const landing = landings[0];
         if (landing) {
 

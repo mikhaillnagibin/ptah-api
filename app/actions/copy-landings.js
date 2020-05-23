@@ -18,7 +18,7 @@ module.exports = async (ctx, next) => {
         .replace(/([^T]+)T([^.]+).*/g, '$1 $2');
 
     try {
-        const landings = await findLandings(ctx, ids);
+        const landings = await findLandings(ctx, false, ids);
         const newLandings = landings.map((landing) => {
             return updateLandingData(ctx, {}, {
                 name: `${landing.name} [copy from ${currentDateTime}]`,
