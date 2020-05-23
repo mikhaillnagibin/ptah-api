@@ -8,7 +8,7 @@ const pino = require('pino');
 const cors = require('koa2-cors');
 const unless = require('koa-unless');
 const Sentry = require('@sentry/node');
-const {KoaReqLogger} = require('koa-req-logger');
+const {KoaReqLogger, reqSerializer, resSerializer, errSerializer} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
 const {JwtVerifier, StorageRedis, koaOauthMiddleware} = require('authone-jwt-verifier-node');
 
@@ -31,6 +31,11 @@ app.on('error', err => {
 const pinoLogger = pino({
     useLevelLabels: true,
     timestamp: pino.stdTimeFunctions.unixTime,
+    serializers: {
+        req: reqSerializer,
+        res: resSerializer,
+        err: errSerializer,
+    },
 });
 const logger = new KoaReqLogger({
     pinoInstance: pinoLogger,
