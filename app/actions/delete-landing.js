@@ -10,7 +10,7 @@ const getDbCollection = require('../utils/get-db-collection');
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
     try {
-        const landings = await findLandings(ctx, [id]);
+        const landings = await findLandings(ctx, false, [id]);
         const landing = landings[0];
         if (landing) {
 

@@ -5,9 +5,10 @@ const ObjectID = require("bson-objectid");
 
 const config = require('../../../config/config');
 const badRequest = require('./bad-request');
+const getDefaultLanding = require('./default-landing');
 const getDbCollection = require('../../utils/get-db-collection');
 
-module.exports = async (ctx, ids) => {
+module.exports = async (ctx, omitLandingBody, ids) => {
 
     ids = ids || [];
 
@@ -18,11 +19,17 @@ module.exports = async (ctx, ids) => {
         throw new Error('User not created');
     }
 
+    const omitFields = ['isDeleted'];
+    if (omitLandingBody) {
+        omitFields.push('landing');
+    }
+
     const options = {
-        projection: {
-            isDeleted: 0
-        }
+        projection: {}
     };
+    omitFields.forEach((field) => {
+        options.projection[field] = 0
+    });
 
     const condition = {
         isDeleted: false,
@@ -54,5 +61,8 @@ module.exports = async (ctx, ids) => {
     } catch (err) {
         throw err
     }
-    return result;
+
+    const defaultLanding = _.omit(getDefaultLanding(), omitFields);
+
+    return result.map(l => Object.assign({}, defaultLanding, l));
 };

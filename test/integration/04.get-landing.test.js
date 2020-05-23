@@ -48,7 +48,7 @@ describe(`GET ${routesPrefix}/{landingId}`, () => {
     });
 
 
-    it("should return valid response and found landings for authenticated user", (done) => {
+    it("should return valid response and found landing for authenticated user", (done) => {
         chai.request(server)
             .get(`${routesPrefix}/${landingId}`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)

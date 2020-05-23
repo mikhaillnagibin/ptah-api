@@ -18,7 +18,7 @@ const config = {
     dbUsersCollectionName: 'ptah-users',
 
     redisHost: getEnvVariable('REDIS_HOST', '127.0.0.1'),
-    redisPort: +getEnvVariable('REDIS_PORT', '7000'),
+    redisPort: +getEnvVariable('REDIS_PORT', '6379'),
 
     routesPrefix: getEnvVariable('ROUTES_PREFIX', '/api/v1'),
 
