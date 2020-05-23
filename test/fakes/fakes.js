@@ -20,6 +20,7 @@ const fakeId = '5c4c8b4618cd1bd2325e6904';
 const fakeLanding = {
     _id: ObjectID(fakeId),
     name: 'My Landing Name',
+    previewUrl: 'http://domain.com/image/preview.png',
     userId: fakeUserId,
     createDate: '2019-01-26T16:31:02.790Z',
     updateDate: '2019-01-26T16:31:02.790Z',

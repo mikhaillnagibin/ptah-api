@@ -136,12 +136,13 @@ describe(`PATCH ${routesPrefix}/{landingId}`, () => {
     });
 
 
-    it("should return valid response with new name in body and incremented current version", (done) => {
+    it("should return valid response with new name and previewUrl in body and incremented current version", (done) => {
         chai.request(server)
             .patch(`${routesPrefix}/${landingId}`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
             .send({
                 name: landingNewName,
+                previewUrl: "http://domain.com/image/new-preview.png",
                 landing: {
                     slug: landingNewSlug
                 },
@@ -151,6 +152,7 @@ describe(`PATCH ${routesPrefix}/{landingId}`, () => {
                 should.not.exist(err);
                 res.status.should.eql(200);
                 res.body.name.should.eq(landingNewName);
+                res.body.previewUrl.should.eq("http://domain.com/image/new-preview.png");
                 res.body.currentVersion.should.be.eql(currentVersion + 1);
                 res.body.hasUnpublishedChanges.should.be.true;
                 res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/{landingId}`, "patch")

@@ -149,6 +149,9 @@ paths:
                 name:
                   type: string
                   example: 'My first landing'
+                previewUrl:
+                  type: string
+                  example: 'http://domain.com/image/preview.png'
                 landing:
                   $ref: '#/components/schemas/Landing'
 
@@ -452,6 +455,9 @@ paths:
                 name:
                   type: string
                   example: 'My first landing'
+                previewUrl:
+                  type: string
+                  example: 'http://domain.com/image/preview.png'
                 baseVersion:
                   type: number
                   example: 1
@@ -843,7 +849,7 @@ paths:
       tags:
         - Landings
       summary: Remove an external domain for landing
-      operationId: unpublishLanding
+      operationId: deleteDomain
       description: Remove an external domain for landing
       security:
         - bearerAuth: []
@@ -1322,6 +1328,7 @@ components:
         - isPublished
         - hasUnpublishedChanges
         - currentVersion
+        - previewUrl
       properties:
         _id:
           type: string
@@ -1352,6 +1359,9 @@ components:
         currentVersion:
           type: number
           example: 1
+        previewUrl:
+          type: string
+          example: 'http://domain.com/image/preview.png'
 
     Landing:
       type: object
