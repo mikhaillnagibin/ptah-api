@@ -6,20 +6,18 @@ services:
       container_name: ptah-node
       restart: unless-stopped
       environment:
-        DB_HOST: ptah-mongo
-        DB_USER: ""
-        DB_PASS: ""
+        MONGO_DSN: ""
       ports:
         - "8080:3000"
       volumes:
         - ptah-landings:/etc/nginx/landings/public/landings
-      networks: 
+      networks:
         - p1devnet
 
   ptah-nginx:
       container_name: ptah-nginx
       image: nginx:1.15.4
-      networks: 
+      networks:
         - p1devnet
       ports:
           - "8090:80"
@@ -27,7 +25,7 @@ services:
       volumes:
         - ptah-landings:/usr/share/nginx/html/landings
       depends_on:
-          - "ptah-node"   
+          - "ptah-node"
 
   ptah-mongo:
     image: mongo:4.1.3

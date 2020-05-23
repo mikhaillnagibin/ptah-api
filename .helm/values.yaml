@@ -23,13 +23,12 @@ backend:
   image: "p1hub/p1ptahapi"
   imageTag: latest
   port: 3000
-  service: 
+  service:
     type: ClusterIP
     port: 3000
     protocol: TCP
   env:
-    - DB_HOST
-    - DB_NAME
+    - MONGO_DSN
     - DB_USER
     - DB_PASS
     - CORS_VALID_ORIGINS
@@ -47,11 +46,11 @@ frontend:
   ngxImage: "p1hub/ptah-nginx"
   ngxImageTag: v1.0
   port: 80
-  service: 
+  service:
     type: ClusterIP
     port: 8080
     protocol: TCP
-  configMap: 
+  configMap:
     mountPath: /etc/nginx/conf.d/
 
 resources: {}

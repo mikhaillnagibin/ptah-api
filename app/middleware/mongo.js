@@ -8,33 +8,23 @@
 
 const { MongoClient } = require('mongodb');
 
-const defaultUrlOptions = {
-    host: 'localhost',
-    port: 27017,
-    databaseName: 'test',
-};
-
 const defaultConnectionOptions = {
     useNewUrlParser: true,
+    useUnifiedTopology: true
 };
-
-const buildMongoURL = options => `mongodb://${options.host}:${options.port}/${options.databaseName}`;
 
 const close = (connection) => {
     if (connection) connection.close();
 };
 
-const mongo = (customUrlOptions, customConnectionOptions) => {
-    const urlOptions = Object.assign({}, defaultUrlOptions, customUrlOptions);
+const mongo = (dsn, customConnectionOptions) => {
     const connectionOptions = Object.assign(
         {},
         defaultConnectionOptions,
         customConnectionOptions,
     );
 
-    const mongoURL = buildMongoURL(urlOptions);
-
-    return async (ctx, next) => MongoClient.connect(mongoURL, connectionOptions)
+    return async (ctx, next) => MongoClient.connect(dsn, connectionOptions)
         .then(async (connection) => {
             ctx.mongo = connection;
             await next();

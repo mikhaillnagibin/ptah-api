@@ -72,22 +72,6 @@ app.use(cors({
 fs.mkdirSync(config.publicHtmlDir, {recursive: true});
 fs.mkdirSync(config.nginxConfigsDir, {recursive: true});
 
-// setup db connection
-const mongoOptions = {
-    host: config.dbHost,
-    port: config.dbPort,
-    db: config.dbName,
-};
-const mongoConnectionOptions = {};
-if (config.dbUser && config.dbPass && config.dbAuthMethod) {
-    mongoConnectionOptions.auth = {
-        user: config.dbUser,
-        password: config.dbPass
-    };
-    mongoConnectionOptions.authSource = config.dbName;
-    mongoConnectionOptions.authMechanism = config.dbAuthMethod;
-}
-
 // handle mongoDb connection error with code 500 instead of 200 by default, and crash the app after send answer
 app.use(async (ctx, next) => {
     try {
@@ -103,7 +87,7 @@ app.use(async (ctx, next) => {
     }
 });
 
-app.use(mongo(mongoOptions, mongoConnectionOptions));
+app.use(mongo(config.mongoDsn, {}));
 
 // Middleware below this block is only reached if access token is valid
 const verifierOptions = {

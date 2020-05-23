@@ -3,14 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const config = require('../config/config');
-
-const testDbName = 'ptah-test';
-if (config.dbName !== testDbName) {
-    console.error(`Probably production database "${config.dbName}" used, instead of "${testDbName}"!`);
-    process.exit(1);
-}
-
 const re = /\.test\.js$/; // names of files with tests must match file mask *.test.js
 const testDirs = ['unit', 'integration']; // dirs with tests //
 
