@@ -27,11 +27,12 @@ module.exports = (ctx, currentData, updatedData) => {
         hasUnpublishedChanges: false,
         domain: '',
         currentVersion: 0,
+        previewUrl: '',
         isDeleted: false,
         landing: {}
     };
 
-    const update = _.pick(updatedData, ['name', 'isPublished', 'domain', 'landing', 'isDeleted']);
+    const update = _.pick(updatedData, ['name', 'isPublished', 'domain', 'landing', 'previewUrl', 'isDeleted']);
 
     let data = _.defaults(_.merge({}, _.omit(currentData, ['isDeleted'])), defaults);
 

@@ -94,8 +94,25 @@ describe(`POST ${routesPrefix}`, () => {
             });
     });
 
-
     it("should return 201 code for request with full body", (done) => {
+        chai.request(server)
+            .post(`${routesPrefix}`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .send({
+                name: "My new landing",
+                previewUrl: "http://domain.com/image/preview.png",
+                landing: fakes.fakeLanding.landing
+            })
+            .end((err, res) => {
+                should.not.exist(err);
+                res.status.should.eql(201);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "post")
+                    .andNotifyWhen(done);
+            });
+    });
+
+
+    it("should also return 201 code for request with body without previewUrl", (done) => {
         chai.request(server)
             .post(`${routesPrefix}`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)

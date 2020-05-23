@@ -14,12 +14,16 @@ module.exports = async (ctx, next) => {
     const body = ctx.request.body || {};
 
     const name = (body.name || '').trim();
+    const previewUrl = (body.previewUrl || '').trim();
     const landingUpdate = body.landing;
     const baseVersion = +(body.baseVersion || '');
 
     const update = {};
     if (name) {
         update.name = name;
+    }
+    if (previewUrl) {
+        update.previewUrl = previewUrl;
     }
     if (landingUpdate && !_.isEmpty(landingUpdate)) {
         update.landing = landingUpdate;

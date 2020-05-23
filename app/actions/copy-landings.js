@@ -22,6 +22,7 @@ module.exports = async (ctx, next) => {
         const newLandings = landings.map((landing) => {
             return updateLandingData(ctx, {}, {
                 name: `${landing.name} [copy from ${currentDateTime}]`,
+                previewUrl: landing.previewUrl,
                 landing: landing.landing
             })
         });

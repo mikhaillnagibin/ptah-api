@@ -40,6 +40,7 @@ describe('update-landing-data test', () => {
         data._id.should.be.an('object');
         data._id.should.be.not.empty;
         data.name.should.eql('');
+        data.previewUrl.should.eql('');
         data.userId.should.eql(fakes.fakeUserId);
         data.createDate.should.be.a('string');
         data.createDate.should.be.not.empty;
@@ -192,6 +193,20 @@ describe('update-landing-data test', () => {
 
         fakes.fakeLanding.domain.should.not.be.eql(name);
         data.name.should.be.eql(name);
+
+        done();
+    });
+
+    it('Should update previewUrl, when it passed', (done) => {
+
+        const previewUrl = 'http://domain.com/image/preview.png';
+
+        const data = updateLandingData(fakeCtx, fakes.fakeLanding, {
+            previewUrl: previewUrl
+        });
+
+        fakes.fakeLanding.domain.should.not.be.eql(previewUrl);
+        data.previewUrl.should.be.eql(previewUrl);
 
         done();
     });

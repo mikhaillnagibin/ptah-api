@@ -11,11 +11,13 @@ module.exports = async (ctx, next) => {
 
     const body = ctx.request.body || {};
     const name = (body.name || '').trim();
+    const previewUrl = (body.previewUrl || '').trim();
     const landingUpdate = body.landing;
 
     const update = {};
     if (name) {
         update.name = name;
+        update.previewUrl = previewUrl;
     } else {
         return badRequest();
     }
