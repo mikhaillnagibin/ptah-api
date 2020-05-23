@@ -15,9 +15,7 @@ Backend for PTAH
 * `npm install`
 * `npm prune --production`
 * `NODE_ENV={string='production'} AUTH1_CLIENT_ID={string} AUTH1_CLIENT_SECRET={string} AUTH1_ISSUER_URL={string} 
-CORS_VALID_ORIGINS={string} DB_AUTH_METHOD={string='SCRAM-SHA-256'} DB_COLLECTION_NAME={string='ptah'} 
-DB_HOST={string='localhost'} DB_NAME={string='ptah'} DB_PASS={string='ptah'} DB_PORT={string='27017'} 
-DB_USER={string='ptah'} MAILCHIMP_MAILLISTS_PATH={string='/3.0/lists'} 
+CORS_VALID_ORIGINS={string} MONGO_DSN={string} MAILCHIMP_MAILLISTS_PATH={string='/3.0/lists'} 
 MAILCHIMP_METADATA_URL={string='https://login.mailchimp.com/oauth2/metadata'} NGINX_CONFIGS_DIR={string='sites_enabled'} 
 PUBLIC_HTML_DIR={string='public_html'} REDIS_HOST={string} REDIS_PORT={string="6379"} ROUTES_PREFIX={string='/api/v1'} 
 SENTRY_DSN={string} SERVER_PORT={string='80'}  node ./index.js`
@@ -35,19 +33,7 @@ Where:
 {CORS_VALID_ORIGINS} - list of valid origins for CORS protection, separated by comma. 
 Notice! Value of * uses by default (disable CORS protection) 
 
-{DB_AUTH_METHOD} - MongoDB authorization method, if user & password authorization is used
-
-{DB_COLLECTION_NAME} - MongoDB collection name
-
-{DB_HOST} - MongoDB host
-
-{DB_NAME} - MongoDB database name
-
-{DB_PASS} - MongoDB user password (must be an empty string if auth is not used)
-
-{DB_PORT} - MongoDB port
-
-{DB_USER} - MongoDB user name (must be an empty string if auth is not used)
+{MONGO_DSN} - DNS for MongoDB connection
 
 {MAILCHIMP_MAILLISTS_PATH} - maillists api path for mailchimp: /3.0/lists
 

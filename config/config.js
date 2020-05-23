@@ -12,18 +12,13 @@ const nginxConfigsDir = getEnvVariable('NGINX_CONFIGS_DIR', 'sites_enabled');
 const config = {
     serverPort: +getEnvVariable('SERVER_PORT', 3000),
 
-    dbHost: getEnvVariable('DB_HOST', 'localhost'),
-    dbPort: +getEnvVariable('DB_PORT', '27017'),
-    dbName: getEnvVariable('DB_NAME', 'ptah'),
-    dbUser: getEnvVariable('DB_USER', 'ptah'),
-    dbPass: getEnvVariable('DB_PASS', 'ptah'),
-    dbAuthMethod: getEnvVariable('DB_AUTH_METHOD', 'SCRAM-SHA-256'),
+    mongoDsn: getEnvVariable('MONGO_DSN', ''),
 
     dbLandingsCollectionName: 'ptah-landings',
     dbUsersCollectionName: 'ptah-users',
 
-    redisHost: getEnvVariable('REDIS_HOST', '192.168.99.100'),
-    redisPort: +getEnvVariable('REDIS_PORT', '6379'),
+    redisHost: getEnvVariable('REDIS_HOST', '127.0.0.1'),
+    redisPort: +getEnvVariable('REDIS_PORT', '7000'),
 
     routesPrefix: getEnvVariable('ROUTES_PREFIX', '/api/v1'),
 
