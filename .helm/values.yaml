@@ -29,6 +29,8 @@ backend:
     protocol: TCP
   env:
     - MONGO_DSN
+    - DB_USER
+    - DB_PASS
     - CORS_VALID_ORIGINS
     - SENTRY_DSN
     - REDIS_HOST
