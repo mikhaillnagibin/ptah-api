@@ -6,8 +6,9 @@ const KoaBody = require('koa-body');
 const passport = require('koa-passport');
 
 const config = require('../../config/config');
-const {AUTHENTICATION_ERROR, CANT_CREATE_SESSION, INTERNAL_SERVER_ERROR} = require('../../config/errors');
+const {AUTHENTICATION_ERROR, CANT_CREATE_SESSION, INTERNAL_SERVER_ERROR, SIGNUP_CANT_CREATE_USER} = require('../../config/errors');
 const Factory = require('../classes/factory');
+const generatePassword = require('../utils/password').generatePassword;
 
 const signupLocal = require('../actions/auth/signup-local');
 const loginLocal = require('../actions/auth/login-local');
@@ -48,11 +49,31 @@ const createSession = async function (ctx, next) {
         return ctx.throw(401, AUTHENTICATION_ERROR)
     }
 
+    const socialUser = ctx.state.user;
+
     try {
+        const user = Factory.User(ctx);
+
+        if (!await user.FindByEmail(socialUser.email)) {
+
+            const password = generatePassword();
+
+            const res = await user.CreateUser(socialUser.name, socialUser.email, password, socialUser.source);
+            if (!res) {
+                return ctx.throw(500, SIGNUP_CANT_CREATE_USER)
+            }
+
+            try {
+                const mail = Factory.Mail(ctx);
+                await mail.SendUserSignupSocial(user.GetUser(), password);
+            } catch (e) {
+                // do nothing
+            }
+        }
 
         const us = Factory.UserSession(ctx);
 
-        const s = await us.Create(ctx.state.user._id.toString(), ctx.request.ip, ctx.request.header['user-agent']);
+        const s = await us.Create(user.GetId(), ctx.request.ip, ctx.request.header['user-agent']);
 
         if (!s) {
             return ctx.throw(500, CANT_CREATE_SESSION)
