@@ -5,30 +5,30 @@ const path = require('path');
 const decompress = require('decompress');
 const ObjectID = require("bson-objectid");
 
-const config = require('../../config/config');
+const config = require('../../../config/config');
 
-const badRequest = require('./helpers/bad-request');
-const findLandings = require('./helpers/find-landings');
-const getLandingMeta = require('./helpers/get-landing-meta');
-const updateLandingData = require('./helpers/update-landing-data');
-const deletePublishedLanding = require('./helpers/delete-published-landing');
-const addDomainConfig = require('./helpers/add-domain-config');
-const getDbCollection = require('../utils/get-db-collection');
+const {BAD_REQUEST} = require('../../../config/errors');
+const findLandings = require('../helpers/find-landings');
+const getLandingMeta = require('../helpers/get-landing-meta');
+const updateLandingData = require('../helpers/update-landing-data');
+const deletePublishedLanding = require('../helpers/delete-published-landing');
+const addDomainConfig = require('../helpers/add-domain-config');
+const getDbCollection = require('../../utils/get-db-collection');
 
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
 
     if (!ctx.request.files) {
-        return badRequest();
+        return ctx.throw(400, BAD_REQUEST);
     }
 
     const file = ctx.request.files.file;
     if (!file) {
-        return badRequest();
+        return ctx.throw(400, BAD_REQUEST);
     }
     if (!(file.type === 'application/zip' && file.name === 'project.zip')) {
-        return badRequest();
+        return ctx.throw(400, BAD_REQUEST);
     }
 
     let data = {};

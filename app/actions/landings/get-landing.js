@@ -1,6 +1,6 @@
 'use strict';
 
-const findLandings = require('./helpers/find-landings');
+const findLandings = require('../helpers/find-landings');
 
 module.exports = async (ctx, next) => {
     const ids = [ctx.params.id];

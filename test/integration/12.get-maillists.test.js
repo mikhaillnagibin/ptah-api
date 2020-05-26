@@ -35,7 +35,7 @@ describe(`GET ${routesPrefix}`, () => {
     it("should return alid response for authenticated user, that integrated with mailchimp", (done) => {
         chai.request(server)
             .get(`${routesPrefix}`)
-            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .set('authorization', `Bearer ${fakes.fakeAnotherUserAuthToken}`)
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(200);
@@ -48,7 +48,7 @@ describe(`GET ${routesPrefix}`, () => {
     it("should return 412 error for authenticated another user, that not integrated with mailchimp", (done) => {
         chai.request(server)
             .get(`${routesPrefix}`)
-            .set('authorization', `Bearer ${fakes.fakeAnotherUserAuthToken}`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
             .end((err, res) => {
                 should.not.exist(err);
                 res.status.should.eql(412);

@@ -3,17 +3,17 @@
 const path = require('path');
 const ObjectID = require("bson-objectid");
 
+const fake_users = require('./fake_users');
 const fakeLandingData = require('./landing');
 const fakeMaillistData = require('./maillists');
 
 const fakeProjectZipPath = path.join(__dirname, 'project.zip');
 
-const fakeUserId = 'b62klDf0HeiJdNMv8K263nfE';
-const fakeUserAuthToken = 't9t8yf_-A9IbFJ-ldxoQ80pWBDbRWhDiuNIlhj1nl7I.OFol83LbiTznkEJzwz0otoO5Zn8KDlGONGiKdqrgawM';
+const fakeUserId = fake_users[0]._id;
+const fakeUserAuthToken = fake_users[0].accessToken;
 
-const fakeAnotherUserId = '0HeiJdNMv8K263nfEb62klDf';
-const fakeAnotherUserAuthToken = 'CunLhcgaE-tz6euizyof-ltm1Hh88lrDTcbj8KVoPH4.hnts7D3ufK_ERbujTrUyFpHXUQMdy9GBvYUH7Y3xKeI';
-
+const fakeAnotherUserId = fake_users[1]._id;
+const fakeAnotherUserAuthToken = fake_users[1].accessToken;
 
 const fakeId = '5c4c8b4618cd1bd2325e6904';
 

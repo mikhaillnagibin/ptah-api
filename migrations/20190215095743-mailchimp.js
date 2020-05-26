@@ -5,33 +5,7 @@ module.exports = {
         } catch (err) {
             console.log('collection ptah already renamed to ptah-landings')
         }
-        await db.createCollection('ptah-users', {
-            validator: {
-                $jsonSchema: {
-                    bsonType: 'object',
-                    required: ['userId', 'mailchimpIntegration', 'mailchimpAccessToken', 'isDeleted'],
-                    properties: {
-                        userId: {
-                            type: 'string',
-                            description: 'User id'
-                        },
-                        mailchimpIntegration: {
-                            type: 'boolean',
-                            description: 'Have user been ever integrated with mailchimp'
-                        },
-                        mailchimpAccessToken: {
-                            type: 'string',
-                            description: 'Access token, received from mailchimp on last authentication'
-                        },
-                        isDeleted: {
-                            type: 'boolean',
-                            description: 'Is user deleted or not'
-                        }
-                    }
-                }
-            },
-            validationAction: 'error'
-        })
+        await db.createCollection('ptah-users')
     },
 
     async down(db) {

@@ -3,20 +3,17 @@
 const fs = require('fs');
 const os = require('os');
 const Koa = require('koa');
-const Redis = require('ioredis');
 const pino = require('pino');
 const cors = require('koa2-cors');
 const unless = require('koa-unless');
 const Sentry = require('@sentry/node');
 const {KoaReqLogger, reqSerializer, resSerializer, errSerializer} = require('koa-req-logger');
 const cacheControl = require('koa-cache-control');
-const {JwtVerifier, StorageRedis, koaOauthMiddleware} = require('authone-jwt-verifier-node');
-
 const config = require('../config/config');
 
 const router = require('./middleware/router');
-const mongo = require('./middleware/mongo');
-
+const mongo = require('./middleware/mongo').mongo;
+const auth = require('./middleware/auth')
 
 Sentry.init({
     dsn: config.sentryDsn,
@@ -43,9 +40,19 @@ const logger = new KoaReqLogger({
 });
 app.use(logger.getMiddleware());
 
-// healthCheck page not requires authorization or cors origin header check
+// list of endpoints than not requires authorization or cors origin header check
 const publicRoutes = {
-    path: `${config.routesPrefix}/_healthz`
+    path: [
+        `${config.routesPrefix}/_healthz`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/login`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/signup`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/refresh`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/confirm_email`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/restore_password_step1`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/restore_password_step2`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/google`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/google/callback`,
+    ]
 };
 
 // CORS setup
@@ -77,11 +84,12 @@ app.use(async (ctx, next) => {
     try {
         await next();
     } catch (err) {
-        if (~err.name.toLowerCase().indexOf('mongo')) {
+        // todo: fix it
+        /*if (~err.name.toLowerCase().indexOf('mongo')) {
             ctx.res.once('finish', function () {
                 process.exit(1);
             });
-        }
+        }*/
         err.status = err.status || 500;
         throw err;
     }
@@ -89,34 +97,25 @@ app.use(async (ctx, next) => {
 
 app.use(mongo(config.mongoDsn, {}));
 
-// Middleware below this block is only reached if access token is valid
-const verifierOptions = {
-    issuer: config.auth1Issuer,
-    clientId: config.auth1ClientId,
-    clientSecret: config.auth1ClientSecret,
-    redirectUrl: ''
-};
-const namespace = 'auth1';
-let storage = null;
-if (config.redisHost && config.redisPort) {
-    const redisInstance = new Redis(config.redisHost, config.redisPort);
-    storage = new StorageRedis(redisInstance);
-}
-const jwtVerifier = new JwtVerifier(verifierOptions, storage);
-const requestAuthenticator = koaOauthMiddleware.requestAuthenticator(jwtVerifier, namespace);
+// authentication
+require('./middleware/passport');
+const passport = require('koa-passport');
+app.use(passport.initialize());
+
+const requestAuthenticator = auth.requestAuthenticator();
 requestAuthenticator.unless = unless;
 app.use(requestAuthenticator.unless(publicRoutes));
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-
+app.proxy = true;
 app.use(cacheControl({
     noCache: true
 }));
 
 // server
 const port = config.serverPort;
-const server = app.listen(port, () => {
+const server = app.listen(port, '0.0.0.0', () => {
     pinoLogger.info(`Server listening on port: ${port}`);
 });
 

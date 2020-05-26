@@ -3,11 +3,11 @@
 const _ = require('lodash');
 const ObjectID = require("bson-objectid");
 
-const badRequest = require('./helpers/bad-request');
-const findLandings = require('./helpers/find-landings');
-const getLandingMeta = require('./helpers/get-landing-meta');
-const updateLandingData = require('./helpers/update-landing-data');
-const getDbCollection = require('../utils/get-db-collection');
+const {BAD_REQUEST, PRECONDITION_FAILED} = require('../../../config/errors');
+const findLandings = require('../helpers/find-landings');
+const getLandingMeta = require('../helpers/get-landing-meta');
+const updateLandingData = require('../helpers/update-landing-data');
+const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
@@ -30,7 +30,7 @@ module.exports = async (ctx, next) => {
     }
 
     if (_.isEmpty(update) || !baseVersion) {
-        return badRequest();
+        return ctx.throw(400, BAD_REQUEST);
     }
 
     let data = {};
@@ -41,9 +41,7 @@ module.exports = async (ctx, next) => {
 
             // prevent inconsistent updates
             if (landing.currentVersion !== baseVersion) {
-                const err = new Error('Precondition Failed');
-                err.status = 412;
-                throw err;
+                return ctx.throw(412, PRECONDITION_FAILED);
             }
 
             data = updateLandingData(ctx, landing, update);

@@ -63,3 +63,4 @@ public_html/
 sites_enabled/
 
 coverage/
+test/fakes/fake_users.json

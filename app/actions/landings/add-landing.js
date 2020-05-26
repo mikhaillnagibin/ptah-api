@@ -2,10 +2,10 @@
 
 const _ = require('lodash');
 
-const badRequest = require('./helpers/bad-request');
-const getLandingMeta = require('./helpers/get-landing-meta');
-const updateLandingData = require('./helpers/update-landing-data');
-const getDbCollection = require('../utils/get-db-collection');
+const {BAD_REQUEST} = require('../../../config/errors');
+const getLandingMeta = require('../helpers/get-landing-meta');
+const updateLandingData = require('../helpers/update-landing-data');
+const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
 
@@ -19,12 +19,12 @@ module.exports = async (ctx, next) => {
         update.name = name;
         update.previewUrl = previewUrl;
     } else {
-        return badRequest();
+        return ctx.throw(400, BAD_REQUEST);
     }
     if (landingUpdate && !_.isEmpty(landingUpdate)) {
         update.landing = landingUpdate;
     } else {
-        return badRequest();
+        return ctx.throw(400, BAD_REQUEST);
     }
 
     const data = updateLandingData(ctx, {}, update);

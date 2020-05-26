@@ -1,9 +1,9 @@
 'use strict';
 
-const badRequest = require('./helpers/bad-request');
-const findLandings = require('./helpers/find-landings');
-const updateLandingData = require('./helpers/update-landing-data');
-const getDbCollection = require('../utils/get-db-collection');
+const {BAD_REQUEST} = require('../../../config/errors');
+const findLandings = require('../helpers/find-landings');
+const updateLandingData = require('../helpers/update-landing-data');
+const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
     const body = ctx.request.body || {};
@@ -11,7 +11,7 @@ module.exports = async (ctx, next) => {
     const ids = body.ids;
 
     if (!(Array.isArray(ids) && ids.length > 0)) {
-        return badRequest();
+        return ctx.throw(400, BAD_REQUEST);
     }
 
     const currentDateTime = (new Date()).toISOString()

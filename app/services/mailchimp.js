@@ -2,6 +2,8 @@
 
 const request = require('request-promise-native');
 
+const {PRECONDITION_FAILED} = require('../../config/errors');
+
 module.exports = async (ctx, options) => {
     const label = Math.random().toString(36).substring(2);
     try {
@@ -25,11 +27,8 @@ function throwError(ctx, label, err) {
         ctx.log.error(`[${label}]`, 'Sending http request to mailchimp error:', response);
         ctx.log.debug(`[${label}]`, 'Sending http request to mailchimp error1:', err);
         if (err.statusCode === 401 || err.error === 'invalid_token') {
-            const error = new Error('Precondition failed');
-            error.status = 412;
-            error.logged = true;
-            throw error;
-        }
+            err.logged = true;
+            return ctx.throw(412, PRECONDITION_FAILED);        }
         if (err.statusCode) {
             err.status = err.statusCode;
         }

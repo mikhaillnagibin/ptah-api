@@ -13,3 +13,7 @@ module.exports.landings = function (ctx) {
 module.exports.users = function (ctx) {
     return ctx.mongo.db(dbName).collection(config.dbUsersCollectionName)
 };
+
+module.exports.users_sessions = function (ctx) {
+    return ctx.mongo.db(dbName).collection(config.dbUsersSessionsCollectionName)
+};

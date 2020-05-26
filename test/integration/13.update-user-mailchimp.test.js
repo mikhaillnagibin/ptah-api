@@ -13,24 +13,11 @@ const server = require('../../app/app');
 const config = require('../../config/config');
 const fakes = require('../fakes/fakes');
 
-const routesPrefix = config.routesPrefix + config.userRoutesNamespace;
+const routesPrefix = config.routesPrefix + config.userRoutesNamespace + '/mailchimp';
 
 const openapiSchemaPath = path.resolve("./spec/openapi.yaml");
 
-describe(`GET ${routesPrefix}`, () => {
-
-    it("should return auth error for request without bearer token", (done) => {
-        chai.request(server)
-            .get(`${routesPrefix}`)
-            .end((err, res) => {
-                should.not.exist(err);
-                res.status.should.eql(401);
-                res.type.should.eql('application/json');
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}`, "get")
-                    .andNotifyWhen(done);
-            });
-    });
-
+describe(`POST / DELETE ${routesPrefix}`, () => {
 
     it("should return bad request error for request with empty object in body", (done) => {
         chai.request(server)
@@ -82,7 +69,7 @@ describe(`GET ${routesPrefix}`, () => {
 
     it("should return success on remove mailchimpAccessToken and toggle mailchimpIntegration off", (done) => {
         chai.request(server)
-            .post(`${routesPrefix}`)
+            .delete(`${routesPrefix}`)
             .set('authorization', `Bearer ${fakes.fakeAnotherUserAuthToken}`)
             .send({
                 mailchimpAccessToken: ''

@@ -14,46 +14,80 @@ Backend for PTAH
 ## Deploy
 * `npm install`
 * `npm prune --production`
-* `NODE_ENV={string='production'} AUTH1_CLIENT_ID={string} AUTH1_CLIENT_SECRET={string} AUTH1_ISSUER_URL={string} 
-CORS_VALID_ORIGINS={string} MONGO_DSN={string} MAILCHIMP_MAILLISTS_PATH={string='/3.0/lists'} 
+* `NODE_ENV={string='production'} AUTH_TOKEN_SECRET={string} PASSWORD_SECRET={string} RESTORE_PASSWORD_SECRET={string} 
+CONFIRM_EMAIL_SECRET={string} CORS_VALID_ORIGINS={string} MONGO_DSN={string} EMAIL_POSTMARK_TOKEN={string} 
+EMAIL_SENDER_FROM={string} EMAIL_TEMPLATE_RESTORE_PASSWORD={string} EMAIL_TEMPLATE_CONFIRM_EMAIL={string} 
+EMAIL_TEMPLATE_USER_SIGNUP_LOCAL={string} EMAIL_TEMPLATE_USER_SIGNUP_SOCIAL={string} SENTRY_DSN={string}  
+PUBLIC_HOST={string} EMAIL_TEMPLATE_RESTORE_PASSWORD_REQUEST={string} MAILCHIMP_MAILLISTS_PATH={string='/3.0/lists'} 
 MAILCHIMP_METADATA_URL={string='https://login.mailchimp.com/oauth2/metadata'} NGINX_CONFIGS_DIR={string='sites_enabled'} 
-PUBLIC_HTML_DIR={string='public_html'} REDIS_HOST={string} REDIS_PORT={string="6379"} ROUTES_PREFIX={string='/api/v1'} 
-SENTRY_DSN={string} SERVER_PORT={string='80'}  node ./index.js`
+PUBLIC_HTML_DIR={string='public_html'} ROUTES_PREFIX={string='/api/v1'}
+ACCESS_TOKEN_LIFETIME={string='1'} REFRESH_TOKEN_LIFETIME={string='72'} RESTORE_PASSWORD_LIFETIME={string='15'} CONFIRM_EMAIL_LIFETIME={string='24'}
+SERVER_PORT={string='80'}  node ./index.js`
 
 Where:
 
 *Obligatory params*
 
-{AUTH1_CLIENT_ID} - client id for OAuth2 authentication through Auth1 service
+{NODE_ENV} - Current environment
 
-{AUTH1_CLIENT_SECRET} - client secret for OAuth2 authentication through Auth1 service
+{PUBLIC_HOST} - Public host with frontend
 
-{AUTH1_ISSUER_URL} - url of Auth1 host 
+{AUTH_TOKEN_SECRET} - secret for signing auth tokens
+
+{PASSWORD_SECRET} - secret for signing passwords
+
+{RESTORE_PASSWORD_SECRET} - secret for signing restore passwords tokens
+
+{CONFIRM_EMAIL_SECRET} - secret for signing confirm email tokens
+
+{EMAIL_POSTMARK_TOKEN} - token from postmark app to send emails through
+
+{EMAIL_SENDER_FROM} - name and email to substitute to letter's From field 
+
+{EMAIL_TEMPLATE_RESTORE_PASSWORD_REQUEST} - postmark's template id for restore password confirmation mail
+ 
+{EMAIL_TEMPLATE_RESTORE_PASSWORD} - postmark's template id for mail with new password
+
+{EMAIL_TEMPLATE_CONFIRM_EMAIL} - postmark's template id for confirm user email
+
+{EMAIL_TEMPLATE_USER_SIGNUP_LOCAL} - postmark's template id for local signup mail
+
+{EMAIL_TEMPLATE_USER_SIGNUP_SOCIAL} - postmark's template id for social signup mail
 
 {CORS_VALID_ORIGINS} - list of valid origins for CORS protection, separated by comma. 
 Notice! Value of * uses by default (disable CORS protection) 
 
 {MONGO_DSN} - DNS for MongoDB connection
 
+{SENTRY_DSN} - public DSN for Sentry
+
+*Optional params*
+
 {MAILCHIMP_MAILLISTS_PATH} - maillists api path for mailchimp: /3.0/lists
 
 {MAILCHIMP_METADATA_URL} - metadata url for mailchimp: https://login.mailchimp.com/oauth2/metadata
 
-{NGINX_CONFIGS_DIR} - Path to shared directory with nginx configs
+{NGINX_CONFIGS_DIR} - Path to shared directory with nginx configs, 'sites_enabled' by default
 
-{NODE_ENV} - Current environment
-
-{PUBLIC_HTML_DIR} - Path to shared directory with landings root
-
-{REDIS_HOST} - Redis host
-
-{REDIS_PORT} - Redis post
+{PUBLIC_HTML_DIR} - Path to shared directory with landings root, 'public_html' by default
 
 {ROUTES_PREFIX} - Common prefix for all routes, use /api/v1 by default
 
-{SENTRY_DSN} - public DSN for Sentry
-
 {SERVER_PORT} - Port of koa http server
+
+{ACCESS_TOKEN_LIFETIME} - lifetime for access tokens, in hours, 1 by default
+
+{REFRESH_TOKEN_LIFETIME} - lifetime for refresh tokens, in hours, 72 by default
+
+{CONFIRM_EMAIL_LIFETIME} - lifetime for confirm email  tokens, in hours, 24 by default
+
+{RESTORE_PASSWORD_LIFETIME} - lifetime for restore passwords  tokens, in minutes (!), 15 by default
+
+{AUTH_CHECK_USER_AGENT} - check user-agent on auth request, false by default
+
+{GOOGLE_AUTH_CLIENT_ID} - client id for google social auth
+
+{GOOGLE_AUTH_CLIENT_SECRET} - client secret for google social auth
 
 ## Tests
 

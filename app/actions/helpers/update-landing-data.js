@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 
+const {AUTHENTICATION_ERROR} = require('../../../config/errors');
 const config = require('../../../config/config');
 const getDefaultLanding = require('./default-landing');
 
@@ -12,7 +13,7 @@ module.exports = (ctx, currentData, updatedData) => {
 
     const userId = _.get(ctx, config.userIdStatePath);
     if (!userId) {
-        throw new Error('User not created');
+        return ctx.throw(401, AUTHENTICATION_ERROR);
     }
 
     const defaults = getDefaultLanding();

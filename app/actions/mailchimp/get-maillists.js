@@ -2,18 +2,22 @@
 
 const urlJoin = require('url-join');
 
-const config = require('../../config/config');
-const getUser = require('./helpers/get-user');
-const mailchimpRequest = require('../services/mailchimp');
+const {AUTHENTICATION_ERROR, PRECONDITION_FAILED} = require('../../../config/errors');
+
+const config = require('../../../config/config');
+
+const mailchimpRequest = require('../../services/mailchimp');
 
 module.exports = async (ctx, next) => {
     try {
-        const user = await getUser(ctx);
+        const user = ctx.user.User;
+        if (!user) {
+            return ctx.throw(401, AUTHENTICATION_ERROR);
+        }
 
-        if (!(user.mailchimpIntegration && user.mailchimpAccessToken)) {
-            const err = new Error('Precondition failed');
-            err.status = 412;
-            throw err;
+        const token = user.GetMailchimpIntegrationToken();
+        if (!token) {
+            return ctx.throw(412, PRECONDITION_FAILED);
         }
 
         const options = {
@@ -21,7 +25,7 @@ module.exports = async (ctx, next) => {
             uri: config.mailchimpMetadataUrl,
             json: true,
             headers: {
-                'Authorization': `Bearer ${user.mailchimpAccessToken}`
+                'Authorization': `Bearer ${token}`
             }
         };
 

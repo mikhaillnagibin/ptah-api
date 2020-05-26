@@ -38,4 +38,8 @@ const mongo = (dsn, customConnectionOptions) => {
         });
 };
 
-module.exports = mongo;
+module.exports = {
+    mongo,
+    defaultConnectionOptions,
+}
+

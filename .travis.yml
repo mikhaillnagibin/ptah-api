@@ -18,14 +18,19 @@ jobs:
     - MONGO_DSN=mongodb://localhost:27017/ptah-test
     - SERVER_PORT=3001
     - MOCK_SERVER_PORT=3002
-    - REDIS_HOST=''
     - MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata
-    - AUTH1_ISSUER_URL=http://localhost:3002
+    - PASSWORD_SECRET=test
+    - AUTH_TOKEN_SECRET=test
+    - RESTORE_PASSWORD_SECRET=test
+    - CONFIRM_EMAIL_SECRET=test
+    - GOOGLE_AUTH_CLIENT_ID=test
+    - GOOGLE_AUTH_CLIENT_SECRET=test
     install:
     - npm install -g codecov nyc mocha
     - npm ci
     script:
     - npm run tests:migrations
+    - npm run tests:generator
     - nyc --reporter=lcovonly mocha --exit --timeout 8000 ./test/index.js
     - codecov
   - stage: deploy

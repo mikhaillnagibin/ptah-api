@@ -3,8 +3,8 @@
 const _ = require('lodash');
 const ObjectID = require("bson-objectid");
 
+const {AUTHENTICATION_ERROR, BAD_REQUEST, NOT_FOUND} = require('../../../config/errors');
 const config = require('../../../config/config');
-const badRequest = require('./bad-request');
 const getDefaultLanding = require('./default-landing');
 const getDbCollection = require('../../utils/get-db-collection');
 
@@ -16,7 +16,7 @@ module.exports = async (ctx, omitLandingBody, ids) => {
 
     const userId = _.get(ctx, config.userIdStatePath);
     if (!userId) {
-        throw new Error('User not created');
+        return ctx.throw(401, AUTHENTICATION_ERROR);
     }
 
     const omitFields = ['isDeleted'];
@@ -37,7 +37,7 @@ module.exports = async (ctx, omitLandingBody, ids) => {
     };
 
     if (hasConditionById) {
-        const objIds = ids.map(id => ObjectID.isValid(id) ? ObjectID(id) : badRequest());
+        const objIds = ids.map(id => ObjectID.isValid(id) ? ObjectID(id) : ctx.throw(400, BAD_REQUEST));
         condition._id = {$in: objIds};
     } else {
         // suppress landing body while show full list of landings for user,
@@ -51,11 +51,8 @@ module.exports = async (ctx, omitLandingBody, ids) => {
 
     try {
         result = await collection.find(condition, options).toArray();
-
         if (hasConditionById && !result.length) {
-            const err = new Error('Not found');
-            err.status = 404;
-            throw err;
+            return ctx.throw(404, NOT_FOUND)
         }
 
     } catch (err) {

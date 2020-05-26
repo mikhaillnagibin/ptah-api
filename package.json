@@ -1,15 +1,16 @@
 {
   "name": "ptah.api",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Backend for PTAH",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=local nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
-    "test": "npm run tests:migrations && npm run tests:mocha",
+    "test": "npm run tests:migrations && npm run tests:generator && npm run tests:mocha",
     "migrations:manual": "cross-env NODE_ENV=local migrate-mongo up",
     "tests:migrations": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test migrate-mongo up",
-    "tests:mocha": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test SERVER_PORT=3001 REDIS_HOST='' MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata AUTH1_ISSUER_URL=http://localhost:3002 node_modules/.bin/mocha --exit --timeout 8000 ./test/index.js",
-    "debug:app.mock": "cross-env NODE_ENV=test REDIS_HOST='' MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata AUTH1_ISSUER_URL=http://localhost:3002 nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
+    "tests:generator": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test PASSWORD_SECRET=test AUTH_TOKEN_SECRET=test RESTORE_PASSWORD_SECRET=test CONFIRM_EMAIL_SECRET=test node ./test/fakes/generator.js",
+    "tests:mocha": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test SERVER_PORT=3001 MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata PASSWORD_SECRET=test AUTH_TOKEN_SECRET=test RESTORE_PASSWORD_SECRET=test CONFIRM_EMAIL_SECRET=test GOOGLE_AUTH_CLIENT_ID=test GOOGLE_AUTH_CLIENT_SECRET=test node_modules/.bin/mocha --exit --timeout 8test ./test/index.js",
+    "debug:app.mock": "cross-env NODE_ENV=test REDIS_HOST='' MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
     "debug:mock.server": "cross-env NODE_ENV=test nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./test/fakes/external-servers-mockup.js"
   },
   "repository": {
@@ -25,17 +26,18 @@
   "homepage": "https://github.com/ProtocolONE/ptah.api#readme",
   "dependencies": {
     "@sentry/node": "^5.8.0",
-    "authone-jwt-verifier-node": "github:ProtocolONE/authone-jwt-verifier-node#master",
     "bson-objectid": "^1.3.0",
     "cross-env": "^5.2.1",
     "decompress": "^4.2.1",
     "dsn-parser": "^1.0.3",
-    "ioredis": "^4.14.1",
+    "generate-password": "^1.5.1",
     "is-domain-name": "^1.0.1",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",
     "koa-cache-control": "^2.0.0",
     "koa-convert": "^1.2.0",
+    "koa-passport": "github:JamesKotov/koa-passport",
     "koa-req-logger": "^1.5.3",
     "koa-router": "^7.4.0",
     "koa-unless": "^1.0.7",
@@ -43,11 +45,14 @@
     "lodash": "^4.17.15",
     "migrate-mongo": "^7.0.1",
     "mongodb": "^3.3.4",
-    "node-fetch": "^2.6.0",
+    "passport-google-oauth2": "^0.2.0",
+    "password-crypt": "^2.1.0",
     "pino": "^5.13.6",
+    "postmark": "^2.5.3",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "rimraf": "^2.7.1",
+    "sane-email-validation": "^3.0.1",
     "string-template": "^1.0.0",
     "url-join": "^4.0.1",
     "url-parse": "^1.4.7"
@@ -61,6 +66,7 @@
     "mocha": "^7.2.0",
     "mock-http-server": "^1.4.1",
     "nodemon": "^2.0.4",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "uuid": "^8.1.0"
   }
 }
