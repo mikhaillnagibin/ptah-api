@@ -79,22 +79,6 @@ app.use(cors({
 fs.mkdirSync(config.publicHtmlDir, {recursive: true});
 fs.mkdirSync(config.nginxConfigsDir, {recursive: true});
 
-// handle mongoDb connection error with code 500 instead of 200 by default, and crash the app after send answer
-app.use(async (ctx, next) => {
-    try {
-        await next();
-    } catch (err) {
-        // todo: fix it
-        /*if (~err.name.toLowerCase().indexOf('mongo')) {
-            ctx.res.once('finish', function () {
-                process.exit(1);
-            });
-        }*/
-        err.status = err.status || 500;
-        throw err;
-    }
-});
-
 app.use(mongo(config.mongoDsn, {}));
 
 // authentication

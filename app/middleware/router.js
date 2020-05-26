@@ -6,7 +6,7 @@ const KoaBody = require('koa-body');
 const passport = require('koa-passport');
 
 const config = require('../../config/config');
-const {AUTHENTICATION_ERROR, CANT_CREATE_SESSION} = require('../../config/errors');
+const {AUTHENTICATION_ERROR, CANT_CREATE_SESSION, INTERNAL_SERVER_ERROR} = require('../../config/errors');
 const Factory = require('../classes/factory');
 
 const signupLocal = require('../actions/auth/signup-local');
@@ -81,8 +81,15 @@ const userRoutesNamespace = config.userRoutesNamespace;
 
 router
     .get('/_healthz', async(ctx, next) => {
-        ctx.body = {};
-        next();
+        try {
+            // Use the admin database for the operation
+            const adminDb = ctx.mongo.admin();
+            await adminDb.ping();
+            ctx.body = {};
+            next();
+        } catch (e) {
+            return ctx.throw(500, INTERNAL_SERVER_ERROR)
+        }
     })
 
     .post(`${authRoutesNamespace}/signup`, koaBody, signupLocal)

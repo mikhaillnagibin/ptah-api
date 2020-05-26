@@ -6,15 +6,12 @@
  * but simply throws the exception
  */
 
+const DSNParser = require('dsn-parser');
 const { MongoClient } = require('mongodb');
 
 const defaultConnectionOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true
-};
-
-const close = (connection) => {
-    if (connection) connection.close();
 };
 
 const mongo = (dsn, customConnectionOptions) => {
@@ -24,16 +21,22 @@ const mongo = (dsn, customConnectionOptions) => {
         customConnectionOptions,
     );
 
+    const dsnParsed = new DSNParser(dsn);
+    const dbName = dsnParsed.get('database');
+
+    let mongoConnection;
+
     return async (ctx, next) => MongoClient.connect(dsn, connectionOptions)
         .then(async (connection) => {
-            ctx.mongo = connection;
+            mongoConnection = connection;
+            ctx.mongo = mongoConnection.db(dbName);
             await next();
         })
         .then(async () => {
-            await close(ctx.mongo);
+            if (mongoConnection) mongoConnection.close();
         })
         .catch(async (error) => {
-            await close(ctx.mongo);
+            if (mongoConnection) mongoConnection.close();
             throw error;
         });
 };
