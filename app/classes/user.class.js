@@ -253,15 +253,13 @@ class User {
     async updateUser(userObject) {
         try {
             userObject.updateDate = (new Date).toISOString();
-            const u = this.fillUser(userObject);
-            await this.collection.updateOne({_id: this.user._id}, {$set: this.user}, { upsert: true });
-            return u;
+            delete userObject._id;
+            await this.collection.updateOne({_id: this.user._id}, {$set: userObject}, { upsert: true });
+            return this.fillUser(userObject);
         } catch (e) {
             throw e
         }
     }
-
-
 }
 
 

@@ -224,9 +224,9 @@ class UserSession {
     async updateSession(sessionObject) {
         try {
             sessionObject.updatedAt = (new Date).toISOString();
-            const s = this.fillSession(sessionObject);
-            await this.collection.updateOne({_id: this.session._id}, {$set: this.session}, {upsert: true})
-            return s;
+            delete sessionObject._id;
+            await this.collection.updateOne({_id: this.session._id}, {$set: sessionObject}, {upsert: true})
+            return this.fillSession(sessionObject);
         } catch (e) {
             throw e
         }
