@@ -3,10 +3,10 @@
 const _ = require('lodash');
 const ObjectID = require("bson-objectid");
 
-const {AUTHENTICATION_ERROR, BAD_REQUEST, NOT_FOUND} = require('../../../config/errors');
-const config = require('../../../config/config');
+const {AUTHENTICATION_ERROR, BAD_REQUEST, NOT_FOUND} = require('../../../../config/errors');
+const config = require('../../../../config/config');
 const getDefaultLanding = require('./default-landing');
-const getDbCollection = require('../../utils/get-db-collection');
+const getDbCollection = require('../../../utils/get-db-collection');
 
 module.exports = async (ctx, omitLandingBody, ids) => {
 

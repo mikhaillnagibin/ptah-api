@@ -5,7 +5,7 @@ const path = require('path');
 const util = require('util');
 const format = require("string-template");
 
-const config = require('../../../config/config');
+const config = require('../../../../config/config');
 const nginxConfigTemplate = fs.readFileSync(config.nginxConfigTemplatePath).toString('utf8');
 
 const writeFile = util.promisify(fs.writeFile);
@@ -14,7 +14,7 @@ module.exports = async (id, domain) => {
 
     const landingDestinationDir = path.resolve(config.publicHtmlDir, id);
     fs.mkdirSync(landingDestinationDir, { recursive: true });
-   
+
     const nginxConfig = format(nginxConfigTemplate, {
         siteRoot: landingDestinationDir,
         siteDomain: domain

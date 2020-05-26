@@ -11,7 +11,7 @@ const writeFile = util.promisify(fs.writeFile);
 const fakes = require('../fakes/fakes');
 const config = require('../../config/config');
 
-const deletePublishedLanding = require('../../app/actions/helpers/delete-published-landing');
+const deletePublishedLanding = require('../../app/actions/landings/helpers/delete-published-landing');
 
 const id = fakes.fakeId;
 const landingDestinationDir = path.resolve(config.publicHtmlDir, id);

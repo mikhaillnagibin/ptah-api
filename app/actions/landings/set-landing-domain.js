@@ -4,11 +4,11 @@ const ObjectID = require("bson-objectid");
 const isDomainName = require("is-domain-name");
 
 const {BAD_REQUEST} = require('../../../config/errors');
-const findLandings = require('../helpers/find-landings');
-const getLandingMeta = require('../helpers/get-landing-meta');
-const updateLandingData = require('../helpers/update-landing-data');
-const addDomainConfig = require('../helpers/add-domain-config');
-const deleteDomainConfig = require('../helpers/delete-domain-config');
+const findLandings = require('./helpers/find-landings');
+const getLandingMeta = require('./helpers/get-landing-meta');
+const updateLandingData = require('./helpers/update-landing-data');
+const addDomainConfig = require('./helpers/add-domain-config');
+const deleteDomainConfig = require('./helpers/delete-domain-config');
 const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {

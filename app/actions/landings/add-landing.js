@@ -3,8 +3,8 @@
 const _ = require('lodash');
 
 const {BAD_REQUEST} = require('../../../config/errors');
-const getLandingMeta = require('../helpers/get-landing-meta');
-const updateLandingData = require('../helpers/update-landing-data');
+const getLandingMeta = require('./helpers/get-landing-meta');
+const updateLandingData = require('./helpers/update-landing-data');
 const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {

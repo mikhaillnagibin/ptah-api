@@ -8,11 +8,11 @@ const ObjectID = require("bson-objectid");
 const config = require('../../../config/config');
 
 const {BAD_REQUEST} = require('../../../config/errors');
-const findLandings = require('../helpers/find-landings');
-const getLandingMeta = require('../helpers/get-landing-meta');
-const updateLandingData = require('../helpers/update-landing-data');
-const deletePublishedLanding = require('../helpers/delete-published-landing');
-const addDomainConfig = require('../helpers/add-domain-config');
+const findLandings = require('./helpers/find-landings');
+const getLandingMeta = require('./helpers/get-landing-meta');
+const updateLandingData = require('./helpers/update-landing-data');
+const deletePublishedLanding = require('./helpers/delete-published-landing');
+const addDomainConfig = require('./helpers/add-domain-config');
 const getDbCollection = require('../../utils/get-db-collection');
 
 

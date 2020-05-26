@@ -2,8 +2,8 @@
 
 const _ = require('lodash');
 
-const {AUTHENTICATION_ERROR} = require('../../../config/errors');
-const config = require('../../../config/config');
+const {AUTHENTICATION_ERROR} = require('../../../../config/errors');
+const config = require('../../../../config/config');
 const getDefaultLanding = require('./default-landing');
 
 module.exports = (ctx, currentData, updatedData) => {

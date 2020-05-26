@@ -3,9 +3,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const config = require('../../../config/config');
+const config = require('../../../../config/config');
 
-const rmRf = require('../../utils/rm-rf');
+const rmRf = require('../../../utils/rm-rf');
 
 module.exports = async (id, domainOnly) => {
     domainOnly = !!domainOnly;

@@ -2,10 +2,10 @@
 
 const ObjectID = require("bson-objectid");
 
-const findLandings = require('../helpers/find-landings');
-const getLandingMeta = require('../helpers/get-landing-meta');
-const updateLandingData = require('../helpers/update-landing-data');
-const deleteDomainConfig = require('../helpers/delete-domain-config');
+const findLandings = require('./helpers/find-landings');
+const getLandingMeta = require('./helpers/get-landing-meta');
+const updateLandingData = require('./helpers/update-landing-data');
+const deleteDomainConfig = require('./helpers/delete-domain-config');
 const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
