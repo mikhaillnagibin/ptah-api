@@ -7,6 +7,7 @@ const {Crypt, Compare} = require('password-crypt');
 
 const REGISTRATION_SOURCE_LOCAL = 'local';
 const REGISTRATION_SOURCE_GOOGLE = 'google';
+const REGISTRATION_SOURCE_MAILCHIMP = 'mailchimp';
 
 function getDefaultUser() {
     const now = (new Date).toISOString();
@@ -267,4 +268,5 @@ module.exports = {
     User,
     REGISTRATION_SOURCE_LOCAL,
     REGISTRATION_SOURCE_GOOGLE,
+    REGISTRATION_SOURCE_MAILCHIMP,
 };

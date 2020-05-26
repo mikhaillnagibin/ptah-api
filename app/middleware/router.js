@@ -8,6 +8,7 @@ const passport = require('koa-passport');
 const config = require('../../config/config');
 const {AUTHENTICATION_ERROR, CANT_CREATE_SESSION, INTERNAL_SERVER_ERROR, SIGNUP_CANT_CREATE_USER} = require('../../config/errors');
 const Factory = require('../classes/factory');
+const {REGISTRATION_SOURCE_MAILCHIMP} = require('./../classes/user.class');
 const generatePassword = require('../utils/password').generatePassword;
 
 const signupLocal = require('../actions/auth/signup-local');
@@ -38,7 +39,12 @@ const sendEmailConfirmation = require('../actions/user/send-email-confirmation')
 const getMaillists = require('../actions/mailchimp/get-maillists');
 
 const preventRedirect = async function (ctx, next) {
-    ctx.body = {redirect: ctx.response.get('location') + '&scope=profile%20email'};
+
+    if (ctx.user && ctx.user.User && ctx.socialAuth !== REGISTRATION_SOURCE_MAILCHIMP) {
+        return ctx.throw(412, PRECONDITION_FAILED);
+    }
+
+    ctx.body = {redirect: ctx.response.get('location') }; // + '&scope=profile%20email'
     ctx.status = 200;
     ctx.response.remove('location');
     next();
@@ -52,6 +58,18 @@ const createSession = async function (ctx, next) {
     const socialUser = ctx.state.user;
 
     try {
+        // case for enable mailchimp integration
+        if (ctx.user && ctx.user.User) {
+            if (socialUser.source === REGISTRATION_SOURCE_MAILCHIMP && socialUser.accessToken) {
+                await ctx.user.User.EnableMailchimpIntegration(socialUser.accessToken);
+                ctx.status = 201;
+                ctx.body = ctx.user.User.GetUser();
+                return next();
+            } else {
+                return ctx.throw(412, PRECONDITION_FAILED);
+            }
+        }
+
         const user = Factory.User(ctx);
 
         if (!await user.FindByEmail(socialUser.email)) {
@@ -69,6 +87,10 @@ const createSession = async function (ctx, next) {
             } catch (e) {
                 // do nothing
             }
+        }
+
+        if (socialUser.source === REGISTRATION_SOURCE_MAILCHIMP && socialUser.accessToken) {
+            await user.EnableMailchimpIntegration(socialUser.accessToken);
         }
 
         const us = Factory.UserSession(ctx);
@@ -152,6 +174,23 @@ router.get(`${authRoutesNamespace}/google`,
 router.get(
     `${authRoutesNamespace}/google/callback`,
     passport.authenticate('google', {session: false, preventRedirect: true}),
+    createSession
+);
+
+
+// Google authentication route
+router.get(`${authRoutesNamespace}/mailchimp`,
+    passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
+    async (ctx, next) => {
+        ctx.socialAuth = REGISTRATION_SOURCE_MAILCHIMP;
+        return await preventRedirect(ctx, next)
+    },
+);
+
+// Google authentication callback
+router.get(
+    `${authRoutesNamespace}/mailchimp/callback`,
+    passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
     createSession
 );
 

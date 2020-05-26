@@ -46,6 +46,7 @@
     "migrate-mongo": "^7.0.1",
     "mongodb": "^3.3.4",
     "passport-google-oauth2": "^0.2.0",
+    "passport-mailchimp": "^1.1.0",
     "password-crypt": "^2.1.0",
     "pino": "^5.13.6",
     "postmark": "^2.5.3",

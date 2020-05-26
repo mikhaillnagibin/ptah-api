@@ -89,6 +89,10 @@ Notice! Value of * uses by default (disable CORS protection)
 
 {GOOGLE_AUTH_CLIENT_SECRET} - client secret for google social auth
 
+{MAILCHIMP_AUTH_CLIENT_ID} - client id for mailchimp social auth
+
+{MAILCHIMP_AUTH_CLIENT_SECRET} - client secret for mailchimp social auth
+
 ## Tests
 
 Integration tests are require an live MongoDB server connection

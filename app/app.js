@@ -52,6 +52,8 @@ const publicRoutes = {
         `${config.routesPrefix}${config.authRoutesNamespace}/restore_password_step2`,
         `${config.routesPrefix}${config.authRoutesNamespace}/google`,
         `${config.routesPrefix}${config.authRoutesNamespace}/google/callback`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/mailchimp`,
+        `${config.routesPrefix}${config.authRoutesNamespace}/mailchimp/callback`,
     ]
 };
 

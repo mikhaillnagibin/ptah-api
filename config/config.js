@@ -67,6 +67,9 @@ const config = {
     googleAuthClientId: getEnvVariable('GOOGLE_AUTH_CLIENT_ID', ''),
     googleAuthClientSecret: getEnvVariable('GOOGLE_AUTH_CLIENT_SECRET', ''),
 
+    mailchimpAuthClientId: getEnvVariable('MAILCHIMP_AUTH_CLIENT_ID', '462853669980'),
+    mailchimpAuthClientSecret: getEnvVariable('MAILCHIMP_AUTH_CLIENT_SECRET', '76db4d17f02fa0a036054278e08beaa0af50c328ba7e435b26'),
+
     passwordRequirements: {
         length: 8,
         lowercase: true,
