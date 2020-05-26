@@ -82,7 +82,7 @@ MongoClient.connect(config.mongoDsn, {useUnifiedTopology: true}, async function 
     try {
         for (const uuid of [uuidv4(), uuidv4()]) {
             const user = new User(fakeCtx, collectionUsers, paramsUser);
-            await user.CreateUser(uuid, uuid + '@test.com', generatePassword());
+            await user.CreateUser(uuid, uuid + '@test.com', generatePassword(), 'unit-test');
             if (i) {
                 user.EnableMailchimpIntegration(uuidv4());
             }

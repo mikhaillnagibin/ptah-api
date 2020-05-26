@@ -9,7 +9,7 @@
     "migrations:manual": "cross-env NODE_ENV=local migrate-mongo up",
     "tests:migrations": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test migrate-mongo up",
     "tests:generator": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test PASSWORD_SECRET=test AUTH_TOKEN_SECRET=test RESTORE_PASSWORD_SECRET=test CONFIRM_EMAIL_SECRET=test node ./test/fakes/generator.js",
-    "tests:mocha": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test SERVER_PORT=3001 MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata PASSWORD_SECRET=test AUTH_TOKEN_SECRET=test RESTORE_PASSWORD_SECRET=test CONFIRM_EMAIL_SECRET=test GOOGLE_AUTH_CLIENT_ID=test GOOGLE_AUTH_CLIENT_SECRET=test node_modules/.bin/mocha --exit --timeout 8test ./test/index.js",
+    "tests:mocha": "cross-env NODE_ENV=test MONGO_DSN=mongodb://localhost:27017/ptah-test SERVER_PORT=3001 MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata PASSWORD_SECRET=test AUTH_TOKEN_SECRET=test RESTORE_PASSWORD_SECRET=test CONFIRM_EMAIL_SECRET=test GOOGLE_AUTH_CLIENT_ID=test GOOGLE_AUTH_CLIENT_SECRET=test node_modules/.bin/mocha --exit ./test/index.js",
     "debug:app.mock": "cross-env NODE_ENV=test REDIS_HOST='' MOCK_SERVER_PORT=3002 MAILCHIMP_METADATA_URL=http://localhost:3002/oauth2/metadata nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./index.js",
     "debug:mock.server": "cross-env NODE_ENV=test nodemon --ignore './public_html' --ignore './sites_enabled' --ignore './node_modules' -w ./ ./test/fakes/external-servers-mockup.js"
   },
