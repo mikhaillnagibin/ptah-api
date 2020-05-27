@@ -33,43 +33,44 @@ const copyLandings = require('../actions/landings/copy-landings');
 const getUserInfo = require('../actions/user/get-user-info');
 const updateUserInfo = require('../actions/user/update-user-info');
 const updateUserPassword = require('../actions/user/update-user-password');
-const updateUserMailchimpIntergation = require('../actions/user/update-user-mailchimp-intergration');
+const disableUserMailchimpIntergation = require('../actions/user/disable-user-mailchimp-intergration');
 const sendEmailConfirmation = require('../actions/user/send-email-confirmation');
 
 const getMaillists = require('../actions/mailchimp/get-maillists');
 
-const preventRedirect = async function (ctx, next) {
+const preventRedirect = async function (ctx, next, scope,  skipAuthCheck) {
 
-    if (ctx.user && ctx.user.User && ctx.socialAuth !== REGISTRATION_SOURCE_MAILCHIMP) {
+    if (!skipAuthCheck && ctx.user && ctx.user.User) {
+        // user already logged in
+        // skip is for only mailchimp integration (not auth!) start
         return ctx.throw(412, PRECONDITION_FAILED);
     }
 
-    ctx.body = {redirect: ctx.response.get('location') }; // + '&scope=profile%20email'
+    scope = scope || '';
+    let url = ctx.response.get('location');
+    if (scope) {
+        url += '&scope=' + scope;
+    }
+    ctx.body = {redirect:  url};
     ctx.status = 200;
     ctx.response.remove('location');
     next();
 };
 
 const createSession = async function (ctx, next) {
+    if (ctx.user && ctx.user.User) {
+        // user already logged in
+        return ctx.throw(412, PRECONDITION_FAILED);
+    }
+
     if (!(ctx.state && ctx.state.user)) {
+        // user profile not received from oauth2 source
         return ctx.throw(401, AUTHENTICATION_ERROR)
     }
 
     const socialUser = ctx.state.user;
 
     try {
-        // case for enable mailchimp integration
-        if (ctx.user && ctx.user.User) {
-            if (socialUser.source === REGISTRATION_SOURCE_MAILCHIMP && socialUser.accessToken) {
-                await ctx.user.User.EnableMailchimpIntegration(socialUser.accessToken);
-                ctx.status = 201;
-                ctx.body = ctx.user.User.GetUser();
-                return next();
-            } else {
-                return ctx.throw(412, PRECONDITION_FAILED);
-            }
-        }
-
         const user = Factory.User(ctx);
 
         if (!await user.FindByEmail(socialUser.email)) {
@@ -157,10 +158,35 @@ router
     .get(`${userRoutesNamespace}/`, getUserInfo)
     .post(`${userRoutesNamespace}/`, koaBody, updateUserInfo)
     .post(`${userRoutesNamespace}/password`, koaBody, updateUserPassword)
-    .post(`${userRoutesNamespace}/mailchimp`, koaBody, updateUserMailchimpIntergation)
-    .delete(`${userRoutesNamespace}/mailchimp`, updateUserMailchimpIntergation)
-    .delete(`${userRoutesNamespace}/send_email_confirmation`, sendEmailConfirmation)
+    .delete(`${userRoutesNamespace}/mailchimp`, disableUserMailchimpIntergation)
+    .get(`${userRoutesNamespace}/send_email_confirmation`, sendEmailConfirmation)
 
+    // Mailchimp authentication route
+    .get(`${mailchimpRoutesNamespace}/login`,
+        passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
+        async (ctx, next) => {
+            ctx.socialAuth = REGISTRATION_SOURCE_MAILCHIMP;
+            return await preventRedirect(ctx, next, skipAuthCheck)
+        },
+    )
+    // Mailchimp authentication callback
+    .get(
+        `${mailchimpRoutesNamespace}/login/callback`,
+        passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
+        async (ctx, next) => {
+            if (!(ctx.state && ctx.state.user && ctx.state.user.accessToken)) {
+                return ctx.throw(412, PRECONDITION_FAILED);
+            }
+            const socialUser = ctx.state.user;
+            if (!(ctx.user && ctx.user.User)) {
+                return ctx.throw(412, PRECONDITION_FAILED);
+            }
+            await ctx.user.User.EnableMailchimpIntegration(socialUser.accessToken);
+            ctx.status = 201;
+            ctx.body = ctx.user.User.GetUser();
+            next();
+        },
+    )
     .get(`${mailchimpRoutesNamespace}/maillists`, getMaillists)
 ;
 
@@ -168,7 +194,9 @@ router
 // Google authentication route
 router.get(`${authRoutesNamespace}/google`,
     passport.authenticate('google', {session: false, preventRedirect: true}),
-    preventRedirect);
+    async (ctx, next) => {
+        return await preventRedirect(ctx, next, 'profile%20email')
+    });
 
 // Google authentication callback
 router.get(
@@ -178,16 +206,13 @@ router.get(
 );
 
 
-// Google authentication route
+// Mailchimp authentication route
 router.get(`${authRoutesNamespace}/mailchimp`,
     passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
-    async (ctx, next) => {
-        ctx.socialAuth = REGISTRATION_SOURCE_MAILCHIMP;
-        return await preventRedirect(ctx, next)
-    },
+    preventRedirect,
 );
 
-// Google authentication callback
+// Mailchimp authentication callback
 router.get(
     `${authRoutesNamespace}/mailchimp/callback`,
     passport.authenticate('mailchimp', {session: false, preventRedirect: true}),

@@ -11,7 +11,6 @@ module.exports = {
     BAD_REQUEST: 'bad_request',
     NOT_FOUND: 'not_found',
     CANT_CREATE_SESSION: 'cant_create_session',
-    MAILCHIMP_ACCESS_TOKEN_IS_REQUIRED_PARAM: 'mailchimp_access_token_is_required_param',
     USER_NAME_IS_REQUIRED: 'user_name_is_required',
     USER_PASSWORD_IS_REQUIRED: 'user_password_is_required',
     USER_WEAK_PASSWORD: 'user_weak_password',
