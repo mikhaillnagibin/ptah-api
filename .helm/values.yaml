@@ -8,6 +8,7 @@ ingress:
   hostname: ptahapi.tst.protocol.one
   pathApi: /api
   pathLandings: /
+  hostnamePrefix:
 
 certIssuer:
   email: admin@protocol.one

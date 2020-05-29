@@ -6,7 +6,7 @@ node_js:
 stages:
   - test
   - name: deploy
-    if: branch = master
+    if: branch IN (master, PTH-13950-auth)
 
 jobs:
   include:
