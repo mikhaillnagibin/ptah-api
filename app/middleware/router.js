@@ -11,32 +11,6 @@ const Factory = require('../classes/factory');
 const {REGISTRATION_SOURCE_MAILCHIMP} = require('./../classes/user.class');
 const generatePassword = require('../utils/password').generatePassword;
 
-const signupLocal = require('../actions/auth/signup-local');
-const loginLocal = require('../actions/auth/login-local');
-const refreshToken = require('../actions/auth/refresh-token');
-const logout = require('../actions/auth/logout');
-const confirmEmail = require('../actions/auth/confirm-email');
-const restorePasswordStep1 = require('../actions/auth/restore-password-step1');
-const restorePasswordStep2 = require('../actions/auth/restore-password-step2');
-
-const listLandings = require('../actions/landings/list-landings');
-const addLanding = require('../actions/landings/add-landing');
-const getLanding = require('../actions/landings/get-landing');
-const updateLanding = require('../actions/landings/update-landing');
-const deleteLanding = require('../actions/landings/delete-landing');
-const publishLanding = require('../actions/landings/publish-landing');
-const unpublishLanding = require('../actions/landings/unpublish-landing');
-const setLandingDomain = require('../actions/landings/set-landing-domain');
-const unsetLandingDomain = require('../actions/landings/unset-landing-domain');
-const copyLandings = require('../actions/landings/copy-landings');
-
-const getUserInfo = require('../actions/user/get-user-info');
-const updateUserInfo = require('../actions/user/update-user-info');
-const updateUserPassword = require('../actions/user/update-user-password');
-const disableUserMailchimpIntergation = require('../actions/user/disable-user-mailchimp-intergration');
-const sendEmailConfirmation = require('../actions/user/send-email-confirmation');
-
-const getMaillists = require('../actions/mailchimp/get-maillists');
 
 const preventRedirect = async function (ctx, next, scope,  skipAuthCheck) {
 
@@ -136,30 +110,30 @@ router
         }
     })
 
-    .post(`${authRoutesNamespace}/signup`, koaBody, signupLocal)
-    .post(`${authRoutesNamespace}/login`, koaBody, loginLocal)
-    .post(`${authRoutesNamespace}/refresh`, koaBody, refreshToken)
-    .post(`${authRoutesNamespace}/confirm_email`, koaBody, confirmEmail)
-    .post(`${authRoutesNamespace}/restore_password_step1`, koaBody, restorePasswordStep1)
-    .post(`${authRoutesNamespace}/restore_password_step2`, koaBody, restorePasswordStep2)
-    .get(`${authRoutesNamespace}/logout`, logout)
+    .post(`${authRoutesNamespace}/signup`, koaBody, require('../actions/auth/signup-local'))
+    .post(`${authRoutesNamespace}/login`, koaBody, require('../actions/auth/login-local'))
+    .post(`${authRoutesNamespace}/refresh`, koaBody, require('../actions/auth/refresh-token'))
+    .post(`${authRoutesNamespace}/confirm_email`, koaBody, require('../actions/auth/confirm-email'))
+    .post(`${authRoutesNamespace}/restore_password_step1`, koaBody, require('../actions/auth/restore-password-step1'))
+    .post(`${authRoutesNamespace}/restore_password_step2`, koaBody, require('../actions/auth/restore-password-step2'))
+    .get(`${authRoutesNamespace}/logout`, require('../actions/auth/logout'))
 
-    .get(`${landingsRoutesNamespace}/`, listLandings)
-    .post(`${landingsRoutesNamespace}/`, koaBody, addLanding)
-    .post(`${landingsRoutesNamespace}/copy`, koaBody, copyLandings)
-    .get(`${landingsRoutesNamespace}/:id`, getLanding)
-    .patch(`${landingsRoutesNamespace}/:id`, koaBody, updateLanding)
-    .delete(`${landingsRoutesNamespace}/:id`, deleteLanding)
-    .post(`${landingsRoutesNamespace}/:id/publishing`, koaBody, publishLanding)
-    .delete(`${landingsRoutesNamespace}/:id/publishing`, unpublishLanding)
-    .post(`${landingsRoutesNamespace}/:id/domain`, koaBody, setLandingDomain)
-    .delete(`${landingsRoutesNamespace}/:id/domain`, unsetLandingDomain)
+    .get(`${landingsRoutesNamespace}/`, require('../actions/landings/list-landings'))
+    .post(`${landingsRoutesNamespace}/`, koaBody, require('../actions/landings/add-landing'))
+    .post(`${landingsRoutesNamespace}/copy`, koaBody, require('../actions/landings/copy-landings'))
+    .get(`${landingsRoutesNamespace}/:id`, require('../actions/landings/get-landing'))
+    .patch(`${landingsRoutesNamespace}/:id`, koaBody, require('../actions/landings/update-landing'))
+    .delete(`${landingsRoutesNamespace}/:id`, require('../actions/landings/delete-landing'))
+    .post(`${landingsRoutesNamespace}/:id/publishing`, koaBody, require('../actions/landings/publish-landing'))
+    .delete(`${landingsRoutesNamespace}/:id/publishing`, require('../actions/landings/unpublish-landing'))
+    .post(`${landingsRoutesNamespace}/:id/domain`, koaBody, require('../actions/landings/set-landing-domain'))
+    .delete(`${landingsRoutesNamespace}/:id/domain`, require('../actions/landings/unset-landing-domain'))
 
-    .get(`${userRoutesNamespace}/`, getUserInfo)
-    .post(`${userRoutesNamespace}/`, koaBody, updateUserInfo)
-    .post(`${userRoutesNamespace}/password`, koaBody, updateUserPassword)
-    .delete(`${userRoutesNamespace}/mailchimp`, disableUserMailchimpIntergation)
-    .get(`${userRoutesNamespace}/send_email_confirmation`, sendEmailConfirmation)
+    .get(`${userRoutesNamespace}/`, require('../actions/user/get-user-info'))
+    .post(`${userRoutesNamespace}/`, koaBody, require('../actions/user/update-user-info'))
+    .post(`${userRoutesNamespace}/password`, koaBody, require('../actions/user/update-user-password'))
+    .delete(`${userRoutesNamespace}/mailchimp`, require('../actions/user/disable-user-mailchimp-intergration'))
+    .get(`${userRoutesNamespace}/send_email_confirmation`, require('../actions/user/send-email-confirmation'))
 
     // Mailchimp authentication route
     .get(`${mailchimpRoutesNamespace}/login`,
@@ -187,41 +161,38 @@ router
             next();
         },
     )
-    .get(`${mailchimpRoutesNamespace}/maillists`, getMaillists)
+    .get(`${mailchimpRoutesNamespace}/maillists`, require('../actions/mailchimp/get-maillists'))
 ;
 
 
 // Google authentication route
-router.get(`${authRoutesNamespace}/google`,
-    passport.authenticate('google', {session: false, preventRedirect: true}),
-    async (ctx, next) => {
-        return await preventRedirect(ctx, next, 'profile%20email')
-    });
-
-// Google authentication callback
-router.get(
-    `${authRoutesNamespace}/google/callback`,
-    passport.authenticate('google', {session: false, preventRedirect: true}),
-    createSession
-);
+router
+    .get(`${authRoutesNamespace}/google`,
+        passport.authenticate('google', {session: false, preventRedirect: true}),
+        async (ctx, next) => {
+            return await preventRedirect(ctx, next, 'profile%20email')
+        })
+    .get(
+        `${authRoutesNamespace}/google/callback`,
+        passport.authenticate('google', {session: false, preventRedirect: true}),
+        createSession
+    );
 
 
 // Mailchimp authentication route
-router.get(`${authRoutesNamespace}/mailchimp`,
-    passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
-    preventRedirect,
-);
+router
+    .get(`${authRoutesNamespace}/mailchimp`,
+        passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
+        preventRedirect,
+    )
+    .get(
+        `${authRoutesNamespace}/mailchimp/callback`,
+        passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
+        createSession
+    );
 
-// Mailchimp authentication callback
-router.get(
-    `${authRoutesNamespace}/mailchimp/callback`,
-    passport.authenticate('mailchimp', {session: false, preventRedirect: true}),
-    createSession
-);
 
-module.exports.routes = function () {
-    return router.routes()
-};
-module.exports.allowedMethods = function () {
-    return router.allowedMethods()
-};
+module.exports = {
+    routes: () => router.routes(),
+    allowedMethods: () => router.allowedMethods()
+}
