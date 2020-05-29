@@ -18,7 +18,7 @@ spec:
     - ReadWriteMany
   nfs:
     server: nfs-share
-    path: "/home/nfsroot/k8sdata/p1ptahapi-share"
+    path: "/home/nfsroot/k8sdata/{{ .Release.Name }}-share"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
