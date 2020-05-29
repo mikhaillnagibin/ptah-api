@@ -83,7 +83,12 @@ class UserSession {
         const s = await this.find(condition);
 
         if (s) {
-            return s;
+            try {
+                jwt.verify(this.session.accessToken, this.params.authTokenSecret);
+                return s;
+            } catch (e) {
+                // do nothing - accessToken in saved session is expired
+            }
         }
 
         return await this.createOrRefresh(userId, ip, userAgent, true)

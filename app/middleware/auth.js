@@ -46,7 +46,7 @@ module.exports.requestAuthenticator = () => {
 
             ctx.user = ctx.user || {}
             ctx.user.User = user;
-            ctx.user.Session = session;
+            ctx.user.Session = us;
 
             ctx.state.accessToken = token;
 
