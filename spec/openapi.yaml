@@ -1995,6 +1995,9 @@ paths:
             schema:
               type: object
               properties:
+                oldPassword:
+                  type: string
+                  example: '12345'
                 password:
                   type: string
                   example: '12345'
