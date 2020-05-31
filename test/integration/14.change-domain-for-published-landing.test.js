@@ -43,7 +43,7 @@ describe('Changing domain for already published landing', () => {
                     landingDomain = landing.domain;
                     landingIsPublished = landing.isPublished;
                     landingHasUnpublishedChanges = landing.hasUnpublishedChanges;
-                    landingDestinationDir = path.resolve(config.publicHtmlDir, landingId);
+                    landingDestinationDir = path.resolve(config.landingsHtmlDir, landingId);
                     nginxConfigFile = path.resolve(config.nginxConfigsDir, `${landingId}.conf`);
                     resolve();
                 });
@@ -63,6 +63,37 @@ describe('Changing domain for already published landing', () => {
     });
 
 
+    it("should not publish while domain is not set", (done) => {
+        chai.request(server)
+            .post(`${routesPrefix}/${landingId}/publishing`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .attach('file', fakeProjectFile, 'project.zip')
+            .end((err, res) => {
+                should.not.exist(err);
+                res.status.should.eql(412);
+                done();
+            });
+    });
+
+
+    it("should successfully set new domain", (done) => {
+        chai.request(server)
+            .post(`${routesPrefix}/${landingId}/domain`)
+            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
+            .send({
+                domain: newDomain,
+                personal: true,
+            })
+            .end((err, res) => {
+                should.not.exist(err);
+                res.status.should.eql(200);
+                res.body.domain.should.eql(newDomain);
+                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/{landingId}/domain`, "post")
+                    .andNotifyWhen(done);
+            });
+    });
+
+
     it("should publish success and updated flags in body", (done) => {
         chai.request(server)
             .post(`${routesPrefix}/${landingId}/publishing`)
@@ -74,30 +105,6 @@ describe('Changing domain for already published landing', () => {
                 res.body.isPublished.should.be.true;
                 res.body.hasUnpublishedChanges.should.be.false;
                 res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/{landingId}/publishing`, "post")
-                    .andNotifyWhen(done);
-            });
-    });
-
-
-    it("should place files only for published landing content, not domain config", (done) => {
-        fs.existsSync(landingDestinationDir).should.be.true;
-        fs.existsSync(nginxConfigFile).should.be.false;
-        done();
-    });
-
-
-    it("should successfully set new domain", (done) => {
-        chai.request(server)
-            .post(`${routesPrefix}/${landingId}/domain`)
-            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
-            .send({
-                domain: newDomain
-            })
-            .end((err, res) => {
-                should.not.exist(err);
-                res.status.should.eql(200);
-                res.body.domain.should.eql(newDomain);
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/{landingId}/domain`, "post")
                     .andNotifyWhen(done);
             });
     });
@@ -118,7 +125,8 @@ describe('Changing domain for already published landing', () => {
             .post(`${routesPrefix}/${landingId}/domain`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
             .send({
-                domain: renewDomain
+                domain: renewDomain,
+                personal: true,
             })
             .end((err, res) => {
                 should.not.exist(err);
@@ -153,24 +161,10 @@ describe('Changing domain for already published landing', () => {
     });
 
 
-    it("should remove domain config file but landing content should be published", (done) => {
-        fs.existsSync(landingDestinationDir).should.be.true;
+    it("should remove domain config file and landing content should be unpublished", (done) => {
+        fs.existsSync(landingDestinationDir).should.be.false;
         fs.existsSync(nginxConfigFile).should.be.false;
         done();
-    });
-
-
-    it("should successfully unpublish landing", (done) => {
-        chai.request(server)
-            .delete(`${routesPrefix}/${landingId}/publishing`)
-            .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
-            .end((err, res) => {
-                should.not.exist(err);
-                res.status.should.eql(200);
-                res.body.isPublished.should.be.false;
-                res.should.to.be.a.validResponse(openapiSchemaPath, `${routesPrefix}/{landingId}/publishing`, "delete")
-                    .andNotifyWhen(done);
-            });
     });
 
 

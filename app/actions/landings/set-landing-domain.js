@@ -1,22 +1,40 @@
 'use strict';
 
 const ObjectID = require("bson-objectid");
-const isDomainName = require("is-domain-name");
+const punycode = require("punycode")
+const isValidDomain = require("is-valid-domain");
+
+const config = require('../../../config/config');
 
 const {BAD_REQUEST} = require('../../../config/errors');
 const findLandings = require('./helpers/find-landings');
 const getLandingMeta = require('./helpers/get-landing-meta');
 const updateLandingData = require('./helpers/update-landing-data');
 const addDomainConfig = require('./helpers/add-domain-config');
-const deleteDomainConfig = require('./helpers/delete-domain-config');
 const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
     const id = ctx.params.id;
     const body = ctx.request.body || {};
 
-    const domain = (body.domain || '').trim();
-    if (!domain || !isDomainName(domain)) {
+    let domain = (body.domain || '').trim();
+    const isPersonal = !!body.personal;
+
+    if (!domain) {
+        return ctx.throw(400, BAD_REQUEST);
+    }
+
+    if (!isPersonal && isValidDomain(domain)) {
+        return ctx.throw(400, BAD_REQUEST);
+    }
+
+    domain = punycode.toASCII(domain)
+
+    if (!isPersonal) {
+        domain += '.' + config.landingsPublishingHost;
+    }
+
+    if (!isValidDomain(domain)) {
         return ctx.throw(400, BAD_REQUEST);
     }
 
@@ -35,11 +53,9 @@ module.exports = async (ctx, next) => {
             await collection.updateOne({_id: ObjectID(id)}, {$set: data});
 
             // for published landing
-            if (data.isPublished) {
-                // remove external domain config, if exists
-                await deleteDomainConfig(id, true);
-                // and adding config for new domain
-                await addDomainConfig(id, data.domain);
+            if (landing.isPublished) {
+                // replacing config for renew domain
+                await addDomainConfig(id, domain);
             }
         }
     } catch (err) {

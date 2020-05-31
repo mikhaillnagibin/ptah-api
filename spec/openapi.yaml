@@ -845,7 +845,11 @@ paths:
               properties:
                 domain:
                   type: string
-                  example: 'My first landing'
+                  example: 'mylanding.com'
+                personal:
+                  type: boolean
+                  example: true
+
 
     delete:
       tags:

@@ -78,7 +78,7 @@ app.use(cors({
 }));
 
 // ensure that dirs are exists
-fs.mkdirSync(config.publicHtmlDir, {recursive: true});
+fs.mkdirSync(config.landingsHtmlDir, {recursive: true});
 fs.mkdirSync(config.nginxConfigsDir, {recursive: true});
 
 app.use(mongo(config.mongoDsn, {}));

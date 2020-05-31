@@ -5,7 +5,7 @@ const ObjectID = require("bson-objectid");
 const findLandings = require('./helpers/find-landings');
 const getLandingMeta = require('./helpers/get-landing-meta');
 const updateLandingData = require('./helpers/update-landing-data');
-const deleteDomainConfig = require('./helpers/delete-domain-config');
+const deletePublishedLanding = require('./helpers/delete-published-landing');
 const getDbCollection = require('../../utils/get-db-collection');
 
 module.exports = async (ctx, next) => {
@@ -24,9 +24,8 @@ module.exports = async (ctx, next) => {
 
             await collection.updateOne({_id: ObjectID(id)}, {$set: data});
 
-            if (data.isPublished) {
-                // remove external domain config for published landing, if exists
-                await deleteDomainConfig(id, true);
+            if (landing.isPublished) {
+                await deletePublishedLanding(id);
             }
         }
     } catch (err) {

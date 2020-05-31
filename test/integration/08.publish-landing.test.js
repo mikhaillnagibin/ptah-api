@@ -41,7 +41,7 @@ describe(`POST ${routesPrefix}/{landingId}/publishing`, () => {
                     landingDomain = landing.domain;
                     landingIsPublished = landing.isPublished;
                     landingHasUnpublishedChanges = landing.hasUnpublishedChanges;
-                    landingDestinationDir = path.resolve(config.publicHtmlDir, landingId);
+                    landingDestinationDir = path.resolve(config.landingsHtmlDir, landingId);
                     nginxConfigFile = path.resolve(config.nginxConfigsDir, `${landingId}.conf`);
                     resolve();
                 });

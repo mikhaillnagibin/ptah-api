@@ -6,7 +6,7 @@ const envUtils = require('../app/utils/env');
 const getEnvVariable = envUtils.getEnvVariable;
 const getEnvVariableArray = envUtils.getEnvVariableArray;
 
-const publicHtmlDir = getEnvVariable('PUBLIC_HTML_DIR', 'public_html');
+const landingsHtmlDir = getEnvVariable('LANDINGS_HTML_DIR', 'landings_html');
 const nginxConfigsDir = getEnvVariable('NGINX_CONFIGS_DIR', 'sites_enabled');
 
 const config = {
@@ -15,6 +15,8 @@ const config = {
     mongoDsn: getEnvVariable('MONGO_DSN', ''),
 
     publicHost: getEnvVariable('PUBLIC_HOST', ''),
+
+    landingsPublishingHost: getEnvVariable('LANDINGS_PUBLISHING_HOST', ''),
 
     dbLandingsCollectionName: 'ptah-landings',
     dbUsersCollectionName: 'ptah-users',
@@ -27,7 +29,7 @@ const config = {
     mailchimpRoutesNamespace: '/mailchimp',
     userRoutesNamespace: '/user',
 
-    publicHtmlDir: path.resolve(publicHtmlDir),
+    landingsHtmlDir: path.resolve(landingsHtmlDir),
     nginxConfigsDir: path.resolve(nginxConfigsDir),
     nginxConfigTemplatePath: path.resolve('templates/nginx.conf.template'),
 

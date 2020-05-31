@@ -35,7 +35,7 @@ describe(`DELETE ${routesPrefix}/{landingId}/publishing`, () => {
                     const landing = res.body.landings.pop();
                     landingId = landing._id;
                     landingIsPublished = landing.isPublished;
-                    landingDestinationDir = path.resolve(config.publicHtmlDir, landingId);
+                    landingDestinationDir = path.resolve(config.landingsHtmlDir, landingId);
                     nginxConfigFile = path.resolve(config.nginxConfigsDir, `${landingId}.conf`);
                     resolve();
                 });
