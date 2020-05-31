@@ -26,6 +26,7 @@ const config = {
     landingsRoutesNamespace: '/landings',
     mailchimpRoutesNamespace: '/mailchimp',
     userRoutesNamespace: '/user',
+    uploadRoutesNamespace: '/upload',
 
     publicHtmlDir: path.resolve(publicHtmlDir),
     nginxConfigsDir: path.resolve(nginxConfigsDir),
@@ -69,6 +70,13 @@ const config = {
 
     mailchimpAuthClientId: getEnvVariable('MAILCHIMP_AUTH_CLIENT_ID', '462853669980'),
     mailchimpAuthClientSecret: getEnvVariable('MAILCHIMP_AUTH_CLIENT_SECRET', '76db4d17f02fa0a036054278e08beaa0af50c328ba7e435b26'),
+
+    s3AccessKeyId: getEnvVariable('S3_ACCESS_KEY_ID', ''),
+    s3SecretAccessKey: getEnvVariable('S3_SECRET_ACCESS_KEY', ''),
+    s3Bucket: getEnvVariable('S3_BUCKET', ''),
+    s3Region: getEnvVariable('S3_REGION', ''),
+    cdnHost: getEnvVariable('CDN_HOST', ''),
+    cdnPath: getEnvVariable('CDN_PATH', ''),
 
     passwordRequirements: {
         length: 8,

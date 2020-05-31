@@ -25,6 +25,8 @@ tags:
     description: Operations with landings
   - name: Mailchimp
     description: Intergation with mailchimp
+  - name: Upload
+    description: Files upload
 
 paths:
   /api/v1/landings:
@@ -2309,6 +2311,101 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorPreconditionFailed'
 
+  /api/v1/upload:
+
+    post:
+      tags:
+        - Upload
+      summary: Upload file
+      operationId: uploadFile
+      description: Upload images to cdn
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Image info
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uploadedImageInfo'
+        '400':
+          description: Bad request
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUnathorized'
+        '404':
+          description: Landing not found
+          headers:
+            X-Request-ID:
+              schema:
+                type: string
+                format: uuid
+                description: Unique id of current request, to match records in log
+                example: 'f7314976-f9fc-450f-b46e-b77fbe793f94'
+            Date:
+              schema:
+                type: string
+                description: Current server date and time
+                example: 'Thu, 24 Jan 2019 13:03:49 GMT'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+      requestBody:
+        description: Attached zip archive with rendered landing content
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: image/jpeg|image/png
+
 components:
 
   securitySchemes:
@@ -2550,3 +2647,12 @@ components:
         expiresAt:
           type: string
           example: "2020-05-26T23:34:57.792Z"
+
+    uploadedImageInfo:
+      type: object
+      required:
+        - cdnUrl
+      properties:
+        cdnUrl:
+          type: string
+          example: https://mycdn.net/path/to/file/image.png

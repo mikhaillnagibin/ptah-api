@@ -96,6 +96,7 @@ const authRoutesNamespace = config.authRoutesNamespace;
 const landingsRoutesNamespace = config.landingsRoutesNamespace;
 const mailchimpRoutesNamespace = config.mailchimpRoutesNamespace;
 const userRoutesNamespace = config.userRoutesNamespace;
+const uploadRoutesNamespace = config.uploadRoutesNamespace;
 
 router
     .get('/_healthz', async(ctx, next) => {
@@ -162,6 +163,8 @@ router
         },
     )
     .get(`${mailchimpRoutesNamespace}/maillists`, require('../actions/mailchimp/get-maillists'))
+
+    .post(`${uploadRoutesNamespace}/`, koaBody, require('../actions/uploads/s3'))
 ;
 
 
