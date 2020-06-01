@@ -18,4 +18,6 @@ module.exports = {
     EMAIL_IS_REQUIRED: 'email_is_required',
     PRECONDITION_FAILED: 'precondition_failed',
     INTERNAL_SERVER_ERROR: 'internal_server_error',
+    FILE_TYPE_DISALLOWED: 'file_type_disallowed',
+    FILE_SIZE_LIMIT_EXCEEDED: 'file_size_limit_exceeded',
 };

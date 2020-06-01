@@ -16,6 +16,12 @@ ENV NODE_ENV=production \
     ROUTES_PREFIX="/api/v1" \
     SENTRY_DSN="" \
     SERVER_PORT=3000
+    S3_ACCESS_KEY_ID="" \
+    S3_SECRET_ACCESS_KEY="" \
+    S3_BUCKET="" \
+    S3_REGION="" \
+    CDN_HOST="" \
+    CDN_PATH="" \
 
 
 COPY package.json /application

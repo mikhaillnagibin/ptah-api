@@ -93,6 +93,18 @@ Notice! Value of * uses by default (disable CORS protection)
 
 {MAILCHIMP_AUTH_CLIENT_SECRET} - client secret for mailchimp social auth
 
+{S3_ACCESS_KEY_ID} - access key id for Amazon S3 storage for file upload 
+
+{S3_SECRET_ACCESS_KEY} - secret access key for Amazon S3 storage for file upload 
+
+{S3_BUCKET} - bucket for Amazon S3 storage for file upload
+
+{S3_REGION} - region for Amazon S3 storage for file upload
+
+{CDN_HOST} - CDN host, incl. protocol, for example http://mycdn.net
+
+{CDN_PATH} - common path on CDN  
+
 ## Tests
 
 Integration tests are require an live MongoDB server connection
