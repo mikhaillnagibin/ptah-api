@@ -12,7 +12,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 module.exports = async (id, domain) => {
 
-    const landingDestinationDir = path.resolve(config.publicHtmlDir, id);
+    const landingDestinationDir = path.resolve(config.landingsHtmlDir, id);
     fs.mkdirSync(landingDestinationDir, { recursive: true });
 
     const nginxConfig = format(nginxConfigTemplate, {

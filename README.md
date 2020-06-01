@@ -20,7 +20,7 @@ EMAIL_SENDER_FROM={string} EMAIL_TEMPLATE_RESTORE_PASSWORD={string} EMAIL_TEMPLA
 EMAIL_TEMPLATE_USER_SIGNUP_LOCAL={string} EMAIL_TEMPLATE_USER_SIGNUP_SOCIAL={string} SENTRY_DSN={string}  
 PUBLIC_HOST={string} EMAIL_TEMPLATE_RESTORE_PASSWORD_REQUEST={string} MAILCHIMP_MAILLISTS_PATH={string='/3.0/lists'} 
 MAILCHIMP_METADATA_URL={string='https://login.mailchimp.com/oauth2/metadata'} NGINX_CONFIGS_DIR={string='sites_enabled'} 
-PUBLIC_HTML_DIR={string='public_html'} ROUTES_PREFIX={string='/api/v1'}
+LANDINGS_HTML_DIR={string='landings_html'} LANDINGS_PUBLISHING_HOST={string=} ROUTES_PREFIX={string='/api/v1'}
 ACCESS_TOKEN_LIFETIME={string='1'} REFRESH_TOKEN_LIFETIME={string='72'} RESTORE_PASSWORD_LIFETIME={string='15'} CONFIRM_EMAIL_LIFETIME={string='24'}
 SERVER_PORT={string='80'}  node ./index.js`
 
@@ -69,7 +69,9 @@ Notice! Value of * uses by default (disable CORS protection)
 
 {NGINX_CONFIGS_DIR} - Path to shared directory with nginx configs, 'sites_enabled' by default
 
-{PUBLIC_HTML_DIR} - Path to shared directory with landings root, 'public_html' by default
+{LANDINGS_HTML_DIR} - Path to root directory with landings, 'landings_html' by default
+
+{LANDINGS_PUBLISHING_HOST} - Host with published landings (will publish on sub-domain by default)
 
 {ROUTES_PREFIX} - Common prefix for all routes, use /api/v1 by default
 

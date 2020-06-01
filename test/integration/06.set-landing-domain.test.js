@@ -103,7 +103,8 @@ describe(`POST ${routesPrefix}/{landingId}/domain`, () => {
             .post(`${routesPrefix}/${landingId}/domain`)
             .set('authorization', `Bearer ${fakes.fakeAnotherUserAuthToken}`)
             .send({
-                domain: newDomain
+                domain: newDomain,
+                personal: true
             })
             .end((err, res) => {
                 should.not.exist(err);
@@ -119,7 +120,8 @@ describe(`POST ${routesPrefix}/{landingId}/domain`, () => {
             .post(`${routesPrefix}/${landingId}/domain`)
             .set('authorization', `Bearer ${fakes.fakeUserAuthToken}`)
             .send({
-                domain: newDomain
+                domain: newDomain,
+                personal: true
             })
             .end((err, res) => {
                 should.not.exist(err);
