@@ -22,8 +22,7 @@ ENV NODE_ENV=production \
     S3_BUCKET="" \
     S3_REGION="" \
     CDN_HOST="" \
-    CDN_PATH="" \
-
+    CDN_PATH="" 
 
 COPY package.json /application
 
