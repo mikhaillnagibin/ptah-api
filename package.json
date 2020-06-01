@@ -58,7 +58,8 @@
     "sane-email-validation": "^3.0.1",
     "string-template": "^1.0.0",
     "url-join": "^4.0.1",
-    "url-parse": "^1.4.7"
+    "url-parse": "^1.4.7",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
@@ -69,7 +70,6 @@
     "mocha": "^7.2.0",
     "mock-http-server": "^1.4.1",
     "nodemon": "^2.0.4",
-    "nyc": "^14.1.1",
-    "uuid": "^8.1.0"
+    "nyc": "^14.1.1"
   }
 }
