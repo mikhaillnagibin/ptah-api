@@ -1299,7 +1299,7 @@ paths:
       summary: first step of restoring password - send confirmation mail
       operationId: restorePasswordStep1
       responses:
-        '200':
+        '201':
           description: object with refreshed user auth data
           headers:
             X-Request-ID:
@@ -1313,10 +1313,6 @@ paths:
                 type: string
                 description: Current server date and time
                 example: 'Thu, 24 Jan 2019 13:03:49 GMT'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserAuth'
         '400':
           description: Bad request
           headers:
