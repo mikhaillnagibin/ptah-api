@@ -43,7 +43,14 @@ data:
         }
         
         location / {
-          index index.html;
-          try_files $uri.html $uri $uri/ $uri/index.html /index.html;
+          if ($host ~* ^(.+\.)?tst\.protocol.one\.com$ ) {
+            rewrite ^(.*) https://storefront.tst.protocol.one;
+          }
+          if ($host ~* ^(.+\.)?stg\.protocol.one\.com$ ) {
+            rewrite ^(.*) https://storefront.stg.protocol.one;
+          }
+          if ($host ~* ^(.+\.)?ptah\.me$ ) {
+            rewrite ^(.*) https://ptah.pro;
+          }
         }
       }
