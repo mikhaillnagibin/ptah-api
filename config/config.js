@@ -82,10 +82,10 @@ const config = {
 
     passwordRequirements: {
         length: 8,
-        lowercase: true,
-        uppercase: true,
+        lowercase: false,
+        uppercase: false,
         numbers: true,
-        symbols: true,
+        symbols: false,
     }
 
 };
