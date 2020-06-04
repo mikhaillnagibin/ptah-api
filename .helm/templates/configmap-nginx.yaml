@@ -43,10 +43,10 @@ data:
         }
         
         location / {
-          if ($host ~* ^(.+\.)?tst\.protocol.one\.com$ ) {
+          if ($host ~* ^(.+\.)?tst\.ptah\.me$ ) {
             rewrite ^(.*) https://storefront.tst.protocol.one;
           }
-          if ($host ~* ^(.+\.)?stg\.protocol.one\.com$ ) {
+          if ($host ~* ^(.+\.)?stg\.ptah\.me$ ) {
             rewrite ^(.*) https://storefront.stg.protocol.one;
           }
           if ($host ~* ^(.+\.)?ptah\.me$ ) {
