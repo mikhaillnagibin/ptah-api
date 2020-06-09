@@ -29,10 +29,12 @@ class UserSession {
      * params.accessTokenLifetime
      * params.refreshTokenLifetime
      * params.authCheckUserAgent
+     * params.authCheckIP
      */
     constructor(ctx, collection, params) {
         params = params || {}
         params.authCheckUserAgent = !!params.authCheckUserAgent;
+        params.authCheckIP = !!params.authCheckIP;
 
         if (!params.authTokenSecret || !params.accessTokenLifetime || !params.refreshTokenLifetime) {
             throw new Error("not enough params to init user session");
@@ -73,7 +75,7 @@ class UserSession {
         const condition = {
             userId: userId,
         };
-        if (ip) {
+        if (this.params.authCheckIP && ip) {
             condition.ip = ip;
         }
         if (this.params.authCheckUserAgent && userAgent) {
@@ -134,7 +136,7 @@ class UserSession {
                 userId: userId,
                 accessToken: accessToken,
                 refreshToken: refreshToken,
-                ip: ip,
+                ip: this.params.authCheckIP ? ip : '',
                 userAgent: this.params.authCheckUserAgent ? userAgent : '',
                 isActive: true,
                 expiresAt: this.getExpDate(),
@@ -151,7 +153,7 @@ class UserSession {
     createToken(userId, ip, userAgent, expires) {
         const payload = {
             userId: userId,
-            ip: ip,
+            ip: this.params.authCheckIP ? ip : '',
             userAgent: this.params.authCheckUserAgent ? userAgent : '',
         }
         return jwt.sign({payload}, this.params.authTokenSecret, {expiresIn: expires});
@@ -169,11 +171,11 @@ class UserSession {
 
             const condition = {};
             condition[tokenType] = token
-            if (ip) {
-                condition.ip = ip;
+            if (this.params.authCheckIP && ip) {
+               condition.ip = ip;
             }
             if (this.params.authCheckUserAgent && userAgent) {
-                condition.userAgent = userAgent;
+               condition.userAgent = userAgent;
             }
 
             const s = await this.find(condition);
@@ -183,7 +185,7 @@ class UserSession {
             }
 
             if (s.userId !== decoded.payload.userId ||
-                ip !== decoded.payload.ip ||
+                (this.params.authCheckIP && ip !== decoded.payload.ip) ||
                 (this.params.authCheckUserAgent && userAgent !== decoded.payload.userAgent)) {
 
                 return null

@@ -74,6 +74,7 @@ MongoClient.connect(config.mongoDsn, {useUnifiedTopology: true}, async function 
         accessTokenLifetime: config.accessTokenLifetime,
         refreshTokenLifetime: config.refreshTokenLifetime,
         authCheckUserAgent: config.authCheckUserAgent,
+        authCheckIP: config.authCheckIP,
     }
 
     const result = [];

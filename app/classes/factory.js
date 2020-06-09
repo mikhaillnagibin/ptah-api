@@ -62,6 +62,7 @@ module.exports = {
             accessTokenLifetime: config.accessTokenLifetime,
             refreshTokenLifetime: config.refreshTokenLifetime,
             authCheckUserAgent: config.authCheckUserAgent,
+            authCheckIP: config.authCheckIP,
         }
 
         return new UserSession(ctx, collection, params);

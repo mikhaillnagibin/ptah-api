@@ -45,6 +45,7 @@ const config = {
     corsValidOrigins: getEnvVariableArray('CORS_VALID_ORIGINS', '*'),
 
     authCheckUserAgent: getEnvVariable('AUTH_CHECK_USER_AGENT', '') === 'true',
+    authCheckIP: getEnvVariable('AUTH_CHECK_IP', '') === 'true',
 
     authTokenSecret: getEnvVariable('AUTH_TOKEN_SECRET', ''),
     accessTokenLifetime: +getEnvVariable('ACCESS_TOKEN_LIFETIME', 1) * 60 * 60,

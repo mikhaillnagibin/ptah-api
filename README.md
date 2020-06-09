@@ -87,6 +87,8 @@ Notice! Value of * uses by default (disable CORS protection)
 
 {AUTH_CHECK_USER_AGENT} - check user-agent on auth request, false by default
 
+{AUTH_CHECK_IP} - check IP on auth request, false by default
+
 {GOOGLE_AUTH_CLIENT_ID} - client id for google social auth
 
 {GOOGLE_AUTH_CLIENT_SECRET} - client secret for google social auth
