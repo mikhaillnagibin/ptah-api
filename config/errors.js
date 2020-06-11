@@ -8,6 +8,7 @@ module.exports = {
     SIGNUP_CANT_CREATE_USER: 'signup_cant_create_user',
     LOGIN_EMAIL_AND_PASSWORD_REQUIRED: 'login_email_and_password_required',
     AUTHENTICATION_ERROR: 'authentication_error',
+    FORBIDDEN: 'forbidden',
     BAD_REQUEST: 'bad_request',
     NOT_FOUND: 'not_found',
     CANT_CREATE_SESSION: 'cant_create_session',
