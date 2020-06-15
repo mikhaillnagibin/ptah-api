@@ -1,6 +1,6 @@
 const fs = require('fs');
 const _ = require('lodash');
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const aws = require('aws-sdk');
 const urlJoin = require('url-join');
 
@@ -69,7 +69,7 @@ const uploadFile = function (file, fileType, userId, config) {
             reject(err);
         });
 
-        const preKey = uuid();
+        const preKey = uuidv4();
 
         const filepath = urlJoin([config.cdnPath, userId, `${preKey}.${fileType.extention}`]);
 
