@@ -79,21 +79,24 @@ class Mail {
     }
 
     async sendEmailWithTemplate(to, templateId, templateData) {
-        if (!to) {
-            if (this.ctx) {
-                this.ctx.throw(412, PRECONDITION_FAILED)
-            } else {
-                throw new Error(PRECONDITION_FAILED);
-            }
-        }
-        if (!templateId) {
-            if (this.ctx) {
-                this.ctx.throw(500, INTERNAL_SERVER_ERROR)
-            } else {
-                throw new Error(INTERNAL_SERVER_ERROR);
-            }
-        }
         try {
+            if (!to) {
+                 if (this.ctx) {
+                    return this.ctx.throw(412, PRECONDITION_FAILED)
+                 } else {
+                    throw new Error(PRECONDITION_FAILED);
+                 }
+            }
+            if (!templateId) {
+                 if (this.ctx) {
+                    return this.ctx.throw(500, INTERNAL_SERVER_ERROR)
+                } else {
+                    throw new Error(INTERNAL_SERVER_ERROR);
+                }
+            }
+
+            templateData = templateData || {};
+        
             return await this.client.sendEmailWithTemplate({
                 TemplateId: templateId,
                 From: this.params.emailSenderFrom,
