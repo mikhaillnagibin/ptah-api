@@ -1,6 +1,6 @@
 'use strict';
 
-const {AUTHENTICATION_ERROR, CANT_CREATE_SESSION} = require('../../../config/errors');
+const {FORBIDDEN, CANT_CREATE_SESSION} = require('../../../config/errors');
 
 const Factory = require('../../classes/factory');
 
@@ -13,7 +13,7 @@ module.exports = async (ctx, next) => {
         const session = await us.FindByRefreshToken(token, ctx.request.ip, ctx.request.header['user-agent']);
 
         if (!session) {
-            return ctx.throw(401, AUTHENTICATION_ERROR);
+            return ctx.throw(403, FORBIDDEN);
         }
 
         const s = await us.Refresh(session.userId, ctx.request.ip, ctx.request.header['user-agent']);
