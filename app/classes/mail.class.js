@@ -96,15 +96,22 @@ class Mail {
             }
 
             templateData = templateData || {};
-        
-            return await this.client.sendEmailWithTemplate({
+
+            const sendingOptions = {
                 TemplateId: templateId,
                 From: this.params.emailSenderFrom,
                 To: to,
                 TemplateModel: templateData
-            });
+            };
+
+            if (this.ctx) {
+                this.ctx.log.info('Sending email with params' + JSON.stringify(sendingOptions));
+            }
+       
+            return await this.client.sendEmailWithTemplate(sendingOptions);
         } catch (err) {
             if (this.ctx) {
+                this.ctx.log.error(err);
                 this.ctx.throw(500, INTERNAL_SERVER_ERROR)
             } else {
                 throw err;
