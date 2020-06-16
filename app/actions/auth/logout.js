@@ -1,13 +1,13 @@
 'use strict';
 
-const {AUTHENTICATION_ERROR} = require('../../../config/errors');
+const {BAD_REQUEST} = require('../../../config/errors');
 
 module.exports = async (ctx, next) => {
     try {
         const session = ctx.user.Session;
 
         if (!session) {
-            return ctx.throw(401, AUTHENTICATION_ERROR);
+            return ctx.throw(400, BAD_REQUEST);
         }
 
         const isAll = ctx.query.all === 'true';
