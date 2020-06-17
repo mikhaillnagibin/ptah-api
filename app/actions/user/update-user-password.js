@@ -30,7 +30,7 @@ module.exports = async (ctx, next) => {
             return ctx.throw(401, AUTHENTICATION_ERROR);
         }
 
-        await user.SetNewPassword(oldPassword, password);
+        await user.SetNewPassword(password);
 
         ctx.status = 204;
         ctx.body = user.GetUser();
