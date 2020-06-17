@@ -17,6 +17,7 @@ module.exports = async (ctx, next) => {
         if (landing) {
 
             data = updateLandingData(ctx, landing, {
+                isPublished: false,
                 domain: ''
             });
 
